@@ -65,6 +65,14 @@ export const storesTable = pgTable("stores", {
   index("idx_stores_yelp_business_id").on(table.yelpBusinessId),
 ]);
 
+export const profilesTable = pgTable("profiles", {
+  id: text("id").primaryKey(), // matches Supabase auth.users.id
+  displayName: text("display_name").notNull().default("Anonymous"),
+  avatarUrl: text("avatar_url"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export const platformRatingsCacheTable = pgTable("platform_ratings_cache", {
   id: text("id").primaryKey(),
   storeId: text("store_id")

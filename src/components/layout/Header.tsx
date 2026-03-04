@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import AuthStatus from "@/components/auth/AuthStatus";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,6 +56,7 @@ export default function Header() {
             </svg>
             Search
           </Link>
+          <AuthStatus />
         </nav>
 
         {/* Mobile menu button */}

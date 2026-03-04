@@ -9,6 +9,8 @@ import StoreActions from "@/components/store/StoreActions";
 import RecentlyViewedTracker from "@/components/store/RecentlyViewedTracker";
 import PhotoGallery from "@/components/store/PhotoGallery";
 import ReportForm from "@/components/store/ReportForm";
+import PlatformRatings from "@/components/store/PlatformRatings";
+import ReviewSection from "@/components/store/ReviewSection";
 import AdSlot from "@/components/ui/AdSlot";
 import type { Metadata } from "next";
 
@@ -125,11 +127,17 @@ export default async function StorePage({ params }: StorePageProps) {
             </div>
           </div>
 
+          {/* Platform Ratings (Google & Yelp) */}
+          <PlatformRatings slug={store.slug} />
+
           {/* About */}
           <div className="rounded-xl border border-slate-200 bg-white p-6">
             <h2 className="text-lg font-semibold text-slate-900 mb-3">About</h2>
             <p className="text-slate-600 leading-relaxed">{store.description}</p>
           </div>
+
+          {/* Reviews */}
+          <ReviewSection storeId={store.id} storeSlug={store.slug} />
 
           {/* Report incorrect info */}
           <ReportForm storeName={store.name} storeSlug={store.slug} />
