@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
@@ -81,6 +82,13 @@ export default function UserMenu() {
             </p>
             <p className="text-xs text-slate-500 truncate">{user.email}</p>
           </div>
+          <Link
+            href="/profile"
+            onClick={() => setOpen(false)}
+            className="block w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+          >
+            My Profile
+          </Link>
           <button
             onClick={handleSignOut}
             className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors"

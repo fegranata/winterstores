@@ -69,6 +69,7 @@ export const profilesTable = pgTable("profiles", {
   id: text("id").primaryKey(), // matches Supabase auth.users.id
   displayName: text("display_name").notNull().default("Anonymous"),
   avatarUrl: text("avatar_url"),
+  language: text("language").notNull().default("en"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
