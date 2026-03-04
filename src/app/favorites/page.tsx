@@ -6,10 +6,6 @@ import { useFavorites } from "@/hooks/use-favorites";
 import type { Store } from "@/types/store";
 import StoreCard from "@/components/store/StoreCard";
 import { StoreCardSkeleton } from "@/components/ui/Skeleton";
-import type { Metadata } from "next";
-
-// Note: metadata export not supported in client components.
-// SEO handled via <title> in Head for client pages.
 
 export default function FavoritesPage() {
   const { favorites } = useFavorites();

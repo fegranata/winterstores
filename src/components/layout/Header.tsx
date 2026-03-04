@@ -90,6 +90,9 @@ export default function Header() {
           <Link href="/favorites" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
             Favorites
           </Link>
+          <div className="border-t border-slate-200 pt-2 mt-2" onClick={() => setMenuOpen(false)}>
+            <AuthStatus />
+          </div>
         </div>
       )}
     </header>

@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://winterstores.com/sitemap.xml",
+    sitemap: "https://winterstores.vercel.app/sitemap.xml",
   };
 }

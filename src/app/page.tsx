@@ -4,6 +4,7 @@ import { SPORT_ICONS, SPORT_LABELS } from "@/types/store";
 import type { SportType } from "@/types/store";
 import { getUniqueCountries, getStoreCount, getTotalReviewCount } from "@/lib/store-search";
 import AdSlot from "@/components/ui/AdSlot";
+import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 
 export const dynamic = "force-dynamic";
 
@@ -32,6 +33,8 @@ export default async function HomePage() {
 
   return (
     <div>
+      <WebSiteJsonLd />
+
       {/* ── Hero Section ─────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800">
         {/* Decorative snow dots */}

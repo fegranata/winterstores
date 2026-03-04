@@ -37,6 +37,8 @@ export default function StoreJsonLd({ store }: StoreJsonLdProps) {
     ...(store.coverPhoto && { image: store.coverPhoto }),
   };
 
+  const baseUrl = "https://winterstores.vercel.app";
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -45,18 +47,19 @@ export default function StoreJsonLd({ store }: StoreJsonLdProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "/",
+        item: baseUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: store.country,
-        item: `/search?country=${store.countryCode}`,
+        item: `${baseUrl}/search?country=${store.countryCode}`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: store.name,
+        item: `${baseUrl}/store/${store.slug}`,
       },
     ],
   };

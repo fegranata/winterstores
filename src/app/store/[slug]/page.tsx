@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: StorePageProps): Promise<Meta
       images: store.coverPhoto ? [store.coverPhoto] : undefined,
     },
     alternates: {
-      canonical: `https://winterstores.com/store/${slug}`,
+      canonical: `https://winterstores.vercel.app/store/${slug}`,
     },
   };
 }
