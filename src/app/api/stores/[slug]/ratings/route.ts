@@ -13,14 +13,18 @@ export async function GET(
     return NextResponse.json({ error: "Store not found" }, { status: 404 });
   }
 
-  const [google, yelp] = await Promise.all([
+  const [google, yelp, facebook, foursquare] = await Promise.all([
     getCachedOrFetch(store.id, "google", store.googlePlaceId ?? null),
     getCachedOrFetch(store.id, "yelp", store.yelpBusinessId ?? null),
+    getCachedOrFetch(store.id, "facebook", store.facebookPageId ?? null),
+    getCachedOrFetch(store.id, "foursquare", store.foursquareVenueId ?? null),
   ]);
 
-  const response: { google: PlatformRating | null; yelp: PlatformRating | null } = {
+  const response: Record<string, PlatformRating | null> = {
     google,
     yelp,
+    facebook,
+    foursquare,
   };
 
   return NextResponse.json(response, {

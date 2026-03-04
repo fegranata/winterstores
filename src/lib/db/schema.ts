@@ -45,6 +45,8 @@ export const storesTable = pgTable("stores", {
   // Platform linking
   googlePlaceId: text("google_place_id"),
   yelpBusinessId: text("yelp_business_id"),
+  facebookPageId: text("facebook_page_id"),
+  foursquareVenueId: text("foursquare_venue_id"),
 
   // Media (native JSONB)
   photos: jsonb("photos").notNull().default([]),
@@ -63,6 +65,8 @@ export const storesTable = pgTable("stores", {
   index("idx_stores_city").on(table.city),
   index("idx_stores_google_place_id").on(table.googlePlaceId),
   index("idx_stores_yelp_business_id").on(table.yelpBusinessId),
+  index("idx_stores_facebook_page_id").on(table.facebookPageId),
+  index("idx_stores_foursquare_venue_id").on(table.foursquareVenueId),
 ]);
 
 export const profilesTable = pgTable("profiles", {
@@ -79,7 +83,7 @@ export const platformRatingsCacheTable = pgTable("platform_ratings_cache", {
   storeId: text("store_id")
     .notNull()
     .references(() => storesTable.id, { onDelete: "cascade" }),
-  platform: text("platform").notNull(), // "google" | "yelp"
+  platform: text("platform").notNull(), // "google" | "yelp" | "facebook" | "foursquare"
   rating: doublePrecision("rating"),
   reviewCount: integer("review_count"),
   platformUrl: text("platform_url"),

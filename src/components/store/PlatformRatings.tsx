@@ -4,17 +4,23 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import RatingStars from "./RatingStars";
 
+type PlatformName = "google" | "yelp" | "facebook" | "foursquare";
+
 interface PlatformRating {
-  platform: "google" | "yelp";
+  platform: PlatformName;
   rating: number;
   reviewCount: number;
   platformUrl: string;
 }
 
-interface RatingsData {
-  google: PlatformRating | null;
-  yelp: PlatformRating | null;
-}
+type RatingsData = Record<PlatformName, PlatformRating | null>;
+
+const PLATFORM_ORDER: PlatformName[] = [
+  "google",
+  "yelp",
+  "facebook",
+  "foursquare",
+];
 
 export default function PlatformRatings({ slug }: { slug: string }) {
   const [data, setData] = useState<RatingsData | null>(null);
@@ -45,31 +51,66 @@ export default function PlatformRatings({ slug }: { slug: string }) {
     );
   }
 
-  if (!data || (!data.google && !data.yelp)) {
-    return null; // No platform data available — hide section
-  }
+  if (!data) return null;
+
+  // Only show platforms that have data
+  const availablePlatforms = PLATFORM_ORDER.filter(
+    (p) => data[p] != null
+  );
+
+  if (availablePlatforms.length === 0) return null;
+
+  // Dynamic grid: 1 col on mobile, 2 on sm, up to 4 on lg if enough platforms
+  const gridCols =
+    availablePlatforms.length >= 4
+      ? "sm:grid-cols-2 lg:grid-cols-4"
+      : availablePlatforms.length === 3
+      ? "sm:grid-cols-2 lg:grid-cols-3"
+      : "sm:grid-cols-2";
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {data.google && (
-        <PlatformCard
-          platform="google"
-          rating={data.google.rating}
-          reviewCount={data.google.reviewCount}
-          url={data.google.platformUrl}
-        />
-      )}
-      {data.yelp && (
-        <PlatformCard
-          platform="yelp"
-          rating={data.yelp.rating}
-          reviewCount={data.yelp.reviewCount}
-          url={data.yelp.platformUrl}
-        />
-      )}
+    <div className={`grid grid-cols-1 ${gridCols} gap-4`}>
+      {availablePlatforms.map((platform) => {
+        const rating = data[platform]!;
+        return (
+          <PlatformCard
+            key={platform}
+            platform={platform}
+            rating={rating.rating}
+            reviewCount={rating.reviewCount}
+            url={rating.platformUrl}
+          />
+        );
+      })}
     </div>
   );
 }
+
+const PLATFORM_CONFIG: Record<
+  PlatformName,
+  { name: string; logo: string; linkText: string }
+> = {
+  google: {
+    name: "Google",
+    logo: "/images/google-logo.svg",
+    linkText: "View on Google Maps",
+  },
+  yelp: {
+    name: "Yelp",
+    logo: "/images/yelp-logo.svg",
+    linkText: "View on Yelp",
+  },
+  facebook: {
+    name: "Facebook",
+    logo: "/images/facebook-logo.svg",
+    linkText: "View on Facebook",
+  },
+  foursquare: {
+    name: "Foursquare",
+    logo: "/images/foursquare-logo.svg",
+    linkText: "View on Foursquare",
+  },
+};
 
 function PlatformCard({
   platform,
@@ -77,30 +118,15 @@ function PlatformCard({
   reviewCount,
   url,
 }: {
-  platform: "google" | "yelp";
+  platform: PlatformName;
   rating: number;
   reviewCount: number;
   url: string;
 }) {
-  const config = {
-    google: {
-      name: "Google",
-      logo: "/images/google-logo.svg",
-      linkText: "View on Google Maps",
-      bg: "bg-white",
-    },
-    yelp: {
-      name: "Yelp",
-      logo: "/images/yelp-logo.svg",
-      linkText: "View on Yelp",
-      bg: "bg-white",
-    },
-  }[platform];
+  const config = PLATFORM_CONFIG[platform];
 
   return (
-    <div
-      className={`${config.bg} rounded-xl border border-slate-200 p-5 flex flex-col gap-2`}
-    >
+    <div className="bg-white rounded-xl border border-slate-200 p-5 flex flex-col gap-2">
       <div className="flex items-center gap-2">
         <Image
           src={config.logo}

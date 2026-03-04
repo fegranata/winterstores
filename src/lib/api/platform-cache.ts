@@ -2,25 +2,78 @@ import { eq, and, gt } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { fetchGoogleRating, type GoogleRatingResult } from "./google-places";
 import { fetchYelpRating, type YelpRatingResult } from "./yelp";
+import { fetchFacebookRating, type FacebookRatingResult } from "./facebook";
+import {
+  fetchFoursquareRating,
+  type FoursquareRatingResult,
+} from "./foursquare";
+
+export type PlatformName = "google" | "yelp" | "facebook" | "foursquare";
 
 export interface PlatformRating {
-  platform: "google" | "yelp";
+  platform: PlatformName;
   rating: number;
   reviewCount: number;
   platformUrl: string;
 }
 
-const TTL = {
+const TTL: Record<PlatformName, number> = {
   google: 30 * 60 * 1000, // 30 minutes
   yelp: 24 * 60 * 60 * 1000, // 24 hours
-} as const;
+  facebook: 6 * 60 * 60 * 1000, // 6 hours
+  foursquare: 12 * 60 * 60 * 1000, // 12 hours
+};
+
+type FetchResult =
+  | GoogleRatingResult
+  | YelpRatingResult
+  | FacebookRatingResult
+  | FoursquareRatingResult;
+
+/**
+ * Extract the platform-specific URL from a fetch result.
+ */
+function extractPlatformUrl(
+  platform: PlatformName,
+  result: FetchResult
+): string {
+  switch (platform) {
+    case "google":
+      return (result as GoogleRatingResult).mapsUrl;
+    case "yelp":
+      return (result as YelpRatingResult).yelpUrl;
+    case "facebook":
+      return (result as FacebookRatingResult).facebookUrl;
+    case "foursquare":
+      return (result as FoursquareRatingResult).foursquareUrl;
+  }
+}
+
+/**
+ * Fetch fresh rating data from the appropriate platform API.
+ */
+async function fetchFromPlatform(
+  platform: PlatformName,
+  platformId: string
+): Promise<FetchResult | null> {
+  switch (platform) {
+    case "google":
+      return fetchGoogleRating(platformId);
+    case "yelp":
+      return fetchYelpRating(platformId);
+    case "facebook":
+      return fetchFacebookRating(platformId);
+    case "foursquare":
+      return fetchFoursquareRating(platformId);
+  }
+}
 
 /**
  * Get cached platform rating or fetch from API and cache.
  */
 export async function getCachedOrFetch(
   storeId: string,
-  platform: "google" | "yelp",
+  platform: PlatformName,
   platformId: string | null
 ): Promise<PlatformRating | null> {
   if (!platformId) return null;
@@ -51,17 +104,10 @@ export async function getCachedOrFetch(
   }
 
   // Fetch from API
-  let result: GoogleRatingResult | YelpRatingResult | null = null;
-  if (platform === "google") {
-    result = await fetchGoogleRating(platformId);
-  } else {
-    result = await fetchYelpRating(platformId);
-  }
-
+  const result = await fetchFromPlatform(platform, platformId);
   if (!result) return null;
 
-  const platformUrl =
-    "mapsUrl" in result ? result.mapsUrl : result.yelpUrl;
+  const platformUrl = extractPlatformUrl(platform, result);
   const expiresAt = new Date(Date.now() + TTL[platform]);
   const id = `${storeId}_${platform}`;
 

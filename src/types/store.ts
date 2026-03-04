@@ -78,6 +78,8 @@ export interface Store {
   // Platform linking
   googlePlaceId: string | null;
   yelpBusinessId: string | null;
+  facebookPageId: string | null;
+  foursquareVenueId: string | null;
 
   // Media
   photos: string[];
@@ -145,7 +147,12 @@ export const SPORT_ICONS: Record<SportType, string> = {
   biathlon: "\ud83c\udfaf",
 };
 
-export const PLATFORM_LABELS: Record<"google" | "yelp", string> = {
+export const PLATFORM_LABELS: Record<
+  "google" | "yelp" | "facebook" | "foursquare",
+  string
+> = {
   google: "Google",
   yelp: "Yelp",
+  facebook: "Facebook",
+  foursquare: "Foursquare",
 };

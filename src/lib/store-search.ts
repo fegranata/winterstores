@@ -40,6 +40,8 @@ export function rowToStore(row: StoreRow): Store {
     totalReviewCount: row.totalReviewCount,
     googlePlaceId: row.googlePlaceId,
     yelpBusinessId: row.yelpBusinessId,
+    facebookPageId: row.facebookPageId,
+    foursquareVenueId: row.foursquareVenueId,
     photos: (row.photos ?? []) as string[],
     coverPhoto: row.coverPhoto,
     isVerified: row.isVerified,
