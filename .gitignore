@@ -34,7 +34,10 @@ Thumbs.db
 .turbo
 
 # old SQLite data
-data/*.db
+data/
+
+# secrets
+client_secret_*.json
 
 # drizzle
 drizzle/

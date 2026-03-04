@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
@@ -42,9 +43,15 @@ export default function ReviewForm({
   if (!user) {
     return (
       <div className="rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-slate-600 mb-3">
           Sign in to leave a review for this store.
         </p>
+        <Link
+          href="/login"
+          className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+        >
+          Sign in
+        </Link>
       </div>
     );
   }
