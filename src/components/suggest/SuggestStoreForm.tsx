@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 const SPORT_OPTIONS = [
   "Skiing",
@@ -26,6 +29,9 @@ export default function SuggestStoreForm() {
   const [submitterEmail, setSubmitterEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(
+    TURNSTILE_SITE_KEY ? null : "skip"
+  );
 
   function toggleSport(sport: string) {
     setSportTypes((prev) =>
@@ -50,6 +56,7 @@ export default function SuggestStoreForm() {
           sportTypes,
           notes,
           submitterEmail,
+          turnstileToken: turnstileToken === "skip" ? undefined : turnstileToken,
         }),
       });
 
@@ -86,6 +93,7 @@ export default function SuggestStoreForm() {
             setSportTypes([]);
             setNotes("");
             setSubmitterEmail("");
+            setTurnstileToken(TURNSTILE_SITE_KEY ? null : "skip");
           }}
           className="mt-4 text-sm text-green-700 underline hover:text-green-900"
         >
@@ -216,6 +224,16 @@ export default function SuggestStoreForm() {
         />
       </div>
 
+      {/* Turnstile */}
+      {TURNSTILE_SITE_KEY && (
+        <Turnstile
+          siteKey={TURNSTILE_SITE_KEY}
+          onSuccess={(token) => setTurnstileToken(token)}
+          onExpire={() => setTurnstileToken(null)}
+          onError={() => setTurnstileToken(null)}
+        />
+      )}
+
       {/* Error */}
       {status === "error" && (
         <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
@@ -226,7 +244,7 @@ export default function SuggestStoreForm() {
       {/* Submit */}
       <button
         type="submit"
-        disabled={status === "loading"}
+        disabled={status === "loading" || !turnstileToken}
         className="w-full rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {status === "loading" ? "Submitting..." : "Submit Store Suggestion"}

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb, schema } from "@/lib/db";
 import { sql, or } from "drizzle-orm";
 import { randomUUID } from "crypto";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 export async function GET(request: NextRequest) {
   const q = request.nextUrl.searchParams.get("q")?.trim();
@@ -46,7 +47,18 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { storeName, city, country, website, sportTypes, notes, submitterEmail } = body;
+    const { storeName, city, country, website, sportTypes, notes, submitterEmail, turnstileToken } = body;
+
+    // Verify Turnstile token if provided (required when Turnstile is configured)
+    if (turnstileToken) {
+      const valid = await verifyTurnstileToken(turnstileToken);
+      if (!valid) {
+        return NextResponse.json(
+          { error: "Human verification failed. Please try again." },
+          { status: 400 }
+        );
+      }
+    }
 
     if (!storeName?.trim() || !city?.trim() || !country?.trim()) {
       return NextResponse.json(

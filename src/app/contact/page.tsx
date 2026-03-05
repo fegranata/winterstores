@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 const SUBJECTS = [
   "General Inquiry",
@@ -13,6 +16,9 @@ const SUBJECTS = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(
+    TURNSTILE_SITE_KEY ? null : "skip"
+  );
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -148,9 +154,20 @@ export default function ContactPage() {
             />
           </div>
 
+          {/* Turnstile */}
+          {TURNSTILE_SITE_KEY && (
+            <Turnstile
+              siteKey={TURNSTILE_SITE_KEY}
+              onSuccess={(token) => setTurnstileToken(token)}
+              onExpire={() => setTurnstileToken(null)}
+              onError={() => setTurnstileToken(null)}
+            />
+          )}
+
           <button
             type="submit"
-            className="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors cursor-pointer"
+            disabled={!turnstileToken}
+            className="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Send Message
           </button>
