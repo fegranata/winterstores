@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb, schema } from "@/lib/db";
 import { sql, or } from "drizzle-orm";
+import { randomUUID } from "crypto";
 
 export async function GET(request: NextRequest) {
   const q = request.nextUrl.searchParams.get("q")?.trim();
@@ -40,4 +41,40 @@ export async function GET(request: NextRequest) {
       },
     }
   );
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { storeName, city, country, website, sportTypes, notes, submitterEmail } = body;
+
+    if (!storeName?.trim() || !city?.trim() || !country?.trim()) {
+      return NextResponse.json(
+        { error: "Store name, city, and country are required." },
+        { status: 400 }
+      );
+    }
+
+    const db = getDb();
+    const { storeSuggestionsTable } = schema;
+
+    await db.insert(storeSuggestionsTable).values({
+      id: randomUUID(),
+      storeName: storeName.trim(),
+      city: city.trim(),
+      country: country.trim(),
+      website: website?.trim() || null,
+      sportTypes: Array.isArray(sportTypes) ? sportTypes : [],
+      notes: notes?.trim() || "",
+      submitterEmail: submitterEmail?.trim() || null,
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (e) {
+    console.error("Failed to save store suggestion:", e);
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again." },
+      { status: 500 }
+    );
+  }
 }

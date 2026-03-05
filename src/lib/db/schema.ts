@@ -95,6 +95,19 @@ export const platformRatingsCacheTable = pgTable("platform_ratings_cache", {
   index("idx_prc_expires_at").on(table.expiresAt),
 ]);
 
+export const storeSuggestionsTable = pgTable("store_suggestions", {
+  id: text("id").primaryKey(),
+  storeName: text("store_name").notNull(),
+  city: text("city").notNull(),
+  country: text("country").notNull(),
+  website: text("website"),
+  sportTypes: jsonb("sport_types").notNull().default([]),
+  notes: text("notes").notNull().default(""),
+  submitterEmail: text("submitter_email"),
+  status: text("status").notNull().default("pending"), // "pending" | "approved" | "rejected"
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export const reviewsTable = pgTable("reviews", {
   id: text("id").primaryKey(),
   storeId: text("store_id")
