@@ -200,6 +200,40 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── What is WinterStores ───────────────────── */}
+      <section className="bg-white border-t border-slate-200">
+        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl text-center">
+            What is WinterStores?
+          </h2>
+          <div className="mt-6 space-y-4 text-slate-600 leading-relaxed">
+            <p>
+              WinterStores is a free, community-powered directory of winter sport
+              stores from around the world. We aggregate ratings from Google, Yelp,
+              Facebook, and Foursquare into a single WinterStores Score, making it
+              easy to compare ski shops, snowboard stores, rental services, and
+              winter gear retailers at a glance.
+            </p>
+            <p>
+              Whether you are planning a ski trip to the Alps, looking for snowboard
+              gear in Colorado, or searching for cross-country skiing equipment in
+              Scandinavia, WinterStores helps you find the best-rated stores near
+              any winter sport destination. Filter by sport type, services offered,
+              price level, and online shop availability.
+            </p>
+            <p>
+              Our directory covers stores across {countries.length} countries and is
+              growing every day thanks to community contributions. Anyone can{" "}
+              <Link href="/suggest" className="text-blue-600 hover:text-blue-800 underline">
+                suggest a store
+              </Link>{" "}
+              or leave a review to help fellow winter sport enthusiasts find the
+              perfect gear shop.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ── Bottom Ad Slot ──────────────────────────── */}
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <AdSlot slot="homepage-bottom" format="banner" />

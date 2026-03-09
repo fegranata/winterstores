@@ -124,15 +124,32 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="text-xl font-semibold text-slate-900 mb-3">
-            4. Cookies
+            4. Cookies &amp; Consent
           </h2>
-          <p>
-            We use essential cookies for authentication (Supabase session
-            tokens). We use Vercel Analytics which collects anonymized data
-            without using cookies. We do not use advertising tracking cookies
-            unless you see ads on the site, in which case the ad provider&apos;s
-            cookie policy applies.
+          <p className="mb-3">
+            When you first visit WinterStores, we show a cookie consent banner
+            where you can accept or reject non-essential cookies. Your
+            preferences are stored in your browser and can be changed at any
+            time by clearing your browser&apos;s local storage. We use the
+            following categories of cookies:
           </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Essential:</strong> Required for authentication (Supabase
+              session tokens) and core site functionality. These cannot be
+              disabled.
+            </li>
+            <li>
+              <strong>Analytics:</strong> We use Vercel Analytics which collects
+              anonymized page view data and performance metrics without
+              personally identifying you. Enabled only with your consent.
+            </li>
+            <li>
+              <strong>Marketing:</strong> If advertising is enabled on the site,
+              ad providers may use cookies for personalized ads. These are only
+              loaded with your explicit consent.
+            </li>
+          </ul>
         </section>
 
         <section>

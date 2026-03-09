@@ -1,5 +1,34 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+
+const FAQ_ITEMS = [
+  {
+    question: "What is the WinterStores Score?",
+    answer:
+      "The WinterStores Score is an aggregated rating we calculate from multiple review platforms including Google, Yelp, Facebook, and Foursquare. It gives you a single, reliable number to compare winter sport stores at a glance.",
+  },
+  {
+    question: "Is WinterStores free to use?",
+    answer:
+      "Yes, WinterStores is completely free. You can search, compare, and review stores without any cost. We are a community-powered directory that aims to help winter sport enthusiasts find the best gear shops worldwide.",
+  },
+  {
+    question: "What sports are covered?",
+    answer:
+      "WinterStores covers a wide range of winter sports including skiing, snowboarding, cross-country skiing, ice skating, sledding, and snowshoeing. You can filter stores by sport type to find exactly what you need.",
+  },
+  {
+    question: "How can I suggest a store that is not listed?",
+    answer:
+      "Visit our Suggest a Store page and fill out the form with the store details. Our team reviews every submission and adds qualifying stores to the directory.",
+  },
+  {
+    question: "How often are ratings updated?",
+    answer:
+      "We refresh ratings from external platforms regularly — Google ratings update every 30 minutes, Yelp every 24 hours, Facebook every 6 hours, and Foursquare every 12 hours to keep scores current.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,6 +39,24 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "About", href: "/about" }]} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_ITEMS.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+              },
+            })),
+          }),
+        }}
+      />
       {/* Breadcrumbs */}
       <nav className="mb-6 flex items-center gap-1.5 text-sm text-slate-400">
         <Link href="/" className="hover:text-slate-600 transition-colors">
@@ -79,6 +126,20 @@ export default function AboutPage() {
             experience, and report incorrect information so we can keep our
             directory accurate and up to date.
           </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-slate-900 mb-3">
+            Frequently Asked Questions
+          </h2>
+          <dl className="space-y-6">
+            {FAQ_ITEMS.map((item) => (
+              <div key={item.question}>
+                <dt className="font-medium text-slate-900">{item.question}</dt>
+                <dd className="mt-1">{item.answer}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         <section>

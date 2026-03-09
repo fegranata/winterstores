@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getUniqueCountries } from "@/lib/store-search";
 import AdSlot from "@/components/ui/AdSlot";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -16,6 +17,7 @@ export default async function BrowsePage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Browse", href: "/browse" }]} />
       {/* Breadcrumbs */}
       <nav className="mb-6 flex items-center gap-1.5 text-sm text-slate-400">
         <Link href="/" className="hover:text-slate-600 transition-colors">Home</Link>
