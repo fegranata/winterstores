@@ -122,47 +122,21 @@ async function lookupFacebook(store: Store): Promise<string | null> {
   }
 }
 
-// ─── Foursquare: Place Match ─────────────────────────────
+// ─── Foursquare: Place Search (new Places API) ──────────
+// New API base: places-api.foursquare.com
+// Auth: Bearer token + X-Places-Api-Version header
+const FSQ_BASE = "https://places-api.foursquare.com";
+const FSQ_HEADERS = FSQ_KEY
+  ? {
+      Authorization: `Bearer ${FSQ_KEY}`,
+      Accept: "application/json",
+      "X-Places-Api-Version": "2025-06-17",
+    }
+  : {};
+
 async function lookupFoursquare(store: Store): Promise<string | null> {
   if (!FSQ_KEY) return null;
   if (store.foursquare_venue_id) return store.foursquare_venue_id;
-
-  try {
-    const params = new URLSearchParams({
-      name: store.name,
-      ll: `${store.latitude},${store.longitude}`,
-    });
-
-    const res = await fetch(
-      `https://api.foursquare.com/v3/places/match?${params}`,
-      {
-        headers: {
-          Authorization: FSQ_KEY,
-          Accept: "application/json",
-        },
-      }
-    );
-
-    if (!res.ok) {
-      const errText = await res.text().catch(() => "");
-      console.log(`    [DEBUG FSQ Match] ${res.status} ${res.statusText}: ${errText.slice(0, 200)}`);
-      // Fallback to search if match endpoint fails
-      return await searchFoursquare(store);
-    }
-
-    const data = await res.json();
-    if (!data.place?.fsq_id) {
-      console.log(`    [DEBUG FSQ Match] 200 OK but no place in response`);
-    }
-    return data.place?.fsq_id ?? null;
-  } catch (err) {
-    console.log(`    [DEBUG FSQ Match] Exception: ${err}`);
-    return await searchFoursquare(store);
-  }
-}
-
-async function searchFoursquare(store: Store): Promise<string | null> {
-  if (!FSQ_KEY) return null;
 
   try {
     const params = new URLSearchParams({
@@ -173,13 +147,8 @@ async function searchFoursquare(store: Store): Promise<string | null> {
     });
 
     const res = await fetch(
-      `https://api.foursquare.com/v3/places/search?${params}`,
-      {
-        headers: {
-          Authorization: FSQ_KEY,
-          Accept: "application/json",
-        },
-      }
+      `${FSQ_BASE}/places/search?${params}`,
+      { headers: FSQ_HEADERS }
     );
 
     if (!res.ok) {
@@ -187,11 +156,13 @@ async function searchFoursquare(store: Store): Promise<string | null> {
       console.log(`    [DEBUG FSQ Search] ${res.status} ${res.statusText}: ${errText.slice(0, 200)}`);
       return null;
     }
+
     const data = await res.json();
     if (!data.results?.length) {
       console.log(`    [DEBUG FSQ Search] 200 OK but no results`);
+      return null;
     }
-    return data.results?.[0]?.fsq_id ?? null;
+    return data.results[0].fsq_place_id ?? data.results[0].fsq_id ?? null;
   } catch (err) {
     console.log(`    [DEBUG FSQ Search] Exception: ${err}`);
     return null;

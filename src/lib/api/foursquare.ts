@@ -5,7 +5,9 @@ export interface FoursquareRatingResult {
 }
 
 /**
- * Fetch rating data from the Foursquare Places API v3.
+ * Fetch rating data from the Foursquare Places API (new endpoints).
+ * Base URL: places-api.foursquare.com
+ * Auth: Bearer token + X-Places-Api-Version header.
  * Foursquare uses a 10-point scale, so we normalize to 5-star.
  * Returns null if the API key is missing or the request fails.
  */
@@ -16,13 +18,14 @@ export async function fetchFoursquareRating(
   if (!apiKey || !venueId) return null;
 
   try {
-    const fields = "rating,stats,link";
+    const fields = "rating,stats,website";
     const res = await fetch(
-      `https://api.foursquare.com/v3/places/${venueId}?fields=${fields}`,
+      `https://places-api.foursquare.com/places/${venueId}?fields=${fields}`,
       {
         headers: {
-          Authorization: apiKey,
+          Authorization: `Bearer ${apiKey}`,
           Accept: "application/json",
+          "X-Places-Api-Version": "2025-06-17",
         },
         next: { revalidate: 43200 }, // 12 hours
       }
@@ -40,7 +43,7 @@ export async function fetchFoursquareRating(
       rating: normalizedRating,
       reviewCount: data.stats?.total_ratings ?? 0,
       foursquareUrl:
-        data.link ?? `https://foursquare.com/v/${venueId}`,
+        data.website ?? `https://foursquare.com/v/${venueId}`,
     };
   } catch {
     return null;
