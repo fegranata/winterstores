@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { useToast } from "@/components/ui/Toast";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 interface ReportFormProps {
   storeName: string;
@@ -22,13 +25,17 @@ export default function ReportForm({ storeName, storeSlug }: ReportFormProps) {
   const [category, setCategory] = useState("");
   const [details, setDetails] = useState("");
   const { toast } = useToast();
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(
+    TURNSTILE_SITE_KEY ? null : "skip"
+  );
 
   const handleSubmit = () => {
     if (!category || !details.trim()) return;
+    if (!turnstileToken) return;
 
     const subject = encodeURIComponent(`[WinterStores] Report: ${storeName}`);
     const body = encodeURIComponent(
-      `Store: ${storeName}\nURL: https://winterstores.com/store/${storeSlug}\nCategory: ${category}\n\nDetails:\n${details}`
+      `Store: ${storeName}\nURL: https://winterstores.co/store/${storeSlug}\nCategory: ${category}\n\nDetails:\n${details}`
     );
     window.open(
       `mailto:corrections@winterstores.com?subject=${subject}&body=${body}`,
@@ -38,6 +45,7 @@ export default function ReportForm({ storeName, storeSlug }: ReportFormProps) {
     setOpen(false);
     setCategory("");
     setDetails("");
+    setTurnstileToken(TURNSTILE_SITE_KEY ? null : "skip");
   };
 
   return (
@@ -86,10 +94,19 @@ export default function ReportForm({ storeName, storeSlug }: ReportFormProps) {
             rows={3}
             className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-700 placeholder:text-slate-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none resize-none"
           />
+          {/* Turnstile bot protection */}
+          {TURNSTILE_SITE_KEY && (
+            <Turnstile
+              siteKey={TURNSTILE_SITE_KEY}
+              onSuccess={(token) => setTurnstileToken(token)}
+              onExpire={() => setTurnstileToken(null)}
+              onError={() => setTurnstileToken(null)}
+            />
+          )}
           <div className="flex gap-2">
             <button
               onClick={handleSubmit}
-              disabled={!category || !details.trim()}
+              disabled={!category || !details.trim() || !turnstileToken}
               className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Submit report

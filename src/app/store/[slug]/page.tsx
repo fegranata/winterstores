@@ -81,11 +81,11 @@ export default async function StorePage({ params }: StorePageProps) {
         <span className="text-slate-700 font-medium truncate">{store.name}</span>
       </nav>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
         {/* Main content */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-8">
           {/* Header */}
-          <div>
+          <div className="pb-6 border-b border-slate-200">
             <div className="flex items-start justify-between gap-3">
               <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
                 {store.name}
@@ -108,7 +108,7 @@ export default async function StorePage({ params }: StorePageProps) {
           <PhotoGallery photos={store.photos} storeName={store.name} />
 
           {/* WinterStores Score */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
             <h2 className="text-lg font-semibold text-slate-900 mb-4">
               WinterStores Score
             </h2>
@@ -128,13 +128,20 @@ export default async function StorePage({ params }: StorePageProps) {
           </div>
 
           {/* Platform Ratings */}
-          <PlatformRatings slug={store.slug} />
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">
+              Ratings Across Platforms
+            </h2>
+            <PlatformRatings slug={store.slug} />
+          </div>
 
           {/* About */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <h2 className="text-lg font-semibold text-slate-900 mb-3">About</h2>
-            <p className="text-slate-600 leading-relaxed">{store.description}</p>
-          </div>
+          {store.description && (
+            <div className="rounded-xl border border-slate-200 bg-white p-6">
+              <h2 className="text-lg font-semibold text-slate-900 mb-3">About</h2>
+              <p className="text-slate-600 leading-relaxed">{store.description}</p>
+            </div>
+          )}
 
           {/* Reviews */}
           <ReviewSection storeId={store.id} storeSlug={store.slug} />
@@ -144,46 +151,10 @@ export default async function StorePage({ params }: StorePageProps) {
 
           {/* Ad placement — store detail */}
           <AdSlot slot="store-detail-content" format="banner" />
-
-          {/* Sport Types & Services */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div className="rounded-xl border border-slate-200 bg-white p-6">
-              <h2 className="text-lg font-semibold text-slate-900 mb-3">
-                Sports
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {store.sportTypes.map((sport) => (
-                  <Link
-                    key={sport}
-                    href={`/search?sport=${sport}`}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-100 transition-colors"
-                  >
-                    {SPORT_ICONS[sport]} {SPORT_LABELS[sport]}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-slate-200 bg-white p-6">
-              <h2 className="text-lg font-semibold text-slate-900 mb-3">
-                Services
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {store.services.map((service) => (
-                  <span
-                    key={service}
-                    className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600"
-                  >
-                    {SERVICE_LABELS[service]}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Sidebar */}
-        <aside className="space-y-6">
+        <aside className="lg:sticky lg:top-8 lg:self-start space-y-6">
           {/* Quick Info Card */}
           <div className="rounded-xl border border-slate-200 bg-white p-6 space-y-4">
             <h2 className="text-lg font-semibold text-slate-900">Details</h2>
@@ -236,12 +207,6 @@ export default async function StorePage({ params }: StorePageProps) {
                 Visit Online Shop
               </a>
             )}
-
-            {!store.hasOnlineShop && (
-              <p className="text-xs text-slate-400 text-center">
-                This store does not have an online shop.
-              </p>
-            )}
           </div>
 
           {/* Location Card */}
@@ -266,6 +231,41 @@ export default async function StorePage({ params }: StorePageProps) {
             </a>
           </div>
 
+          {/* Sports */}
+          {store.sportTypes.length > 0 && (
+            <div className="rounded-xl border border-slate-200 bg-white p-6">
+              <h2 className="text-lg font-semibold text-slate-900 mb-3">Sports</h2>
+              <div className="flex flex-wrap gap-2">
+                {store.sportTypes.map((sport) => (
+                  <Link
+                    key={sport}
+                    href={`/search?sport=${sport}`}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-100 transition-colors"
+                  >
+                    {SPORT_ICONS[sport]} {SPORT_LABELS[sport]}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Services */}
+          {store.services.length > 0 && (
+            <div className="rounded-xl border border-slate-200 bg-white p-6">
+              <h2 className="text-lg font-semibold text-slate-900 mb-3">Services</h2>
+              <div className="flex flex-wrap gap-2">
+                {store.services.map((service) => (
+                  <span
+                    key={service}
+                    className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600"
+                  >
+                    {SERVICE_LABELS[service]}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Ad placement — sidebar */}
           <AdSlot slot="store-detail-sidebar" format="rectangle" />
         </aside>
@@ -273,7 +273,7 @@ export default async function StorePage({ params }: StorePageProps) {
 
       {/* Nearby Stores */}
       {nearby.length > 0 && (
-        <section className="mt-12">
+        <section className="mt-12 pt-12 border-t border-slate-200">
           <h2 className="text-xl font-bold text-slate-900 mb-6">Nearby Stores</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {nearby.map((ns) => (
