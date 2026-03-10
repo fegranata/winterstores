@@ -11,7 +11,8 @@
  *   GOOGLE_PLACES_API_KEY, FACEBOOK_ACCESS_TOKEN, FOURSQUARE_API_KEY
  */
 
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 import postgres from "postgres";
 
 const DATABASE_URL = process.env.DATABASE_URL;
