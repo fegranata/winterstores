@@ -58,7 +58,6 @@ async function seed() {
     winterstoresScore: (s as Record<string, unknown>).compositeRating as number ?? 0,
     totalReviewCount: s.totalReviewCount,
     googlePlaceId: null,
-    yelpBusinessId: null,
     photos: s.photos,
     coverPhoto: s.coverPhoto,
     isVerified: s.isVerified,

@@ -37,7 +37,7 @@ export default function StoreJsonLd({ store }: StoreJsonLdProps) {
     ...(store.coverPhoto && { image: store.coverPhoto }),
   };
 
-  const baseUrl = "https://winterstores.vercel.app";
+  const baseUrl = "https://winterstores.co";
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

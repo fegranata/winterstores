@@ -108,6 +108,19 @@ export const storeSuggestionsTable = pgTable("store_suggestions", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+export const userFavoritesTable = pgTable("user_favorites", {
+  userId: text("user_id")
+    .notNull()
+    .references(() => profilesTable.id, { onDelete: "cascade" }),
+  storeId: text("store_id")
+    .notNull()
+    .references(() => storesTable.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [
+  uniqueIndex("idx_user_favorites_user_store").on(table.userId, table.storeId),
+  index("idx_user_favorites_user_id").on(table.userId),
+]);
+
 export const reviewsTable = pgTable("reviews", {
   id: text("id").primaryKey(),
   storeId: text("store_id")

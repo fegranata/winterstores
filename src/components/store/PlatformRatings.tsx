@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import RatingStars from "./RatingStars";
 
-type PlatformName = "google" | "yelp" | "facebook" | "foursquare";
+type PlatformName = "google" | "facebook" | "foursquare";
 
 interface PlatformRating {
   platform: PlatformName;
@@ -17,7 +17,6 @@ type RatingsData = Record<PlatformName, PlatformRating | null>;
 
 const PLATFORM_ORDER: PlatformName[] = [
   "google",
-  "yelp",
   "facebook",
   "foursquare",
 ];
@@ -94,11 +93,6 @@ const PLATFORM_CONFIG: Record<
     name: "Google",
     logo: "/images/google-logo.svg",
     linkText: "View on Google Maps",
-  },
-  yelp: {
-    name: "Yelp",
-    logo: "/images/yelp-logo.svg",
-    linkText: "View on Yelp",
   },
   facebook: {
     name: "Facebook",

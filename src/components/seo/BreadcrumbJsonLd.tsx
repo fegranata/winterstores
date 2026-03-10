@@ -1,4 +1,4 @@
-const BASE_URL = "https://winterstores.vercel.app";
+const BASE_URL = "https://winterstores.co";
 
 interface BreadcrumbItem {
   name: string;

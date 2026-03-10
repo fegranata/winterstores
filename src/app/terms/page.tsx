@@ -46,7 +46,7 @@ export default function TermsPage() {
             WinterStores is a free online directory that helps users discover,
             compare, and review winter sport stores worldwide. We aggregate
             publicly available information from third-party platforms (Google,
-            Yelp, Facebook, Foursquare) and combine it with user-generated
+            Facebook, Foursquare) and combine it with user-generated
             reviews to provide a comprehensive view of each store.
           </p>
         </section>

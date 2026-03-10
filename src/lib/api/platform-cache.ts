@@ -1,14 +1,13 @@
 import { eq, and, gt } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { fetchGoogleRating, type GoogleRatingResult } from "./google-places";
-import { fetchYelpRating, type YelpRatingResult } from "./yelp";
 import { fetchFacebookRating, type FacebookRatingResult } from "./facebook";
 import {
   fetchFoursquareRating,
   type FoursquareRatingResult,
 } from "./foursquare";
 
-export type PlatformName = "google" | "yelp" | "facebook" | "foursquare";
+export type PlatformName = "google" | "facebook" | "foursquare";
 
 export interface PlatformRating {
   platform: PlatformName;
@@ -19,14 +18,12 @@ export interface PlatformRating {
 
 const TTL: Record<PlatformName, number> = {
   google: 30 * 60 * 1000, // 30 minutes
-  yelp: 24 * 60 * 60 * 1000, // 24 hours
   facebook: 6 * 60 * 60 * 1000, // 6 hours
   foursquare: 12 * 60 * 60 * 1000, // 12 hours
 };
 
 type FetchResult =
   | GoogleRatingResult
-  | YelpRatingResult
   | FacebookRatingResult
   | FoursquareRatingResult;
 
@@ -40,8 +37,6 @@ function extractPlatformUrl(
   switch (platform) {
     case "google":
       return (result as GoogleRatingResult).mapsUrl;
-    case "yelp":
-      return (result as YelpRatingResult).yelpUrl;
     case "facebook":
       return (result as FacebookRatingResult).facebookUrl;
     case "foursquare":
@@ -59,8 +54,6 @@ async function fetchFromPlatform(
   switch (platform) {
     case "google":
       return fetchGoogleRating(platformId);
-    case "yelp":
-      return fetchYelpRating(platformId);
     case "facebook":
       return fetchFacebookRating(platformId);
     case "foursquare":

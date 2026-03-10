@@ -1,14 +1,14 @@
 /**
  * Lookup Platform IDs for Existing Stores
  *
- * This script searches Google Places, Yelp, Facebook, and Foursquare APIs
+ * This script searches Google Places, Facebook, and Foursquare APIs
  * to find matching business IDs for all stores in the database.
  *
  * Usage:
  *   npx tsx scripts/lookup-platform-ids.ts
  *
  * Required env vars in .env.local:
- *   GOOGLE_PLACES_API_KEY, YELP_API_KEY, FACEBOOK_ACCESS_TOKEN, FOURSQUARE_API_KEY
+ *   GOOGLE_PLACES_API_KEY, FACEBOOK_ACCESS_TOKEN, FOURSQUARE_API_KEY
  */
 
 import "dotenv/config";
@@ -24,7 +24,6 @@ const sql = postgres(DATABASE_URL);
 
 // ─── API Keys ────────────────────────────────────────────
 const GOOGLE_KEY = process.env.GOOGLE_PLACES_API_KEY;
-const YELP_KEY = process.env.YELP_API_KEY;
 const FB_TOKEN = process.env.FACEBOOK_ACCESS_TOKEN;
 const FSQ_KEY = process.env.FOURSQUARE_API_KEY;
 
@@ -37,7 +36,6 @@ interface Store {
   latitude: number;
   longitude: number;
   google_place_id: string | null;
-  yelp_business_id: string | null;
   facebook_page_id: string | null;
   foursquare_venue_id: string | null;
 }
@@ -73,35 +71,6 @@ async function lookupGoogle(store: Store): Promise<string | null> {
     if (!res.ok) return null;
     const data = await res.json();
     return data.places?.[0]?.id ?? null;
-  } catch {
-    return null;
-  }
-}
-
-// ─── Yelp: Business Search ───────────────────────────────
-async function lookupYelp(store: Store): Promise<string | null> {
-  if (!YELP_KEY) return null;
-  if (store.yelp_business_id) return store.yelp_business_id;
-
-  try {
-    const params = new URLSearchParams({
-      term: store.name,
-      latitude: String(store.latitude),
-      longitude: String(store.longitude),
-      radius: "5000",
-      limit: "1",
-    });
-
-    const res = await fetch(
-      `https://api.yelp.com/v3/businesses/search?${params}`,
-      {
-        headers: { Authorization: `Bearer ${YELP_KEY}` },
-      }
-    );
-
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.businesses?.[0]?.id ?? null;
   } catch {
     return null;
   }
@@ -211,14 +180,13 @@ async function main() {
   console.log("🔍 Looking up platform IDs for all stores...\n");
   console.log("API keys configured:");
   console.log(`  Google Places: ${GOOGLE_KEY ? "✅" : "❌ (skipping)"}`);
-  console.log(`  Yelp:          ${YELP_KEY ? "✅" : "❌ (skipping)"}`);
   console.log(`  Facebook:      ${FB_TOKEN ? "✅" : "❌ (skipping)"}`);
   console.log(`  Foursquare:    ${FSQ_KEY ? "✅" : "❌ (skipping)"}`);
   console.log("");
 
   const stores: Store[] = await sql`
     SELECT id, name, city, country, country_code, latitude, longitude,
-           google_place_id, yelp_business_id, facebook_page_id, foursquare_venue_id
+           google_place_id, facebook_page_id, foursquare_venue_id
     FROM stores
     ORDER BY name
   `;
@@ -227,7 +195,6 @@ async function main() {
 
   const report = {
     google: { found: 0, skipped: 0, failed: 0 },
-    yelp: { found: 0, skipped: 0, failed: 0 },
     facebook: { found: 0, skipped: 0, failed: 0 },
     foursquare: { found: 0, skipped: 0, failed: 0 },
   };
@@ -239,9 +206,8 @@ async function main() {
     );
 
     // Lookup all platforms in parallel
-    const [googleId, yelpId, fbId, fsqId] = await Promise.all([
+    const [googleId, fbId, fsqId] = await Promise.all([
       lookupGoogle(store),
-      lookupYelp(store),
       lookupFacebook(store),
       lookupFoursquare(store),
     ]);
@@ -258,18 +224,6 @@ async function main() {
       } else {
         report.google.failed++;
         console.log(`  ❌ Google: not found`);
-      }
-    }
-
-    if (YELP_KEY) {
-      if (store.yelp_business_id) report.yelp.skipped++;
-      else if (yelpId) {
-        report.yelp.found++;
-        updates.push(`yelp_business_id = '${yelpId}'`);
-        console.log(`  ✅ Yelp: ${yelpId}`);
-      } else {
-        report.yelp.failed++;
-        console.log(`  ❌ Yelp: not found`);
       }
     }
 
@@ -318,8 +272,6 @@ async function main() {
     const key =
       platform === "google"
         ? GOOGLE_KEY
-        : platform === "yelp"
-        ? YELP_KEY
         : platform === "facebook"
         ? FB_TOKEN
         : FSQ_KEY;

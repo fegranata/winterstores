@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "winter gear",
     "ski equipment",
   ],
-  metadataBase: new URL("https://winterstores.vercel.app"),
+  metadataBase: new URL("https://winterstores.co"),
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     images: ["/og-default.png"],
   },
   alternates: {
-    canonical: "https://winterstores.vercel.app",
+    canonical: "https://winterstores.co",
   },
 };
 

@@ -65,7 +65,7 @@ export default function PrivacyPage() {
           <ul className="list-disc pl-5 space-y-2">
             <li>To display your reviews and profile information</li>
             <li>To improve our directory and search results</li>
-            <li>To aggregate ratings from multiple platforms (Google, Yelp, Facebook, Foursquare)</li>
+            <li>To aggregate ratings from multiple platforms (Google, Facebook, Foursquare)</li>
             <li>To analyze usage patterns and improve site performance</li>
             <li>To respond to your inquiries and store suggestions</li>
           </ul>
@@ -115,7 +115,7 @@ export default function PrivacyPage() {
               .
             </li>
             <li>
-              <strong>Google Places, Yelp, Facebook, Foursquare APIs:</strong>{" "}
+              <strong>Google Places, Facebook, Foursquare APIs:</strong>{" "}
               We fetch publicly available store ratings and review counts from
               these platforms. We do not share your personal data with them.
             </li>

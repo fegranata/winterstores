@@ -6,7 +6,7 @@ const FAQ_ITEMS = [
   {
     question: "What is the WinterStores Score?",
     answer:
-      "The WinterStores Score is an aggregated rating we calculate from multiple review platforms including Google, Yelp, Facebook, and Foursquare. It gives you a single, reliable number to compare winter sport stores at a glance.",
+      "The WinterStores Score is an aggregated rating we calculate from multiple review platforms including Google, Facebook, and Foursquare. It gives you a single, reliable number to compare winter sport stores at a glance.",
   },
   {
     question: "Is WinterStores free to use?",
@@ -26,7 +26,7 @@ const FAQ_ITEMS = [
   {
     question: "How often are ratings updated?",
     answer:
-      "We refresh ratings from external platforms regularly — Google ratings update every 30 minutes, Yelp every 24 hours, Facebook every 6 hours, and Foursquare every 12 hours to keep scores current.",
+      "We refresh ratings from external platforms regularly — Google ratings update every 30 minutes, Facebook every 6 hours, and Foursquare every 12 hours to keep scores current.",
   },
 ];
 
@@ -91,7 +91,7 @@ export default function AboutPage() {
           <p>
             Every store on our platform receives a WinterStores Score — an
             aggregated rating based on reviews from multiple trusted platforms
-            including Google, Yelp, Facebook, and Foursquare. This gives you a
+            including Google, Facebook, and Foursquare. This gives you a
             single, reliable number to compare stores at a glance, rather than
             checking each platform individually.
           </p>
@@ -103,7 +103,7 @@ export default function AboutPage() {
           </h2>
           <ul className="list-disc pl-5 space-y-2">
             <li>Search and filter stores by sport type, services, and location</li>
-            <li>Compare ratings from Google, Yelp, Facebook, and Foursquare in one place</li>
+            <li>Compare ratings from Google, Facebook, and Foursquare in one place</li>
             <li>Save your favorite stores for quick access</li>
             <li>Leave your own reviews to help the community</li>
             <li>Discover stores near popular ski resorts worldwide</li>

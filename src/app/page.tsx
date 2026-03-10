@@ -56,8 +56,8 @@ export default async function HomePage() {
             </h1>
             <p className="mt-4 text-lg text-blue-100 sm:text-xl">
               Find the best-rated winter sport stores with our WinterStores
-              Score, plus ratings from Google and Yelp. Filter by sport,
-              distance, and services.
+              Score, plus ratings from Google, Facebook, and Foursquare. Filter
+              by sport, distance, and services.
             </p>
             <div className="mt-8 mx-auto max-w-lg">
               <SearchBar size="lg" placeholder="Search by city, region, or store name…" />
@@ -209,7 +209,7 @@ export default async function HomePage() {
           <div className="mt-6 space-y-4 text-slate-600 leading-relaxed">
             <p>
               WinterStores is a free, community-powered directory of winter sport
-              stores from around the world. We aggregate ratings from Google, Yelp,
+              stores from around the world. We aggregate ratings from Google,
               Facebook, and Foursquare into a single WinterStores Score, making it
               easy to compare ski shops, snowboard stores, rental services, and
               winter gear retailers at a glance.

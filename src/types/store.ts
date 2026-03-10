@@ -18,10 +18,10 @@ export type ServiceType =
   | "storage"
   | "used-gear";
 
-export type ReviewPlatform = "google" | "yelp" | "winterstores";
+export type ReviewPlatform = "google" | "winterstores";
 
 export interface PlatformRating {
-  platform: "google" | "yelp";
+  platform: "google" | "facebook" | "foursquare";
   rating: number | null;
   reviewCount: number | null;
   platformUrl: string | null;
@@ -148,11 +148,10 @@ export const SPORT_ICONS: Record<SportType, string> = {
 };
 
 export const PLATFORM_LABELS: Record<
-  "google" | "yelp" | "facebook" | "foursquare",
+  "google" | "facebook" | "foursquare",
   string
 > = {
   google: "Google",
-  yelp: "Yelp",
   facebook: "Facebook",
   foursquare: "Foursquare",
 };

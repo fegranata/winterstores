@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
   return {
     title: `Winter Sport Stores in ${match.country}`,
     description: `Find ${match.count} winter sport stores in ${match.country}. Compare WinterStores Scores, filter by sport type, and find the best gear shops.`,
-    alternates: { canonical: `https://winterstores.vercel.app/browse/${code.toLowerCase()}` },
+    alternates: { canonical: `https://winterstores.co/browse/${code.toLowerCase()}` },
   };
 }
 

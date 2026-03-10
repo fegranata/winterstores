@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Browse Winter Sport Stores by Country",
   description: "Explore winter sport stores worldwide. Browse by country to find ski shops, snowboard stores, and rental services near popular resorts.",
-  alternates: { canonical: "https://winterstores.vercel.app/browse" },
+  alternates: { canonical: "https://winterstores.co/browse" },
 };
 
 export default async function BrowsePage() {
