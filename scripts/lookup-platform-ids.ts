@@ -69,10 +69,18 @@ async function lookupGoogle(store: Store): Promise<string | null> {
       }
     );
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.log(`    [DEBUG Google] ${res.status} ${res.statusText}: ${errText.slice(0, 200)}`);
+      return null;
+    }
     const data = await res.json();
+    if (!data.places?.length) {
+      console.log(`    [DEBUG Google] 200 OK but no places in response`);
+    }
     return data.places?.[0]?.id ?? null;
-  } catch {
+  } catch (err) {
+    console.log(`    [DEBUG Google] Exception: ${err}`);
     return null;
   }
 }
@@ -136,13 +144,19 @@ async function lookupFoursquare(store: Store): Promise<string | null> {
     );
 
     if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.log(`    [DEBUG FSQ Match] ${res.status} ${res.statusText}: ${errText.slice(0, 200)}`);
       // Fallback to search if match endpoint fails
       return await searchFoursquare(store);
     }
 
     const data = await res.json();
+    if (!data.place?.fsq_id) {
+      console.log(`    [DEBUG FSQ Match] 200 OK but no place in response`);
+    }
     return data.place?.fsq_id ?? null;
-  } catch {
+  } catch (err) {
+    console.log(`    [DEBUG FSQ Match] Exception: ${err}`);
     return await searchFoursquare(store);
   }
 }
@@ -168,10 +182,18 @@ async function searchFoursquare(store: Store): Promise<string | null> {
       }
     );
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.log(`    [DEBUG FSQ Search] ${res.status} ${res.statusText}: ${errText.slice(0, 200)}`);
+      return null;
+    }
     const data = await res.json();
+    if (!data.results?.length) {
+      console.log(`    [DEBUG FSQ Search] 200 OK but no results`);
+    }
     return data.results?.[0]?.fsq_id ?? null;
-  } catch {
+  } catch (err) {
+    console.log(`    [DEBUG FSQ Search] Exception: ${err}`);
     return null;
   }
 }
