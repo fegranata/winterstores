@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { getConsent, setConsent, type CookieConsent as ConsentType } from "@/lib/cookie-consent";
+import { getConsent, setConsent, applyConsentToGoogle, type CookieConsent as ConsentType } from "@/lib/cookie-consent";
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
@@ -11,9 +11,12 @@ export default function CookieConsent() {
   const [marketing, setMarketing] = useState(false);
 
   useEffect(() => {
-    // Show banner only if no consent recorded
     const existing = getConsent();
-    if (!existing) {
+    if (existing) {
+      // Returning visitor — apply saved consent to Google Consent Mode
+      applyConsentToGoogle(existing);
+    } else {
+      // New visitor — show consent banner
       setVisible(true);
     }
   }, []);
