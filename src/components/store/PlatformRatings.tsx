@@ -57,7 +57,15 @@ export default function PlatformRatings({ slug }: { slug: string }) {
     (p) => data[p] != null
   );
 
-  if (availablePlatforms.length === 0) return null;
+  if (availablePlatforms.length === 0) {
+    return (
+      <div className="rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 p-6 text-center">
+        <p className="text-sm text-slate-500">
+          Platform ratings will appear here once available
+        </p>
+      </div>
+    );
+  }
 
   // Dynamic grid: 1 col on mobile, 2 on sm, up to 4 on lg if enough platforms
   const gridCols =
@@ -87,22 +95,31 @@ export default function PlatformRatings({ slug }: { slug: string }) {
 
 const PLATFORM_CONFIG: Record<
   PlatformName,
-  { name: string; logo: string; linkText: string }
+  { name: string; logo: string; linkText: string; bgTint: string; borderTint: string; linkColor: string }
 > = {
   google: {
     name: "Google",
     logo: "/images/google-logo.svg",
     linkText: "View on Google Maps",
+    bgTint: "bg-blue-50/50",
+    borderTint: "border-blue-100",
+    linkColor: "text-blue-600 hover:text-blue-800",
   },
   facebook: {
     name: "Facebook",
     logo: "/images/facebook-logo.svg",
     linkText: "View on Facebook",
+    bgTint: "bg-[#1877F2]/5",
+    borderTint: "border-[#1877F2]/15",
+    linkColor: "text-[#1877F2] hover:text-[#1565C0]",
   },
   foursquare: {
     name: "Foursquare",
     logo: "/images/foursquare-logo.svg",
     linkText: "View on Foursquare",
+    bgTint: "bg-[#E95B8B]/5",
+    borderTint: "border-[#E95B8B]/15",
+    linkColor: "text-[#E95B8B] hover:text-[#D14476]",
   },
 };
 
@@ -120,7 +137,7 @@ function PlatformCard({
   const config = PLATFORM_CONFIG[platform];
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-5 flex flex-col gap-2">
+    <div className={`${config.bgTint} rounded-xl border ${config.borderTint} p-5 flex flex-col gap-2`}>
       <div className="flex items-center gap-2">
         <Image
           src={config.logo}
@@ -140,7 +157,7 @@ function PlatformCard({
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-blue-600 hover:text-blue-800 hover:underline mt-1"
+          className={`text-sm ${config.linkColor} hover:underline mt-1`}
         >
           {config.linkText} &rarr;
         </a>

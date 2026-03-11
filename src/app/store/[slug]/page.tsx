@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { eq, and } from "drizzle-orm";
 import { getStoreBySlug, getNearbyStores } from "@/lib/store-search";
+import { getDb, schema } from "@/lib/db";
 import { SPORT_ICONS, SPORT_LABELS, SERVICE_LABELS } from "@/types/store";
 import RatingStars from "@/components/store/RatingStars";
 import StoreCard from "@/components/store/StoreCard";
@@ -59,6 +61,22 @@ export default async function StorePage({ params }: StorePageProps) {
 
   const nearby = await getNearbyStores(store, 4);
   const priceDollars = "$".repeat(store.priceLevel);
+
+  // Get cached Google Maps URL for consistent location linking
+  const db = getDb();
+  const [googleCache] = await db
+    .select({ platformUrl: schema.platformRatingsCacheTable.platformUrl })
+    .from(schema.platformRatingsCacheTable)
+    .where(
+      and(
+        eq(schema.platformRatingsCacheTable.storeId, store.id),
+        eq(schema.platformRatingsCacheTable.platform, "google")
+      )
+    )
+    .limit(1);
+  const googleMapsUrl =
+    googleCache?.platformUrl ||
+    `https://www.google.com/maps/search/?api=1&query=${store.latitude},${store.longitude}`;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -218,7 +236,7 @@ export default async function StorePage({ params }: StorePageProps) {
               {store.country} {store.postalCode}
             </p>
             <a
-              href={`https://www.google.com/maps/search/?api=1&query=${store.latitude},${store.longitude}`}
+              href={googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-3 flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
