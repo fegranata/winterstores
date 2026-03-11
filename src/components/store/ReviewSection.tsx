@@ -18,12 +18,13 @@ interface Review {
 interface ReviewSectionProps {
   storeId: string;
   storeSlug: string;
+  initialReviews?: Review[];
 }
 
-export default function ReviewSection({ storeId, storeSlug }: ReviewSectionProps) {
+export default function ReviewSection({ storeId, storeSlug, initialReviews }: ReviewSectionProps) {
   const [refreshKey, setRefreshKey] = useState(0);
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState<Review[]>(initialReviews ?? []);
+  const [loading, setLoading] = useState(!initialReviews);
 
   const fetchReviews = useCallback(() => {
     setLoading(true);
@@ -35,8 +36,11 @@ export default function ReviewSection({ storeId, storeSlug }: ReviewSectionProps
   }, [storeId]);
 
   useEffect(() => {
+    // Skip the initial fetch when server-provided data exists;
+    // only refetch after a new review is submitted (refreshKey > 0)
+    if (initialReviews && refreshKey === 0) return;
     fetchReviews();
-  }, [fetchReviews, refreshKey]);
+  }, [fetchReviews, refreshKey, initialReviews]);
 
   return (
     <div className="space-y-6">

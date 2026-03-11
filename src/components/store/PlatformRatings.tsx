@@ -1,19 +1,16 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import RatingStars from "./RatingStars";
 
 type PlatformName = "google" | "facebook" | "foursquare";
 
 interface PlatformRating {
-  platform: PlatformName;
+  platform: string;
   rating: number;
   reviewCount: number;
   platformUrl: string;
 }
 
-type RatingsData = Record<PlatformName, PlatformRating | null>;
+type RatingsData = Record<string, PlatformRating | null>;
 
 const PLATFORM_ORDER: PlatformName[] = [
   "google",
@@ -21,40 +18,10 @@ const PLATFORM_ORDER: PlatformName[] = [
   "foursquare",
 ];
 
-export default function PlatformRatings({ slug }: { slug: string }) {
-  const [data, setData] = useState<RatingsData | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch(`/api/stores/${slug}/ratings`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((d) => setData(d))
-      .catch(() => setData(null))
-      .finally(() => setLoading(false));
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {[0, 1].map((i) => (
-          <div
-            key={i}
-            className="bg-white rounded-xl border border-slate-200 p-5 animate-pulse"
-          >
-            <div className="h-6 w-24 bg-slate-200 rounded mb-3" />
-            <div className="h-5 w-32 bg-slate-200 rounded mb-2" />
-            <div className="h-4 w-20 bg-slate-200 rounded" />
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  if (!data) return null;
-
+export default function PlatformRatings({ ratings }: { ratings: RatingsData }) {
   // Only show platforms that have data
   const availablePlatforms = PLATFORM_ORDER.filter(
-    (p) => data[p] != null
+    (p) => ratings[p] != null
   );
 
   if (availablePlatforms.length === 0) {
@@ -78,7 +45,7 @@ export default function PlatformRatings({ slug }: { slug: string }) {
   return (
     <div className={`grid grid-cols-1 ${gridCols} gap-4`}>
       {availablePlatforms.map((platform) => {
-        const rating = data[platform]!;
+        const rating = ratings[platform]!;
         return (
           <PlatformCard
             key={platform}

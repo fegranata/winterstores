@@ -24,7 +24,7 @@ export function getDb(): Database {
 
   const client = postgres(connectionString, {
     prepare: false, // required for Supabase connection pooler (transaction mode)
-    max: 1, // keep pool small for serverless
+    max: 5, // allow parallel queries during SSR
   });
 
   _db = drizzle(client, { schema });

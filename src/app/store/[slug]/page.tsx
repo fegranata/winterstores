@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { eq, and } from "drizzle-orm";
-import { getStoreBySlug, getNearbyStores } from "@/lib/store-search";
+import { getStoreBySlug, getNearbyStores, getPlatformRatings, getStoreReviews } from "@/lib/store-search";
 import { getDb, schema } from "@/lib/db";
 import { SPORT_ICONS, SPORT_LABELS, SERVICE_LABELS } from "@/types/store";
 import RatingStars from "@/components/store/RatingStars";
@@ -16,7 +15,15 @@ import ReviewSection from "@/components/store/ReviewSection";
 import AdSlot from "@/components/ui/AdSlot";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // re-render at most once per hour
+
+export async function generateStaticParams() {
+  const db = getDb();
+  const rows = await db
+    .select({ slug: schema.storesTable.slug })
+    .from(schema.storesTable);
+  return rows.map((r) => ({ slug: r.slug }));
+}
 
 interface StorePageProps {
   params: Promise<{ slug: string }>;
@@ -59,24 +66,29 @@ export default async function StorePage({ params }: StorePageProps) {
     notFound();
   }
 
-  const nearby = await getNearbyStores(store, 4);
+  // Run all independent queries in parallel
+  const [nearby, platformRatings, reviews] = await Promise.all([
+    getNearbyStores(store, 4),
+    getPlatformRatings(store.id),
+    getStoreReviews(store.id),
+  ]);
+
   const priceDollars = "$".repeat(store.priceLevel);
 
-  // Get cached Google Maps URL for consistent location linking
-  const db = getDb();
-  const [googleCache] = await db
-    .select({ platformUrl: schema.platformRatingsCacheTable.platformUrl })
-    .from(schema.platformRatingsCacheTable)
-    .where(
-      and(
-        eq(schema.platformRatingsCacheTable.storeId, store.id),
-        eq(schema.platformRatingsCacheTable.platform, "google")
-      )
-    )
-    .limit(1);
+  // Extract Google Maps URL from platform ratings cache
+  const googleEntry = platformRatings.find((r) => r.platform === "google");
   const googleMapsUrl =
-    googleCache?.platformUrl ||
+    googleEntry?.platformUrl ||
     `https://www.google.com/maps/search/?api=1&query=${store.latitude},${store.longitude}`;
+
+  // Format platform ratings for the component
+  const ratingsData: Record<string, { platform: string; rating: number; reviewCount: number; platformUrl: string } | null> = {};
+  for (const p of ["google", "facebook", "foursquare"] as const) {
+    const row = platformRatings.find((r) => r.platform === p);
+    ratingsData[p] = row && row.rating != null
+      ? { platform: p, rating: row.rating, reviewCount: row.reviewCount ?? 0, platformUrl: row.platformUrl ?? "" }
+      : null;
+  }
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -150,7 +162,7 @@ export default async function StorePage({ params }: StorePageProps) {
             <h2 className="text-lg font-semibold text-slate-900 mb-4">
               Ratings Across Platforms
             </h2>
-            <PlatformRatings slug={store.slug} />
+            <PlatformRatings ratings={ratingsData} />
           </div>
 
           {/* About */}
@@ -162,7 +174,7 @@ export default async function StorePage({ params }: StorePageProps) {
           )}
 
           {/* Reviews */}
-          <ReviewSection storeId={store.id} storeSlug={store.slug} />
+          <ReviewSection storeId={store.id} storeSlug={store.slug} initialReviews={reviews} />
 
           {/* Report incorrect info */}
           <ReportForm storeName={store.name} storeSlug={store.slug} />

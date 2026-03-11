@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { getDb, schema } from "@/lib/db";
 import { eq, gte, lte, and, or, desc, sql, count as drizzleCount } from "drizzle-orm";
 import { haversineDistance } from "@/lib/geo";
@@ -186,7 +187,11 @@ export async function searchStores(params: StoreSearchParams): Promise<StoreSear
   };
 }
 
-export async function getStoreBySlug(slug: string): Promise<Store | undefined> {
+// Wrapped with React cache() to deduplicate calls within a single server render
+// (generateMetadata + page component both call this with the same slug)
+export const getStoreBySlug = cache(async function getStoreBySlug(
+  slug: string
+): Promise<Store | undefined> {
   const db = getDb();
   const [row] = await db
     .select()
@@ -195,7 +200,7 @@ export async function getStoreBySlug(slug: string): Promise<Store | undefined> {
     .limit(1);
 
   return row ? rowToStore(row) : undefined;
-}
+});
 
 export async function getNearbyStores(
   store: Store,
@@ -340,4 +345,54 @@ export async function getTotalReviewCount(): Promise<number> {
     .from(storesTable);
 
   return row?.total ?? 0;
+}
+
+// -- Server-side helpers for store detail page --
+
+export interface PlatformRatingRow {
+  platform: string;
+  rating: number | null;
+  reviewCount: number | null;
+  platformUrl: string | null;
+}
+
+export async function getPlatformRatings(storeId: string): Promise<PlatformRatingRow[]> {
+  const db = getDb();
+  return db
+    .select({
+      platform: schema.platformRatingsCacheTable.platform,
+      rating: schema.platformRatingsCacheTable.rating,
+      reviewCount: schema.platformRatingsCacheTable.reviewCount,
+      platformUrl: schema.platformRatingsCacheTable.platformUrl,
+    })
+    .from(schema.platformRatingsCacheTable)
+    .where(eq(schema.platformRatingsCacheTable.storeId, storeId));
+}
+
+export interface ReviewRow {
+  id: string;
+  authorName: string;
+  rating: number;
+  title: string | null;
+  text: string;
+  date: string;
+  source: string;
+}
+
+export async function getStoreReviews(storeId: string): Promise<ReviewRow[]> {
+  const db = getDb();
+  return db
+    .select({
+      id: schema.reviewsTable.id,
+      authorName: schema.reviewsTable.authorName,
+      rating: schema.reviewsTable.rating,
+      title: schema.reviewsTable.title,
+      text: schema.reviewsTable.text,
+      date: schema.reviewsTable.date,
+      source: schema.reviewsTable.source,
+    })
+    .from(schema.reviewsTable)
+    .where(eq(schema.reviewsTable.storeId, storeId))
+    .orderBy(desc(schema.reviewsTable.createdAt))
+    .limit(50);
 }
