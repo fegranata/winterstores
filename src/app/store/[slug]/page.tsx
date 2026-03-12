@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getStoreBySlug, getNearbyStores, getPlatformRatings, getStoreReviews } from "@/lib/store-search";
+import { getStoreBySlug, getNearbyStores, getOrFetchPlatformRatings, getStoreReviews } from "@/lib/store-search";
 import { getDb, schema } from "@/lib/db";
 import { SPORT_ICONS, SPORT_LABELS, SERVICE_LABELS } from "@/types/store";
 import RatingStars from "@/components/store/RatingStars";
@@ -69,7 +69,7 @@ export default async function StorePage({ params }: StorePageProps) {
   // Run all independent queries in parallel
   const [nearby, platformRatings, reviews] = await Promise.all([
     getNearbyStores(store, 4),
-    getPlatformRatings(store.id),
+    getOrFetchPlatformRatings(store),
     getStoreReviews(store.id),
   ]);
 
@@ -132,37 +132,18 @@ export default async function StorePage({ params }: StorePageProps) {
             <p className="mt-1 text-slate-500">
               {store.address}, {store.city}, {store.region}, {store.country}
             </p>
-          </div>
-
-          {/* Photo Gallery */}
-          <PhotoGallery photos={store.photos} storeName={store.name} />
-
-          {/* WinterStores Score */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900 mb-4">
-              WinterStores Score
-            </h2>
-            <div className="flex items-center gap-4">
-              <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-blue-50">
-                <span className="text-3xl font-bold text-blue-700">
+            {/* Compact WinterStores Score Bar */}
+            <div className="mt-3 flex items-center gap-3">
+              <span className="inline-flex items-center justify-center rounded-lg bg-blue-50 px-3 py-1.5">
+                <span className="text-xl font-bold text-blue-700">
                   {store.winterstoresScore.toFixed(1)}
                 </span>
-              </div>
-              <div>
-                <RatingStars rating={store.winterstoresScore} size="lg" showValue={false} />
-                <p className="mt-1 text-sm text-slate-500">
-                  Based on <span className="font-semibold text-slate-700">{store.totalReviewCount}</span> reviews
-                </p>
-              </div>
+              </span>
+              <RatingStars rating={store.winterstoresScore} size="md" showValue={false} />
+              <span className="text-sm text-slate-500">
+                Based on <span className="font-semibold text-slate-700">{store.totalReviewCount}</span> reviews
+              </span>
             </div>
-          </div>
-
-          {/* Platform Ratings */}
-          <div>
-            <h2 className="text-lg font-semibold text-slate-900 mb-4">
-              Ratings Across Platforms
-            </h2>
-            <PlatformRatings ratings={ratingsData} />
           </div>
 
           {/* About */}
@@ -172,6 +153,17 @@ export default async function StorePage({ params }: StorePageProps) {
               <p className="text-slate-600 leading-relaxed">{store.description}</p>
             </div>
           )}
+
+          {/* Platform Ratings */}
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">
+              Ratings Across Platforms
+            </h2>
+            <PlatformRatings ratings={ratingsData} />
+          </div>
+
+          {/* Photo Gallery */}
+          <PhotoGallery photos={store.photos} storeName={store.name} />
 
           {/* Reviews */}
           <ReviewSection storeId={store.id} storeSlug={store.slug} initialReviews={reviews} />

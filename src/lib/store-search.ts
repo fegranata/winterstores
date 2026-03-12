@@ -369,6 +369,30 @@ export async function getPlatformRatings(storeId: string): Promise<PlatformRatin
     .where(eq(schema.platformRatingsCacheTable.storeId, storeId));
 }
 
+/**
+ * Fetch platform ratings with cache population.
+ * Unlike getPlatformRatings (read-only), this calls getCachedOrFetch()
+ * which populates/refreshes the cache by calling platform APIs when needed.
+ */
+export async function getOrFetchPlatformRatings(store: Store): Promise<PlatformRatingRow[]> {
+  const { getCachedOrFetch } = await import("@/lib/api/platform-cache");
+
+  const results = await Promise.all([
+    getCachedOrFetch(store.id, "google", store.googlePlaceId),
+    getCachedOrFetch(store.id, "facebook", store.facebookPageId),
+    getCachedOrFetch(store.id, "foursquare", store.foursquareVenueId),
+  ]);
+
+  return results
+    .filter((r): r is NonNullable<typeof r> => r != null)
+    .map((r) => ({
+      platform: r.platform,
+      rating: r.rating,
+      reviewCount: r.reviewCount,
+      platformUrl: r.platformUrl,
+    }));
+}
+
 export interface ReviewRow {
   id: string;
   authorName: string;

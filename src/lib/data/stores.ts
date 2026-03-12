@@ -188,7 +188,7 @@ export const stores: any[] = [
   {
     id: "us-vt-002",
     slug: "northern-ski-works-killington",
-    name: "Northern Ski Works",
+    name: "Northern Ski Works Killington",
     description:
       "Northern Ski Works Killington location on the Killington Resort access road, offering expert boot fitting, rentals, and a massive demo fleet.",
     address: "2089 Killington Road",
@@ -219,7 +219,7 @@ export const stores: any[] = [
   {
     id: "us-vt-003",
     slug: "northern-ski-works-okemo",
-    name: "Northern Ski Works",
+    name: "Northern Ski Works Okemo",
     description:
       "Northern Ski Works Okemo location in downtown Ludlow, serving Okemo Mountain Resort skiers with expert boot fitting, rentals, and gear sales.",
     address: "10 Main Street",
