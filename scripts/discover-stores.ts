@@ -5,8 +5,10 @@
  * new winter sport stores that aren't yet in the database.
  *
  * Usage:
- *   npx tsx scripts/discover-stores.ts
- *   npx tsx scripts/discover-stores.ts --auto-insert  (insert unverified stores into DB)
+ *   npx tsx scripts/discover-stores.ts                          (all resorts, dry run)
+ *   npx tsx scripts/discover-stores.ts --auto-insert            (all resorts, insert into DB)
+ *   npx tsx scripts/discover-stores.ts --region "French Alps"   (filter by region)
+ *   npx tsx scripts/discover-stores.ts --region "Colorado" --auto-insert
  *
  * Output:
  *   - Prints discovered candidates to console
@@ -16,7 +18,8 @@
  *   GOOGLE_PLACES_API_KEY, FOURSQUARE_API_KEY (at least one required)
  */
 
-import "dotenv/config";
+import { config } from "dotenv";
+config({ path: ".env.local" });
 import postgres from "postgres";
 import { randomUUID } from "crypto";
 import { RESORT_LOCATIONS, type ResortLocation } from "./resort-locations";
@@ -33,6 +36,10 @@ const sql = postgres(DATABASE_URL);
 const GOOGLE_KEY = process.env.GOOGLE_PLACES_API_KEY;
 const FSQ_KEY = process.env.FOURSQUARE_API_KEY;
 const AUTO_INSERT = process.argv.includes("--auto-insert");
+
+// --region "French Alps" → filter to only that region
+const regionIdx = process.argv.indexOf("--region");
+const REGION_FILTER = regionIdx !== -1 ? process.argv[regionIdx + 1] : null;
 
 const SEARCH_QUERIES = [
   "ski shop",
@@ -63,6 +70,8 @@ interface ExistingStore {
   name: string;
   latitude: number;
   longitude: number;
+  google_place_id: string | null;
+  foursquare_venue_id: string | null;
 }
 
 // ─── Haversine Distance (km) ─────────────────────────────
@@ -232,6 +241,10 @@ function isDuplicate(
   existing: ExistingStore[]
 ): boolean {
   for (const e of existing) {
+    // Exact platform ID match
+    if (store.source === "google" && e.google_place_id && store.sourceId === e.google_place_id) return true;
+    if (store.source === "foursquare" && e.foursquare_venue_id && store.sourceId === e.foursquare_venue_id) return true;
+
     const dist = haversine(store.lat, store.lng, e.latitude, e.longitude);
     if (dist < 0.1) return true; // Within 100m
 
@@ -295,8 +308,25 @@ async function insertStore(store: DiscoveredStore): Promise<void> {
 
 // ─── Main ────────────────────────────────────────────────
 async function main() {
+  // Filter resorts by region if specified
+  let resorts = RESORT_LOCATIONS;
+  if (REGION_FILTER) {
+    resorts = RESORT_LOCATIONS.filter(
+      (r) => r.region.toLowerCase() === REGION_FILTER.toLowerCase()
+    );
+    if (resorts.length === 0) {
+      const regions = [...new Set(RESORT_LOCATIONS.map((r) => r.region))].sort();
+      console.error(`No resorts found for region "${REGION_FILTER}".`);
+      console.error(`Available regions: ${regions.join(", ")}`);
+      process.exit(1);
+    }
+  }
+
   console.log("🏔️  WinterStores Discovery Pipeline\n");
-  console.log(`Searching near ${RESORT_LOCATIONS.length} ski resorts`);
+  if (REGION_FILTER) {
+    console.log(`Region filter: ${REGION_FILTER}`);
+  }
+  console.log(`Searching near ${resorts.length} ski resorts`);
   console.log(`Google Places: ${GOOGLE_KEY ? "✅" : "❌ (skipping)"}`);
   console.log(`Foursquare:    ${FSQ_KEY ? "✅" : "❌ (skipping)"}`);
   console.log(`Auto-insert:   ${AUTO_INSERT ? "✅ ON" : "❌ OFF (dry run)"}`);
@@ -309,16 +339,16 @@ async function main() {
 
   // Load existing stores for de-duplication
   const existingStores: ExistingStore[] = await sql`
-    SELECT name, latitude, longitude FROM stores
+    SELECT name, latitude, longitude, google_place_id, foursquare_venue_id FROM stores
   `;
   console.log(`Existing stores in DB: ${existingStores.length}\n`);
 
   const allDiscovered: DiscoveredStore[] = [];
 
-  for (let i = 0; i < RESORT_LOCATIONS.length; i++) {
-    const resort = RESORT_LOCATIONS[i];
+  for (let i = 0; i < resorts.length; i++) {
+    const resort = resorts[i];
     console.log(
-      `[${i + 1}/${RESORT_LOCATIONS.length}] Searching near ${resort.name}, ${resort.country}...`
+      `[${i + 1}/${resorts.length}] Searching near ${resort.name}, ${resort.country}...`
     );
 
     // Search with a couple of queries to get good coverage
