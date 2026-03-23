@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Snow-capped mountain peak -->
+  <polygon points="16,4 28,26 4,26" fill="#3B82F6"/>
+  <polygon points="16,4 20,12 12,12" fill="#FFFFFF"/>
+  <!-- Snowflake accent -->
+  <circle cx="24" cy="8" r="2" fill="#93C5FD"/>
+</svg>
