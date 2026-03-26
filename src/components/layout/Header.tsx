@@ -39,6 +39,18 @@ export default function Header() {
             Browse
           </Link>
           <Link
+            href="/resorts"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+          >
+            Resorts
+          </Link>
+          <Link
+            href="/guides"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+          >
+            Guides
+          </Link>
+          <Link
             href="/favorites"
             className="inline-flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
           >
@@ -86,6 +98,15 @@ export default function Header() {
           </Link>
           <Link href="/browse" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
             Browse by Country
+          </Link>
+          <Link href="/resorts" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
+            Resorts
+          </Link>
+          <Link href="/best-ski-shops" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
+            Best Ski Shops
+          </Link>
+          <Link href="/guides" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
+            Guides
           </Link>
           <Link href="/favorites" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
             Favorites

@@ -35,15 +35,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Top Regions */}
+          {/* Explore */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">Top Regions</h3>
+            <h3 className="text-sm font-semibold text-slate-900">Explore</h3>
             <ul className="mt-3 space-y-2">
               {[
-                { label: "Colorado, USA", href: "/search?q=Colorado" },
-                { label: "Swiss Alps", href: "/search?country=CH" },
-                { label: "Austrian Tyrol", href: "/search?country=AT" },
-                { label: "Hokkaido, Japan", href: "/search?q=Hokkaido" },
+                { label: "Ski Resorts", href: "/resorts" },
+                { label: "Best Ski Shops", href: "/best-ski-shops" },
+                { label: "Guides & Tips", href: "/guides" },
+                { label: "Browse by Country", href: "/browse" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href} className="text-sm text-slate-500 hover:text-slate-700 transition-colors">
