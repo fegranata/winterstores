@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { RESORTS } from "@/lib/data/resorts";
 
 export const dynamic = "force-dynamic";
 
@@ -9,8 +10,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: baseUrl, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
     { url: `${baseUrl}/search`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${baseUrl}/browse`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/resorts`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/favorites`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.3 },
   ];
+
+  const resortPages: MetadataRoute.Sitemap = RESORTS.map((r) => ({
+    url: `${baseUrl}/resorts/${r.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
 
   try {
     const { getDb, schema } = await import("@/lib/db");
@@ -41,9 +50,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     }));
 
-    return [...staticPages, ...storePages, ...countryPages];
+    return [...staticPages, ...resortPages, ...storePages, ...countryPages];
   } catch {
     // DB not available (e.g. build without DATABASE_URL) — return static pages only
-    return staticPages;
+    return [...staticPages, ...resortPages];
   }
 }

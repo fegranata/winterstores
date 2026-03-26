@@ -6,9 +6,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Providers from "@/components/ui/Providers";
 import CookieConsent from "@/components/ui/CookieConsent";
+import { AD_PROVIDER, ADSENSE_CLIENT, MEDIANET_CID, EZOIC_SITE_ID } from "@/lib/ad-config";
 import "./globals.css";
-
-const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -84,11 +83,25 @@ export default function RootLayout({
             `,
           }}
         />
-        {ADSENSE_CLIENT && (
+        {AD_PROVIDER === "adsense" && ADSENSE_CLIENT && (
           <script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
             crossOrigin="anonymous"
+          />
+        )}
+        {AD_PROVIDER === "medianet" && MEDIANET_CID && (
+          <script
+            async
+            src={`https://contextual.media.net/dmedianet.js?cid=${MEDIANET_CID}`}
+            crossOrigin="anonymous"
+          />
+        )}
+        {AD_PROVIDER === "ezoic" && EZOIC_SITE_ID && (
+          <script
+            async
+            src="https://cdn.ezoic.net/ezoic/sa.min.js"
+            data-cfasync="false"
           />
         )}
       </head>
