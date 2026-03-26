@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { RESORTS } from "@/lib/data/resorts";
+import { GUIDES } from "@/lib/data/guides";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/search`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${baseUrl}/browse`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/resorts`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
+    { url: `${baseUrl}/best-ski-shops`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
+    { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/favorites`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.3 },
   ];
 
@@ -18,6 +21,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}/resorts/${r.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+
+  const guidePages: MetadataRoute.Sitemap = GUIDES.map((g) => ({
+    url: `${baseUrl}/guides/${g.slug}`,
+    lastModified: new Date(g.publishedAt),
+    changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
@@ -50,9 +60,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     }));
 
-    return [...staticPages, ...resortPages, ...storePages, ...countryPages];
+    const bestShopsPages: MetadataRoute.Sitemap = countries.map((c) => ({
+      url: `${baseUrl}/best-ski-shops/${c.countryCode.toLowerCase()}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    }));
+
+    return [...staticPages, ...resortPages, ...guidePages, ...bestShopsPages, ...storePages, ...countryPages];
   } catch {
     // DB not available (e.g. build without DATABASE_URL) — return static pages only
-    return [...staticPages, ...resortPages];
+    return [...staticPages, ...resortPages, ...guidePages];
   }
 }
