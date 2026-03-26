@@ -54,8 +54,9 @@ export const metadata: Metadata = {
       "Discover and compare winter sport stores worldwide. Filter by sport, distance, and services.",
     images: ["/og-default.png"],
   },
-  alternates: {
-    canonical: "https://winterstores.co",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
   },
 };
 
