@@ -86,10 +86,12 @@ const ADSTERRA_SLOT_MAP: Record<string, "leaderboard" | "rectangle" | "native"> 
   "homepage-mid": "native",
   "homepage-bottom": "leaderboard",
   "search-results-bottom": "leaderboard",
+  "search-sidebar": "rectangle",
   "store-detail-content": "native",
   "store-detail-sidebar": "rectangle",
   "browse-bottom": "leaderboard",
   "browse-country-mid": "native",
+  "guide-content-native": "native",
 };
 
 export default function AdSlot({
@@ -242,7 +244,7 @@ export default function AdSlot({
 
     if (unitType === "native") {
       return (
-        <div ref={adRef} className={`mx-auto w-full max-w-[728px] ${className}`} aria-hidden="true">
+        <div ref={adRef} className={`mx-auto w-full max-w-[728px] overflow-hidden ${className}`} aria-hidden="true">
           <div id={ADSTERRA_NATIVE.containerId} />
         </div>
       );
@@ -251,7 +253,7 @@ export default function AdSlot({
     // Leaderboard: show 728x90 on desktop, 320x50 on mobile
     if (unitType === "leaderboard") {
       return (
-        <div ref={adRef} className={`mx-auto flex items-center justify-center ${className}`} aria-hidden="true">
+        <div ref={adRef} className={`mx-auto flex items-center justify-center overflow-hidden max-w-full ${className}`} aria-hidden="true">
           <div className="hidden md:block" style={{ width: 728, height: 90 }} />
           <div className="block md:hidden" style={{ width: 320, height: 50 }} />
         </div>
@@ -260,7 +262,7 @@ export default function AdSlot({
 
     // Rectangle (300x250)
     return (
-      <div ref={adRef} className={`mx-auto flex items-center justify-center ${className}`} aria-hidden="true"
+      <div ref={adRef} className={`mx-auto flex items-center justify-center overflow-hidden ${className}`} aria-hidden="true"
         style={{ width: 300, height: 250 }} />
     );
   }

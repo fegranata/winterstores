@@ -125,15 +125,23 @@ export default async function GuidePage({ params }: Props) {
         </ol>
       </nav>
 
-      {/* Article content */}
+      {/* Article content with mid-article native ad */}
       <article className="prose prose-slate max-w-none">
         {guide.sections.map((section, i) => (
-          <section key={i} id={`section-${i}`} className="mb-8">
-            <h2 className="text-xl font-semibold text-slate-900 mb-3">
-              {section.heading}
-            </h2>
-            <p className="text-slate-600 leading-relaxed">{section.content}</p>
-          </section>
+          <div key={i}>
+            <section id={`section-${i}`} className="mb-8">
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">
+                {section.heading}
+              </h2>
+              <p className="text-slate-600 leading-relaxed">{section.content}</p>
+            </section>
+            {/* Native ad after second section */}
+            {i === 1 && (
+              <div className="my-6 not-prose">
+                <AdSlot slot="guide-content-native" format="banner" />
+              </div>
+            )}
+          </div>
         ))}
       </article>
 

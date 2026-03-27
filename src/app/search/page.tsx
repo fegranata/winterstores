@@ -5,6 +5,7 @@ import MobileFilterDrawer from "@/components/search/MobileFilterDrawer";
 import GeolocationButton from "@/components/search/GeolocationButton";
 import SearchResults from "@/components/search/SearchResults";
 import AdSlot from "@/components/ui/AdSlot";
+import Pagination from "@/components/ui/Pagination";
 import { searchStores } from "@/lib/store-search";
 import type { SportType, ServiceType } from "@/types/store";
 import type { Metadata } from "next";
@@ -95,11 +96,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
       <div className="flex gap-6">
         {/* Filter sidebar — desktop only */}
-        <aside className="hidden lg:block w-56 shrink-0">
-          <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl border border-slate-200 bg-white p-4">
-            <Suspense fallback={<div className="text-sm text-slate-400">Loading filters…</div>}>
-              <FilterPanel />
-            </Suspense>
+        <aside className="hidden lg:block w-72 shrink-0">
+          <div className="sticky top-20 space-y-4">
+            <div className="max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl border border-slate-200 bg-white p-4">
+              <Suspense fallback={<div className="text-sm text-slate-400">Loading filters…</div>}>
+                <FilterPanel />
+              </Suspense>
+            </div>
+            <AdSlot slot="search-sidebar" format="rectangle" />
           </div>
         </aside>
 
@@ -134,36 +138,23 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           </div>
 
           {/* Pagination */}
-          {result.totalPages > 1 && (
-            <div className="mt-8 flex items-center justify-center gap-2">
-              {Array.from({ length: result.totalPages }).map((_, i) => {
-                const pageNum = i + 1;
-                const pageParams = new URLSearchParams();
-                for (const [key, val] of Object.entries(params)) {
-                  if (val === undefined) continue;
-                  if (Array.isArray(val)) {
-                    val.forEach((v) => pageParams.append(key, v));
-                  } else {
-                    pageParams.set(key, val);
-                  }
+          <Pagination
+            currentPage={currentPage}
+            totalPages={result.totalPages}
+            buildHref={(page) => {
+              const pageParams = new URLSearchParams();
+              for (const [key, val] of Object.entries(params)) {
+                if (val === undefined) continue;
+                if (Array.isArray(val)) {
+                  val.forEach((v) => pageParams.append(key, v));
+                } else {
+                  pageParams.set(key, val);
                 }
-                pageParams.set("page", String(pageNum));
-                return (
-                  <Link
-                    key={pageNum}
-                    href={`/search?${pageParams.toString()}`}
-                    className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
-                      currentPage === pageNum
-                        ? "bg-blue-600 text-white"
-                        : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    {pageNum}
-                  </Link>
-                );
-              })}
-            </div>
-          )}
+              }
+              pageParams.set("page", String(page));
+              return `/search?${pageParams.toString()}`;
+            }}
+          />
         </div>
       </div>
     </div>
