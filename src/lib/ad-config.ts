@@ -3,7 +3,7 @@
  * Controlled by NEXT_PUBLIC_AD_PROVIDER env var.
  */
 
-export type AdProvider = "adsense" | "medianet" | "ezoic" | "carbon" | "infolinks" | "none";
+export type AdProvider = "adsense" | "medianet" | "ezoic" | "carbon" | "infolinks" | "adsterra" | "none";
 
 export const AD_PROVIDER: AdProvider =
   (process.env.NEXT_PUBLIC_AD_PROVIDER as AdProvider) || "none";

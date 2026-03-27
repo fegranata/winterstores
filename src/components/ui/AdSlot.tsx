@@ -55,6 +55,43 @@ const EZOIC_UNITS: Record<string, number> = {
   "browse-country-mid": 107,
 };
 
+// ── Adsterra ad unit configs ────────────────────────────────
+type AdsterraUnit = { key: string; width: number; height: number; src: string };
+
+const ADSTERRA_BANNERS: Record<string, AdsterraUnit> = {
+  leaderboard: {
+    key: "e454e0e2801418f50cbc7f343471fd1f",
+    width: 728, height: 90,
+    src: "https://www.highperformanceformat.com/e454e0e2801418f50cbc7f343471fd1f/invoke.js",
+  },
+  mobile: {
+    key: "04dd2cf92fa0177e5c8d983ba3b5c053",
+    width: 320, height: 50,
+    src: "https://www.highperformanceformat.com/04dd2cf92fa0177e5c8d983ba3b5c053/invoke.js",
+  },
+  rectangle: {
+    key: "f9a79b2257fe3f4a82ae1ca0a35deadc",
+    width: 300, height: 250,
+    src: "https://www.highperformanceformat.com/f9a79b2257fe3f4a82ae1ca0a35deadc/invoke.js",
+  },
+};
+
+const ADSTERRA_NATIVE = {
+  scriptSrc: "https://pl28994492.profitablecpmratenetwork.com/3131eb29c262292b191576cb34795553/invoke.js",
+  containerId: "container-3131eb29c262292b191576cb34795553",
+};
+
+// Map slot → Adsterra unit type
+const ADSTERRA_SLOT_MAP: Record<string, "leaderboard" | "rectangle" | "native"> = {
+  "homepage-mid": "native",
+  "homepage-bottom": "leaderboard",
+  "search-results-bottom": "leaderboard",
+  "store-detail-content": "native",
+  "store-detail-sidebar": "rectangle",
+  "browse-bottom": "leaderboard",
+  "browse-country-mid": "native",
+};
+
 export default function AdSlot({
   slot,
   format = "banner",
@@ -98,6 +135,36 @@ export default function AdSlot({
       adRef.current.appendChild(script);
       pushed.current = true;
     }
+
+    if (AD_PROVIDER === "adsterra" && adRef.current && !pushed.current) {
+      const unitType = ADSTERRA_SLOT_MAP[slot];
+      if (!unitType) return;
+
+      if (unitType === "native") {
+        const script = document.createElement("script");
+        script.async = true;
+        script.dataset.cfasync = "false";
+        script.src = ADSTERRA_NATIVE.scriptSrc;
+        adRef.current.appendChild(script);
+      } else {
+        // Banner or rectangle: use atOptions pattern
+        // Desktop gets leaderboard, mobile gets mobile banner
+        const isMobile = window.innerWidth < 768;
+        const unit = unitType === "leaderboard"
+          ? (isMobile ? ADSTERRA_BANNERS.mobile : ADSTERRA_BANNERS.leaderboard)
+          : ADSTERRA_BANNERS[unitType];
+
+        const optionsScript = document.createElement("script");
+        optionsScript.textContent = `atOptions = { 'key': '${unit.key}', 'format': 'iframe', 'height': ${unit.height}, 'width': ${unit.width}, 'params': {} };`;
+        adRef.current.appendChild(optionsScript);
+
+        const invokeScript = document.createElement("script");
+        invokeScript.src = unit.src;
+        adRef.current.appendChild(invokeScript);
+      }
+      pushed.current = true;
+    }
+
     // Ezoic auto-detects placeholders — no push needed
   }, [slot]);
 
@@ -166,6 +233,36 @@ export default function AdSlot({
       return <div className={containerClass} aria-hidden="true" />;
     }
     return <div ref={adRef} className={containerClass} aria-hidden="true" />;
+  }
+
+  // ── Adsterra ──────────────────────────────────────────────
+  if (AD_PROVIDER === "adsterra") {
+    const unitType = ADSTERRA_SLOT_MAP[slot];
+    if (!unitType) return <div className={containerClass} aria-hidden="true" />;
+
+    if (unitType === "native") {
+      return (
+        <div ref={adRef} className={`mx-auto w-full max-w-[728px] ${className}`} aria-hidden="true">
+          <div id={ADSTERRA_NATIVE.containerId} />
+        </div>
+      );
+    }
+
+    // Leaderboard: show 728x90 on desktop, 320x50 on mobile
+    if (unitType === "leaderboard") {
+      return (
+        <div ref={adRef} className={`mx-auto flex items-center justify-center ${className}`} aria-hidden="true">
+          <div className="hidden md:block" style={{ width: 728, height: 90 }} />
+          <div className="block md:hidden" style={{ width: 320, height: 50 }} />
+        </div>
+      );
+    }
+
+    // Rectangle (300x250)
+    return (
+      <div ref={adRef} className={`mx-auto flex items-center justify-center ${className}`} aria-hidden="true"
+        style={{ width: 300, height: 250 }} />
+    );
   }
 
   return null;
