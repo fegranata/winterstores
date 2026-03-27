@@ -244,19 +244,21 @@ export default function AdSlot({
 
     if (unitType === "native") {
       return (
-        <div ref={adRef} className={`mx-auto w-full max-w-[728px] overflow-hidden ${className}`} aria-hidden="true">
+        <div ref={adRef} className={`mx-auto w-full overflow-hidden ${className}`} style={{ maxWidth: 728 }} aria-hidden="true">
           <div id={ADSTERRA_NATIVE.containerId} />
         </div>
       );
     }
 
-    // Leaderboard: show 728x90 on desktop, 320x50 on mobile
+    // Leaderboard: 728x90 on desktop, 320x50 on mobile
     if (unitType === "leaderboard") {
       return (
-        <div ref={adRef} className={`mx-auto flex items-center justify-center overflow-hidden max-w-full ${className}`} aria-hidden="true">
-          <div className="hidden md:block" style={{ width: 728, height: 90 }} />
-          <div className="block md:hidden" style={{ width: 320, height: 50 }} />
-        </div>
+        <div
+          ref={adRef}
+          className={`mx-auto overflow-hidden ${className}`}
+          style={{ maxWidth: 728, minHeight: 50 }}
+          aria-hidden="true"
+        />
       );
     }
 
