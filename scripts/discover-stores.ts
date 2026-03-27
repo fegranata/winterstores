@@ -51,6 +51,92 @@ const SEARCH_QUERIES = [
 
 const SEARCH_RADIUS = 50000; // 50km
 
+// ─── Quality Gates ──────────────────────────────────────
+// Reject results whose name contains any of these keywords (case-insensitive)
+const NAME_BLACKLIST = [
+  "hotel", "hostel", "lodge", "inn", "motel", "chalet", "apartment", "cabin",
+  "residence", "resort hotel", "b&b", "bed and breakfast", "airbnb",
+  "restaurant", "bar", "café", "cafe", "bistro", "pizzeria", "pub", "grill",
+  "instructor", "school", "lesson", "academy", "guide", "tour",
+  "taxi", "transfer", "shuttle", "parking",
+  "spa", "wellness", "massage", "physiotherapy",
+  "supermarket", "grocery", "pharmacy", "bakery",
+  "real estate", "immobili", "property",
+  "dentist", "doctor", "clinic", "hospital",
+];
+
+// At least one of these must appear in the name OR in Google's types
+const NAME_WHITELIST = [
+  "ski", "snowboard", "sport", "rental", "shop", "store", "gear",
+  "mountain", "outdoor", "winter", "snow", "board", "alpine",
+  "surf", // for shops like "Rhythm" that say "surf & snow"
+  "intersport", "decathlon", "skiset", "precision ski", "pic negre",
+];
+
+// Google Places types that indicate wrong business category
+const REJECTED_GOOGLE_TYPES = [
+  "lodging", "hotel", "motel", "campground", "rv_park",
+  "restaurant", "food", "meal_delivery", "meal_takeaway", "cafe", "bar", "bakery",
+  "school", "university", "primary_school", "secondary_school",
+  "hospital", "doctor", "dentist", "pharmacy", "health",
+  "real_estate_agency", "insurance_agency", "bank", "atm",
+  "car_rental", "car_dealer", "gas_station",
+  "church", "place_of_worship",
+  "night_club", "casino",
+];
+
+// Website domains that indicate wrong business (accommodation/booking sites)
+const REJECTED_DOMAINS = [
+  "booking.com", "airbnb.com", "expedia.com", "hotels.com",
+  "tripadvisor.com", "vrbo.com", "agoda.com", "hostelworld.com",
+];
+
+function passesQualityGates(
+  name: string,
+  types: string[],
+  website?: string,
+): { passes: boolean; reason?: string } {
+  const nameLower = name.toLowerCase();
+
+  // 1. Name blacklist — reject obviously wrong businesses
+  for (const keyword of NAME_BLACKLIST) {
+    if (nameLower.includes(keyword)) {
+      return { passes: false, reason: `name blacklist: "${keyword}"` };
+    }
+  }
+
+  // 2. Google Places type check — reject wrong categories
+  for (const t of types) {
+    if (REJECTED_GOOGLE_TYPES.includes(t)) {
+      return { passes: false, reason: `rejected type: "${t}"` };
+    }
+  }
+
+  // 3. Name whitelist — at least one sport/retail keyword must be present
+  //    (either in name or in Google types like "store", "shopping_mall")
+  const hasWhitelistName = NAME_WHITELIST.some((kw) => nameLower.includes(kw));
+  const hasRetailType = types.some((t) =>
+    ["store", "shopping_mall", "sporting_goods_store", "bicycle_store"].includes(t)
+  );
+  if (!hasWhitelistName && !hasRetailType) {
+    return { passes: false, reason: "no sport/retail keyword in name or types" };
+  }
+
+  // 4. Website domain check — reject booking/accommodation sites
+  if (website) {
+    try {
+      const domain = new URL(website).hostname.replace("www.", "");
+      if (REJECTED_DOMAINS.some((d) => domain.includes(d))) {
+        return { passes: false, reason: `rejected domain: "${domain}"` };
+      }
+    } catch {
+      // invalid URL, not a reason to reject
+    }
+  }
+
+  return { passes: true };
+}
+
 interface DiscoveredStore {
   name: string;
   address: string;
@@ -108,7 +194,7 @@ async function searchGoogle(
           "Content-Type": "application/json",
           "X-Goog-Api-Key": GOOGLE_KEY,
           "X-Goog-FieldMask":
-            "places.id,places.displayName,places.formattedAddress,places.location,places.nationalPhoneNumber,places.websiteUri,places.addressComponents",
+            "places.id,places.displayName,places.formattedAddress,places.location,places.nationalPhoneNumber,places.websiteUri,places.addressComponents,places.types",
         },
         body: JSON.stringify({
           textQuery: query,
@@ -127,47 +213,58 @@ async function searchGoogle(
     const data = await res.json();
     const places = data.places ?? [];
 
-    return places.map(
-      (p: {
-        displayName?: { text?: string };
-        formattedAddress?: string;
-        location?: { latitude: number; longitude: number };
-        nationalPhoneNumber?: string;
-        websiteUri?: string;
-        id?: string;
-        addressComponents?: Array<{
-          types: string[];
-          longText: string;
-          shortText: string;
-        }>;
-      }) => {
-        // Extract city and country from address components
-        const components = p.addressComponents ?? [];
-        const city =
-          components.find((c) => c.types.includes("locality"))?.longText ?? "";
-        const country =
-          components.find((c) => c.types.includes("country"))?.longText ??
-          location.country;
-        const countryCode =
-          components.find((c) => c.types.includes("country"))?.shortText ??
-          location.countryCode;
+    const results: DiscoveredStore[] = [];
 
-        return {
-          name: p.displayName?.text ?? "Unknown",
-          address: p.formattedAddress ?? "",
-          city: city || location.name,
-          country,
-          countryCode,
-          lat: p.location?.latitude ?? 0,
-          lng: p.location?.longitude ?? 0,
-          source: "google" as const,
-          sourceId: p.id ?? "",
-          phone: p.nationalPhoneNumber,
-          website: p.websiteUri,
-          nearestResort: location.name,
-        };
+    for (const p of places as Array<{
+      displayName?: { text?: string };
+      formattedAddress?: string;
+      location?: { latitude: number; longitude: number };
+      nationalPhoneNumber?: string;
+      websiteUri?: string;
+      id?: string;
+      types?: string[];
+      addressComponents?: Array<{
+        types: string[];
+        longText: string;
+        shortText: string;
+      }>;
+    }>) {
+      const name = p.displayName?.text ?? "Unknown";
+      const types = p.types ?? [];
+
+      // ── Quality Gate ──────────────────────────────────
+      const check = passesQualityGates(name, types, p.websiteUri);
+      if (!check.passes) {
+        continue; // silently skip bad results
       }
-    );
+
+      const components = p.addressComponents ?? [];
+      const city =
+        components.find((c) => c.types.includes("locality"))?.longText ?? "";
+      const country =
+        components.find((c) => c.types.includes("country"))?.longText ??
+        location.country;
+      const countryCode =
+        components.find((c) => c.types.includes("country"))?.shortText ??
+        location.countryCode;
+
+      results.push({
+        name,
+        address: p.formattedAddress ?? "",
+        city: city || location.name,
+        country,
+        countryCode,
+        lat: p.location?.latitude ?? 0,
+        lng: p.location?.longitude ?? 0,
+        source: "google" as const,
+        sourceId: p.id ?? "",
+        phone: p.nationalPhoneNumber,
+        website: p.websiteUri,
+        nearestResort: location.name,
+      });
+    }
+
+    return results;
   } catch {
     return [];
   }
@@ -202,21 +299,31 @@ async function searchFoursquare(
     if (!res.ok) return [];
     const data = await res.json();
 
-    return (data.results ?? []).map(
-      (p: {
-        name?: string;
-        location?: {
-          formatted_address?: string;
-          locality?: string;
-          country?: string;
-          region?: string;
-        };
-        geocodes?: { main?: { latitude: number; longitude: number } };
-        tel?: string;
-        website?: string;
-        fsq_id?: string;
-      }) => ({
-        name: p.name ?? "Unknown",
+    const results: DiscoveredStore[] = [];
+
+    for (const p of (data.results ?? []) as Array<{
+      name?: string;
+      location?: {
+        formatted_address?: string;
+        locality?: string;
+        country?: string;
+        region?: string;
+      };
+      geocodes?: { main?: { latitude: number; longitude: number } };
+      tel?: string;
+      website?: string;
+      fsq_id?: string;
+    }>) {
+      const name = p.name ?? "Unknown";
+
+      // ── Quality Gate (no types from FSQ basic search) ──
+      const check = passesQualityGates(name, [], p.website);
+      if (!check.passes) {
+        continue;
+      }
+
+      results.push({
+        name,
         address: p.location?.formatted_address ?? "",
         city: p.location?.locality ?? location.name,
         country: p.location?.country ?? location.country,
@@ -228,8 +335,10 @@ async function searchFoursquare(
         phone: p.tel,
         website: p.website,
         nearestResort: location.name,
-      })
-    );
+      });
+    }
+
+    return results;
   } catch {
     return [];
   }
@@ -376,7 +485,7 @@ async function main() {
   console.log(`\n${"=".repeat(50)}`);
   console.log(`📊 DISCOVERY RESULTS`);
   console.log(`${"=".repeat(50)}`);
-  console.log(`Raw discoveries:     ${allDiscovered.length}`);
+  console.log(`Passed quality gates: ${allDiscovered.length}`);
   console.log(`After dedup:         ${candidates.length}`);
   console.log(`Existing in DB:      ${existingStores.length}`);
   console.log("");
