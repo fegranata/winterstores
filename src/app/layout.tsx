@@ -6,7 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Providers from "@/components/ui/Providers";
 import CookieConsent from "@/components/ui/CookieConsent";
-import { AD_PROVIDER, ADSENSE_CLIENT, MEDIANET_CID, EZOIC_SITE_ID } from "@/lib/ad-config";
+import { AD_PROVIDER, ADSENSE_CLIENT, MEDIANET_CID, EZOIC_SITE_ID, INFOLINKS_PID } from "@/lib/ad-config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -103,6 +103,16 @@ export default function RootLayout({
             src="https://cdn.ezoic.net/ezoic/sa.min.js"
             data-cfasync="false"
           />
+        )}
+        {AD_PROVIDER === "infolinks" && INFOLINKS_PID && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `var infolinks_pid = ${INFOLINKS_PID}; var infolinks_wsid = 0;`,
+              }}
+            />
+            <script async src="//resources.infolinks.com/js/infolinks_main.js" />
+          </>
         )}
       </head>
       <body
