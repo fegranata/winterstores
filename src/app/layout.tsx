@@ -39,18 +39,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "WinterStores",
-    title: "WinterStores — Find Winter Sport Shops Near You",
+    title: "WinterStores — Find & Compare Winter Sport Shops Near You",
     description:
-      "Discover and compare winter sport stores worldwide. Filter by sport, distance, and services.",
+      "Discover and compare 1,000+ winter sport stores across 21 countries. Aggregated ratings from Google, Facebook, and Foursquare. Filter by sport, services, and price.",
     images: [
       { url: "/og-default.png", width: 1200, height: 630, alt: "WinterStores" },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "WinterStores — Find Winter Sport Shops Near You",
+    title: "WinterStores — Find & Compare Winter Sport Shops Near You",
     description:
-      "Discover and compare winter sport stores worldwide. Filter by sport, distance, and services.",
+      "Discover and compare 1,000+ winter sport stores across 21 countries. Aggregated ratings from Google, Facebook, and Foursquare. Filter by sport, services, and price.",
     images: ["/og-default.png"],
   },
   icons: {

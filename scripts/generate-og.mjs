@@ -59,6 +59,13 @@ const svg = `
     Compare reviews, filter by sport, and discover gear shops worldwide.
   </text>
 
+  <!-- CTA button -->
+  <rect x="460" y="400" width="280" height="52" rx="26" fill="#FFFFFF"/>
+  <text x="600" y="433" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif"
+        font-size="20" font-weight="600" fill="#1d4ed8" text-anchor="middle">
+    Search 1,000+ Stores Free
+  </text>
+
   <!-- Domain -->
   <text x="1160" y="600" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif"
         font-size="20" font-weight="500" fill="rgba(255,255,255,0.5)" text-anchor="end">
