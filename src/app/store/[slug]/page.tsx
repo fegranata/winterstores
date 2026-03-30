@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getStoreBySlug, getNearbyStores, getOrFetchPlatformRatings, getStoreReviews } from "@/lib/store-search";
+import { getStoreBySlug, getNearbyStores, getPlatformRatings, getStoreReviews } from "@/lib/store-search";
 import { getDb, schema } from "@/lib/db";
 import { SPORT_ICONS, SPORT_LABELS, SERVICE_LABELS } from "@/types/store";
 import RatingStars from "@/components/store/RatingStars";
@@ -69,7 +69,7 @@ export default async function StorePage({ params }: StorePageProps) {
   // Run all independent queries in parallel
   const [nearby, platformRatings, reviews] = await Promise.all([
     getNearbyStores(store, 4),
-    getOrFetchPlatformRatings(store),
+    getPlatformRatings(store.id),
     getStoreReviews(store.id),
   ]);
 

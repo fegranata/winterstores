@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getStoreBySlug } from "@/lib/store-search";
-import { getCachedOrFetch, type PlatformRating } from "@/lib/api/platform-cache";
+import { getStoreBySlug, getPlatformRatings } from "@/lib/store-search";
 
 export async function GET(
   _request: NextRequest,
@@ -13,21 +12,21 @@ export async function GET(
     return NextResponse.json({ error: "Store not found" }, { status: 404 });
   }
 
-  const [google, facebook, foursquare] = await Promise.all([
-    getCachedOrFetch(store.id, "google", store.googlePlaceId ?? null),
-    getCachedOrFetch(store.id, "facebook", store.facebookPageId ?? null),
-    getCachedOrFetch(store.id, "foursquare", store.foursquareVenueId ?? null),
-  ]);
+  const rows = await getPlatformRatings(store.id);
 
-  const response: Record<string, PlatformRating | null> = {
-    google,
-    facebook,
-    foursquare,
+  const response: Record<string, { platform: string; rating: number | null; reviewCount: number | null; platformUrl: string | null } | null> = {
+    google: null,
+    facebook: null,
+    foursquare: null,
   };
+
+  for (const row of rows) {
+    response[row.platform] = row;
+  }
 
   return NextResponse.json(response, {
     headers: {
-      "Cache-Control": "public, max-age=300, stale-while-revalidate=600",
+      "Cache-Control": "public, max-age=3600, stale-while-revalidate=7200",
     },
   });
 }
