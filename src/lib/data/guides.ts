@@ -124,6 +124,216 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+  {
+    slug: "ski-gear-checklist",
+    title: "Essential Ski Gear Checklist: What You Need for Your First Season",
+    description:
+      "A complete checklist of ski gear for beginners. Know exactly what to buy, what to rent, and what to skip so you stay warm, safe, and within budget.",
+    publishedAt: "2026-03-28",
+    sections: [
+      {
+        heading: "Base Layers: Your First Line of Defense",
+        content:
+          "Start with moisture-wicking base layers made from merino wool or synthetic fabric. Cotton is the worst choice — it absorbs sweat and leaves you cold. You need a top and bottom layer that fits snugly without restricting movement. Expect to spend $40-80 for a quality set. One good base layer set is enough for your first season — you can wash it between ski days.",
+      },
+      {
+        heading: "Ski Jacket and Pants",
+        content:
+          "Look for waterproof and breathable outerwear rated at least 10,000mm waterproofing and 10,000g breathability. Insulated jackets are simpler for beginners — no need to layer a separate mid-layer. Key features to look for: powder skirt, wrist gaiters, pit zips for ventilation, and plenty of pockets. Budget $150-300 for a jacket and $100-200 for pants. End-of-season sales can cut these prices in half.",
+      },
+      {
+        heading: "Helmet: Non-Negotiable Safety Gear",
+        content:
+          "Always wear a helmet. Modern ski helmets are lightweight, warm, and comfortable — there is no good reason to skip one. Make sure it fits snugly without pressure points and is compatible with your goggles (no gap between the helmet brim and goggle frame). Budget $60-120 for a solid helmet with adjustable venting. Replace it after any significant impact, even if there is no visible damage.",
+      },
+      {
+        heading: "Goggles: See the Mountain Clearly",
+        content:
+          "Goggles protect your eyes from wind, snow, and UV radiation at altitude. For your first pair, choose a lens with good all-conditions visibility — a mid-tone amber or rose lens works in both sunny and overcast conditions. Anti-fog coating and double-pane lenses are worth the upgrade. Budget $50-100. Make sure they seal comfortably against your face and fit under your helmet brim.",
+      },
+      {
+        heading: "Gloves and Socks",
+        content:
+          "Waterproof insulated gloves with a long cuff keep snow from getting in. Mittens are warmer than gloves if you run cold. Budget $40-80. For socks, buy ski-specific socks that are thin, moisture-wicking, and reach mid-calf. Thick socks actually make your feet colder by reducing circulation inside the boot. One or two pairs of quality ski socks ($15-25 each) will last for years.",
+      },
+      {
+        heading: "Boots, Skis, and Poles: Rent These First",
+        content:
+          "For your first season, rent your boots, skis, and poles. Rental lets you try different equipment as your skills develop, avoids a large upfront cost, and saves you from traveling with bulky gear. Use WinterStores to find well-reviewed rental shops near your resort. Once you know your ability level and preferences after a season or two, then consider buying — starting with boots, which benefit most from a custom fit.",
+      },
+      {
+        heading: "What to Skip Your First Season",
+        content:
+          "You do not need: a backpack (use jacket pockets), hand and toe warmers (unless you get cold easily), neck warmers or balaclavas (a simple buff works), expensive name-brand everything (performance matters more than labels), or a GoPro (focus on learning, not filming). Keep your first-season investment focused on the essentials. You can always add accessories as you figure out what you actually need on the mountain.",
+      },
+    ],
+  },
+  {
+    slug: "first-ski-trip-guide",
+    title: "First Ski Trip Planning Guide: Everything You Need to Know",
+    description:
+      "Planning your first ski trip? This step-by-step guide covers choosing a resort, booking, lessons, gear, packing, and budgeting so nothing catches you off guard.",
+    publishedAt: "2026-03-30",
+    sections: [
+      {
+        heading: "Choosing the Right Resort",
+        content:
+          "For your first trip, pick a resort known for beginner terrain and good ski schools. Look for resorts with a high percentage of green (easy) runs, gentle learning areas separate from main traffic, and a reputation for quality instruction. Smaller resorts are often better for beginners — shorter lift lines, less intimidating, and cheaper. Avoid resorts famous for expert terrain unless they also have a dedicated beginner zone.",
+      },
+      {
+        heading: "When to Book and When to Go",
+        content:
+          "Book accommodation 2-3 months in advance for the best rates. The cheapest times to ski are early season (December before holidays) and late season (March-April). Avoid Christmas week, Presidents Day weekend, and school holidays — prices double and crowds triple. Midweek skiing (Tuesday-Thursday) offers the shortest lift lines and often lower accommodation rates. A 3-4 day trip is ideal for a first visit.",
+      },
+      {
+        heading: "Lessons: Invest in at Least One Day",
+        content:
+          "Take a lesson your first day, even if a friend offers to teach you. Professional instructors know how to build proper technique from the start, and learning bad habits early is hard to undo later. Group lessons are cost-effective ($60-120/day) and let you learn alongside others at your level. Private lessons ($300-600/day) are worth it if you want faster progress or have specific anxieties about learning. Book lessons in advance as popular time slots fill up.",
+      },
+      {
+        heading: "Gear: What to Rent vs. Bring",
+        content:
+          "Rent skis, boots, and poles from a shop near the resort. Bring your own outerwear (jacket, pants, base layers), helmet, goggles, gloves, and ski socks. Pre-book your rentals online to save 10-20% and skip the morning line. Pick up your gear the evening before your first ski day if the shop allows it. Use WinterStores to compare rental shops by rating, services, and price level before you arrive.",
+      },
+      {
+        heading: "What to Pack",
+        content:
+          "Beyond ski-specific gear, pack: sunscreen (SPF 30+ — the sun is intense at altitude), lip balm with SPF, a small backpack for the car, snacks and water for the mountain, comfortable shoes for evenings, casual warm clothing for after skiing, any personal medications, and your health insurance card. Leave valuables at home or in the hotel safe — do not bring expensive jewelry or electronics to the slopes.",
+      },
+      {
+        heading: "Budget Breakdown for a 3-Day Trip",
+        content:
+          "For two people sharing costs on a 3-day trip: lift tickets $150-300/person, gear rental $90-150/person, one group lesson $60-120/person, accommodation $150-400/night (split), food $40-80/day/person, travel varies by distance. Total budget estimate: $800-1,500 per person for a weekend trip, $1,200-2,500 for a full week. The biggest variable is accommodation — staying in a nearby town rather than at the resort base can save 30-50%.",
+      },
+      {
+        heading: "Common First-Timer Mistakes",
+        content:
+          "Avoid these: skipping lessons to save money (you will waste the day falling), wearing cotton base layers (you will be cold and wet), not applying sunscreen (altitude sunburn is real), trying to keep up with experienced friends (ski at your own pace), not staying hydrated (altitude and cold mask dehydration), and buying a full-week lift pass before knowing if you like skiing (start with a 2-3 day pass).",
+      },
+    ],
+  },
+  {
+    slug: "best-ski-resorts-beginners",
+    title: "Best Ski Resorts for Beginners in 2026",
+    description:
+      "The top beginner-friendly ski resorts in the US, Europe, and Japan. Chosen for gentle terrain, quality ski schools, and welcoming atmospheres for first-timers.",
+    publishedAt: "2026-04-01",
+    sections: [
+      {
+        heading: "What Makes a Resort Beginner-Friendly",
+        content:
+          "The best resorts for beginners share a few traits: a large proportion of green and blue runs, dedicated learning zones away from fast traffic, highly rated ski schools with small class sizes, gentle and wide groomed trails for building confidence, easy-to-navigate lift systems (gondolas and magic carpets rather than steep chairlifts), and affordable beginner-specific packages that bundle lessons, lifts, and rentals.",
+      },
+      {
+        heading: "Top US Resorts for Beginners",
+        content:
+          "Deer Valley, Utah stands out for its groomed-to-perfection trails and no-snowboard policy that keeps slopes calmer. Keystone, Colorado offers a huge learning area and night skiing to extend your practice time. Bretton Woods, New Hampshire is the largest ski area in the eastern US with wide, gentle cruisers. Northstar at Tahoe, California has an excellent ski school and a separate beginner zone at mid-mountain. All four have strong rental shop options — check WinterStores for the best-rated shops near each.",
+      },
+      {
+        heading: "Top European Resorts for Beginners",
+        content:
+          "Obergurgl, Austria is a high-altitude, snow-sure resort with gentle slopes and very few crowds. Avoriaz, France (part of the Portes du Soleil) has an excellent ski school area and a car-free village. Cervinia, Italy sits beneath the Matterhorn and offers some of the longest, widest beginner runs in the Alps. Soldeu, Andorra (Grandvalira) combines great instruction, duty-free shopping, and lower prices than the big Alpine resorts.",
+      },
+      {
+        heading: "Top Japanese Resorts for Beginners",
+        content:
+          "Niseko, Hokkaido is famous for powder snow but also has excellent beginner terrain and English-speaking instructors. Hakuba Goryu, Nagano has a gentle lower mountain perfect for first-timers, plus stunning views. Furano, Hokkaido offers uncrowded slopes, quality ski schools, and some of the lightest snow on Earth. Japanese resorts in general offer exceptional value — lift tickets, food, and accommodation cost far less than comparable European resorts.",
+      },
+      {
+        heading: "Ski School Quality: What to Look For",
+        content:
+          "A good ski school makes all the difference for beginners. Look for schools with certified instructors (PSIA in the US, BASI in the UK, ESF or ESI in France), small class sizes (6-8 students maximum), and progression-based programs. Many resorts offer multi-day beginner packages where the same instructor takes you from your first day to your first blue run. Read recent reviews to gauge instructor quality — a resort's ski school can change significantly from year to year.",
+      },
+      {
+        heading: "Family-Friendly Features",
+        content:
+          "If you are bringing kids or mixed-ability groups, look for: kids' clubs and childcare options, family-specific lesson packages, easy village layouts where beginners and advanced skiers can meet for lunch, on-mountain restaurants with views (so non-skiers can enjoy the day too), and sledding, tubing, or snowshoeing alternatives for rest days. The best beginner resorts make the whole experience enjoyable — not just the skiing itself.",
+      },
+    ],
+  },
+  {
+    slug: "how-to-wax-tune-skis",
+    title: "How to Wax and Tune Your Skis at Home",
+    description:
+      "A step-by-step guide to waxing and tuning your skis at home. Save money, improve performance, and learn when it is better to let a shop handle it.",
+    publishedAt: "2026-04-02",
+    sections: [
+      {
+        heading: "Why Waxing Matters",
+        content:
+          "Wax reduces friction between your ski base and the snow, making you faster and improving control. Un-waxed skis feel sticky and sluggish, especially in wet or warm snow. Fresh wax also protects the base material from drying out and oxidizing. How often you need to wax depends on how much you ski — every 3-5 days of skiing is a good rule of thumb. You can tell your skis need wax when the bases look chalky white instead of a consistent dark color.",
+      },
+      {
+        heading: "Tools You Will Need",
+        content:
+          "For a basic home wax setup you need: an iron (a dedicated wax iron is best, but an old household iron set to low works in a pinch — never use it for clothes again), all-temperature ski wax ($10-15 per bar), a plastic scraper ($5-10), a nylon brush ($10-15), a sturdy table or workbench, and ski vises or clamps to hold the ski steady. The total startup cost is $40-70. A wax kit bundle often saves money over buying pieces separately.",
+      },
+      {
+        heading: "Hot Wax Step-by-Step",
+        content:
+          "Clamp the ski base-up and clean any dirt with a nylon brush. Set your iron to the temperature recommended on the wax bar (usually 120-140 degrees Celsius). Hold the wax against the iron and drip it along the base in a zigzag pattern. Then glide the iron slowly from tip to tail, spreading the wax into a thin, even layer. Keep the iron moving — never let it sit in one spot, as this can damage the base. Let the wax cool completely (20-30 minutes). Scrape off the excess with the plastic scraper, working tip to tail. Finish by brushing tip to tail with the nylon brush to expose the base structure.",
+      },
+      {
+        heading: "Edge Tuning Basics",
+        content:
+          "Sharp edges grip on hard snow and ice. For basic edge maintenance, you need a diamond stone or edge file and an edge guide set to 88-89 degrees for the side edge. Hold the guide against the edge and run the file along it in smooth strokes from tip to tail. Remove any burrs with a gummy stone. Side-edge tuning is manageable at home with practice. Base-edge tuning (the angle of the edge on the bottom of the ski) is more precise and is better left to a shop — an incorrect base-edge angle can ruin your ski's handling.",
+      },
+      {
+        heading: "When to Take Your Skis to a Shop",
+        content:
+          "Some jobs require professional equipment: deep base scratches or gouges that need P-Tex repair, base grinding to flatten a warped or concave base, significant edge damage or rust, binding mounting or adjustment (always have this done by a certified technician), and end-of-season stone grinding to reset the base structure. A full shop tune typically costs $40-80 and is worth it once or twice per season. Use WinterStores to find shops near you that offer tuning services.",
+      },
+      {
+        heading: "Seasonal Maintenance Schedule",
+        content:
+          "Before the season: full shop tune with stone grind and edge sharpening. During the season: hot wax every 3-5 days of skiing, quick edge touch-up every 5-7 days. End of season: clean and hot wax the bases with a thick storage coat (do not scrape — leave the wax on to protect during summer). Store skis in a cool, dry place with bindings released. This routine keeps your equipment performing well for years and reduces long-term repair costs.",
+      },
+    ],
+  },
+  {
+    slug: "ski-trip-budget-guide",
+    title: "Ski Trip Budget Guide: How Much Does a Ski Vacation Really Cost?",
+    description:
+      "A realistic cost breakdown for ski vacations at every budget level. Learn where the money goes and practical tips to save without sacrificing the experience.",
+    publishedAt: "2026-04-03",
+    sections: [
+      {
+        heading: "Lift Tickets: The Biggest Daily Expense",
+        content:
+          "Single-day lift tickets at major resorts range from $80-250 depending on the resort and time of year. Multi-day passes save 10-20% per day. Season passes like Ikon ($950-1,050) and Epic ($910-1,040) pay for themselves in 4-6 days of skiing and include access to dozens of resorts. If you plan to ski 5+ days this season, a season pass is almost always the best deal. Smaller independent resorts offer tickets for $40-80, which is a great budget option for beginners who do not need massive terrain.",
+      },
+      {
+        heading: "Accommodation: Where You Stay Defines Your Budget",
+        content:
+          "Slopeside hotels at major resorts can run $300-800/night. Staying in a nearby town (10-20 minutes drive) cuts that to $100-250/night. Vacation rentals split between a group of friends can bring per-person costs down to $30-70/night. Hostels near ski towns in Europe and Japan offer dorm beds for $25-50/night. The sweet spot for most travelers is a rental property in a nearby town with a kitchen — cooking breakfast and lunch saves $30-50/day per person compared to eating everything on the mountain.",
+      },
+      {
+        heading: "Gear Rental and Equipment",
+        content:
+          "Standard ski rental packages (skis, boots, poles) cost $30-60/day at resort shops and $20-40/day at town shops. Demo or premium packages run $50-90/day. Helmet rental adds $8-15/day. Pre-booking online saves 10-20%. For a 5-day trip, budget $150-300 per person for rental gear. If you own your gear, factor in travel costs — airline ski bag fees are $35-75 each way on most carriers. Driving eliminates this entirely.",
+      },
+      {
+        heading: "Food and Drink",
+        content:
+          "On-mountain dining is expensive — a burger and drink easily costs $25-35. Brown-bagging lunch from your accommodation saves significantly. Budget $15-25/day if you eat breakfast and lunch at home and dine out for dinner, or $40-80/day if you eat every meal out. European resorts often have mountain huts with more reasonable prices than US resort cafeterias. In Japan, on-mountain ramen and curry cost $8-12 — one of many reasons Japan offers incredible value.",
+      },
+      {
+        heading: "Lessons and Extras",
+        content:
+          "Group lessons cost $60-120/day at most resorts. Private lessons run $300-600 for a half day. Kids' programs are typically $100-150/day including lunch and supervision. Other potential costs: parking ($10-30/day at some resorts), ski storage lockers ($5-10/day), hot springs or spa entry ($15-40), and evening activities. Not all of these are necessary — prioritize lessons if you are still learning, and skip the extras if budget is tight.",
+      },
+      {
+        heading: "Budget vs. Mid-Range vs. Luxury: Total Trip Cost",
+        content:
+          "For two adults on a 5-day ski trip (all costs included): Budget option ($1,500-2,500 total) — drive to a smaller resort, stay in a rental, cook most meals, rent basic gear, use a multi-day pass. Mid-range ($3,000-5,000 total) — fly to a major resort, hotel in town, eat out for dinner, demo-level rentals, one lesson. Luxury ($6,000-12,000+ total) — slopeside lodge, private lessons, premium gear, dining out every meal, spa visits. The biggest savings come from accommodation choice and cooking your own meals.",
+      },
+      {
+        heading: "Money-Saving Tips",
+        content:
+          "Buy season passes in the spring when next year's passes are cheapest. Book accommodation midweek, not Saturday to Saturday. Rent gear in town, not at the resort base. Bring snacks and water to the mountain. Ski in January or March instead of February (lower prices, same snow). Look for beginner packages that bundle lift, lesson, and rental at a discount. Share a vacation rental with friends. Use WinterStores to compare rental shop prices before committing. And if you are flexible on destination, smaller resorts offer 80% of the experience at 50% of the cost.",
+      },
+    ],
+  },
 ];
 
 export function getGuideBySlug(slug: string): Guide | undefined {
