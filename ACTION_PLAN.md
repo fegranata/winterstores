@@ -445,48 +445,46 @@ Run it in parallel with Phase 1–2, not instead of them.
 
 ## Phase 4 — Revenue, ready before the season
 
-### 4.1 — Ads are already ON in production, and rendering nothing
+### 4.1 — Ads are on and working. Two earlier entries here were wrong.
 
-Correcting two earlier claims in this file, both wrong:
+**Current state, verified in a real browser on production:**
+`NEXT_PUBLIC_AD_PROVIDER=adsterra` is set in Vercel, both Adsterra scripts load
+(native `profitablecpmratenetwork` and rectangle `highperformanceformat`), the
+`atOptions` inline script fires, the native container is populated with
+Adsterra's own markup, and a 300×250 ad iframe is present. Favorites, share and
+the report form all work; clicking favourite writes to localStorage.
 
-1. It is **not** true that every ad unit ID is empty. AdSense and Media.net maps
-   are, but the **Adsterra integration is complete** — leaderboard, mobile,
-   rectangle and native keys are all hardcoded with working script URLs.
-2. It is **not** true that `NEXT_PUBLIC_AD_PROVIDER` is unset. **It is set to
-   `adsterra` in Vercel.** The earlier conclusion came from curling HTML and
-   grepping for ad script URLs, which could never have detected it — Adsterra
-   injects client-side, so nothing appears in server HTML either way.
+**Nothing here needs fixing.** Two claims previously written in this file were
+false and have been removed:
 
-**The real problem is worse: ads are switched on and earning zero.** Verified on
-production:
+1. "Every ad unit ID is empty / monetization is structurally zero." Wrong. The
+   AdSense and Media.net maps are empty, but Adsterra is fully configured.
+   That conclusion came from curling HTML and grepping for ad script URLs —
+   a method that could never detect Adsterra, which injects client-side.
+2. "Ads are enabled but render nothing; `AdSlot` never hydrates; the Suspense
+   boundary never resolves." Also wrong, and the reason matters.
 
-- `AD_PROVIDER` is `adsterra` — the native container div
-  `container-3131eb29c262292b191576cb34795553` renders, and that element only
-  exists on the adsterra code path. No `[data-ad-slot]` placeholders, which is
-  what `"none"` would produce.
-- The Adsterra client code **is** in the live bundle (chunk `930e5c78feee5c05.js`).
-- Yet **no script element is ever appended** and the container stays empty.
-- Not ad blocking: reproduced in a clean browser with no extensions, and the
-  Adsterra script URL fetches fine from the page.
-- Reproduced locally with `NEXT_PUBLIC_AD_PROVIDER=adsterra`. A `console.log` at
-  the very top of the `AdSlot` component body **never fires on the client**,
-  while the same file's code is confirmed present in the served dev chunk. The
-  module ships and loads; the component is never invoked client-side.
+**Why that second diagnosis was wrong — worth remembering.** It was produced
+entirely inside the in-app preview browser, which does **not** complete React
+19's streaming Suspense resolution. In that environment `/store/[slug]` appears
+frozen: `<div hidden id="S:0">` never unhides, `<template id="B:0">` stays put,
+the `loading.tsx` skeleton remains in `<main>`, no React fibers attach below the
+boundary, and no client effect ever runs. Every one of those symptoms is an
+artifact of the tool. In real Chrome the boundary resolves, fibers attach, and
+ads render.
 
-So `AdSlot`'s `useEffect` never runs, and every placement is dead.
+**Rule for future debugging: never diagnose hydration, Suspense, streaming or
+client-side script injection in the in-app preview browser.** Use real Chrome.
+The preview browser is fine for HTML/DOM structure and network inspection, not
+for anything downstream of hydration.
 
-- [ ] **Diagnose why the client component is never invoked.** Root cause not yet
-      found. Next step: replace the `useEffect` + `document.createElement`
-      injection with `next/script` (`strategy="afterInteractive"`), which is the
-      idiomatic path for third-party scripts and does not depend on the
-      component's own effect running.
-- [ ] Until fixed, every ad slot on the site renders an empty box. Any revenue
-      reporting will read zero because there is nothing to report.
 - [x] `LAUNCH.md` copy fixed 2026-08-09 — the "No ads, no paywalls" line was an
-      error, replaced with an honest ad-supported line. Store count corrected
-      from "1,100+" to "1,000+" (actual: 1,053). The r/snowboarding post is now
-      genuinely different from r/skiing rather than a verbatim copy, which the
-      checklist in that file already warned against.
+      error (ads *are* live), replaced with an honest ad-supported line. Store
+      count corrected from "1,100+" to "1,000+" (actual: 1,053). The
+      r/snowboarding post is now genuinely different from r/skiing rather than a
+      verbatim copy, which the checklist in that file already warned against.
+- [ ] Revenue is now a question of traffic, not plumbing. With 5 clicks in 12
+      months there is nothing to monitor yet; revisit once Phase 2 and 3 land.
 
 ### 4.2 — Affiliate programmes (researched 2026-08-09, nothing built yet)
 
