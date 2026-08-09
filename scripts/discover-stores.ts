@@ -473,24 +473,46 @@ const TRANSLITERATE: Record<string, string> = {
   ø: "oe",
 };
 
-function slugify(name: string, city: string): string {
-  return `${name}-${city}`
-    .toLowerCase()
-    .replace(/[äöüßåæø]/g, (c) => TRANSLITERATE[c] ?? c)
-    // Split accents off their base letters, then drop them, so "Brașov"
-    // becomes brasov. Without this the [^a-z0-9] pass below deleted the
-    // accented letter outright and produced slugs like "br-ndl-sports"
-    // (Bründl) and "sportgesch-ft" (Sportgeschäft).
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+function slugPart(input: string): string {
+  return (
+    input
+      // NFKC folds full-width forms to ASCII, so "Ｈｉｇｈｐｕｓｈ" becomes
+      // "Highpush" instead of being stripped to nothing.
+      .normalize("NFKC")
+      .toLowerCase()
+      .replace(/[äöüßåæø]/g, (c) => TRANSLITERATE[c] ?? c)
+      // Split accents off their base letters, then drop them, so "Brașov"
+      // becomes brasov. Without this the [^a-z0-9] pass below deleted the
+      // accented letter outright and produced slugs like "br-ndl-sports"
+      // (Bründl) and "sportgesch-ft" (Sportgeschäft).
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+  );
+}
+
+function slugify(name: string, city: string, uniqueSeed = ""): string {
+  const namePart = slugPart(name);
+  const cityPart = slugPart(city);
+
+  // A name written entirely in a non-Latin script (Japanese, Korean, Chinese)
+  // leaves nothing behind. That previously yielded city-only slugs like
+  // /store/hakuba — meaningless as a URL, and guaranteed to collide with the
+  // next such shop in the same town. Fall back to city + a stable suffix from
+  // the provider's own place id.
+  if (!namePart) {
+    const seed = uniqueSeed.replace(/[^a-zA-Z0-9]/g, "").slice(-6).toLowerCase();
+    return [cityPart || "store", "shop", seed].filter(Boolean).join("-");
+  }
+
+  return [namePart, cityPart].filter(Boolean).join("-");
 }
 
 // ─── Auto-Insert ─────────────────────────────────────────
 async function insertStore(store: DiscoveredStore): Promise<void> {
   const id = randomUUID();
-  const slug = slugify(store.name, store.city);
+  const slug = slugify(store.name, store.city, store.sourceId);
 
   await sql`
     INSERT INTO stores (
