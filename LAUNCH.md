@@ -11,7 +11,7 @@ WinterStores is a free directory of ski shops, snowboard stores, and winter gear
 ### Detailed Description (About section)
 I couldn't find a single place to look up and compare winter sport stores near ski resorts. Google Maps shows you pins, but you can't filter by sport type, compare ratings across platforms, or see which shops offer boot fitting vs. rentals.
 
-So I built WinterStores — a free, community-powered directory covering 1,100+ stores across 21 countries. Each store gets a WinterStores Score that aggregates Google, Facebook, and Foursquare ratings. You can filter by skiing, snowboarding, cross-country, ice skating, and more.
+So I built WinterStores — a free, community-powered directory covering 1,000+ stores across 21 countries. Each store gets a WinterStores Score that aggregates Google, Facebook, and Foursquare ratings. You can filter by skiing, snowboarding, cross-country, ice skating, and more.
 
 This is the first version and I'd love your feedback. What's missing? What would make this useful for your next ski trip?
 
@@ -20,7 +20,7 @@ Hey everyone! I'm the maker of WinterStores.
 
 This started as a personal frustration — every time I planned a ski trip, I'd spend ages Googling rental shops, cross-referencing reviews on Google vs. TripAdvisor vs. Facebook, and still not knowing which ones actually had decent boot fitting.
 
-So I built a directory that pulls it all together. Right now it covers 1,100+ stores in 21 countries with aggregated ratings, sport type filters, and service tags (rentals, repairs, waxing, etc.).
+So I built a directory that pulls it all together. Right now it covers 1,000+ stores in 21 countries with aggregated ratings, sport type filters, and service tags (rentals, repairs, waxing, etc.).
 
 This is very much a v1 — I'd love to hear:
 - Are there stores or regions missing that you'd want to see?
@@ -57,7 +57,7 @@ Tips for retaking:
 **Title:** I built a free directory to find and compare ski shops near any resort — would love your feedback
 
 **Body:**
-Hey r/skiing — I got tired of the Google Maps guessing game every time I needed to find a rental shop or get my boots fitted somewhere new. So I built [WinterStores](https://winterstores.co) — a free directory of 1,100+ winter sport stores across 21 countries.
+Hey r/skiing — I got tired of the Google Maps guessing game every time I needed to find a rental shop or get my boots fitted somewhere new. So I built [WinterStores](https://winterstores.co) — a free directory of 1,000+ winter sport stores across 21 countries.
 
 Each store has an aggregated rating from Google, Facebook, and Foursquare, and you can filter by services (rentals, boot fitting, repairs, waxing), sport type, and price level.
 
@@ -66,23 +66,23 @@ This is the first version and I know there are gaps. I'd really appreciate it if
 - [Suggest a store](https://winterstores.co/suggest) if it's missing
 - Tell me what would make this actually useful for you
 
-No ads, no paywalls, no sign-up required. Just trying to build something the community finds helpful.
+Free to use and no sign-up required. There are banner ads to cover hosting — I'd rather that than put a directory behind a paywall.
 
 ### r/snowboarding
 
 **Title:** I built a free directory to find and compare snowboard shops near any resort — would love your feedback
 
 **Body:**
-Hey r/snowboarding — I got tired of the Google Maps guessing game every time I needed to find a rental shop or get my boots fitted somewhere new. So I built [WinterStores](https://winterstores.co) — a free directory of 1,100+ winter sport stores across 21 countries.
+Hey r/snowboarding — planning a trip somewhere new always meant the same routine for me: open Google Maps, squint at a dozen shop pins, then cross-check reviews one by one to work out which ones actually carry boards rather than just skis. So I built [WinterStores](https://winterstores.co) — a directory of 1,000+ winter sport shops across 21 countries.
 
-Each store has an aggregated rating from Google, Facebook, and Foursquare, and you can filter by services (rentals, boot fitting, repairs, waxing), sport type, and price level.
+You can filter to snowboarding specifically, then narrow by service — rentals, repairs, waxing, boot fitting — and each shop carries an aggregated score pulled from Google, Facebook and Foursquare so you're not comparing a 4.8 from 12 reviews against a 4.3 from 400.
 
-This is the first version and I know there are gaps. I'd really appreciate it if you:
-- Check if your local shop or favorite resort-area store is listed
-- [Suggest a store](https://winterstores.co/suggest) if it's missing
-- Tell me what would make this actually useful for you
+It's a first version and the gaps are real — coverage is much better in the Alps than in Japan or the Rockies right now. Genuinely useful to me if you'd:
+- Check whether your home shop is on there
+- [Add one](https://winterstores.co/suggest) if it's missing
+- Tell me what would make you actually use this over Maps
 
-No ads, no paywalls, no sign-up required. Just trying to build something the community finds helpful.
+Free to use and no sign-up required. There are banner ads to cover hosting — I'd rather that than put a directory behind a paywall.
 
 ### r/SideProject
 
@@ -91,7 +91,7 @@ No ads, no paywalls, no sign-up required. Just trying to build something the com
 **Body:**
 Been working on this side project for a while and it's finally at a point where I'd love feedback.
 
-[WinterStores](https://winterstores.co) is a directory of 1,100+ ski/snowboard/winter sport stores across 21 countries. It aggregates ratings from Google, Facebook, and Foursquare into a single score, and lets you filter by sport type, services, and price level.
+[WinterStores](https://winterstores.co) is a directory of 1,000+ ski/snowboard/winter sport stores across 21 countries. It aggregates ratings from Google, Facebook, and Foursquare into a single score, and lets you filter by sport type, services, and price level.
 
 **Stack:** Next.js 16, Supabase, Tailwind CSS, Vercel
 
@@ -107,7 +107,7 @@ Happy to answer any questions about the build!
 **Title:** Launched v1 of WinterStores — a niche directory for winter sport shops. Here's what I learned building it.
 
 **Body:**
-Just shipped the first version of [WinterStores](https://winterstores.co), a free directory of 1,100+ winter sport stores in 21 countries.
+Just shipped the first version of [WinterStores](https://winterstores.co), a free directory of 1,000+ winter sport stores in 21 countries.
 
 **The problem:** There's no good way to find and compare ski/snowboard shops near a resort. You end up on Google Maps clicking through individual listings, cross-referencing reviews on different platforms.
 

@@ -445,21 +445,48 @@ Run it in parallel with Phase 1–2, not instead of them.
 
 ## Phase 4 — Revenue, ready before the season
 
-### 4.1 — Ads are one environment variable from live
+### 4.1 — Ads are already ON in production, and rendering nothing
 
-Correcting an earlier note in this file: it is **not** true that every ad unit
-ID is empty. The AdSense and Media.net maps in `AdSlot.tsx` are empty, but the
-**Adsterra integration is complete** — leaderboard, mobile, rectangle and native
-keys are all hardcoded, with working script URLs and a slot map.
+Correcting two earlier claims in this file, both wrong:
 
-`NEXT_PUBLIC_AD_PROVIDER` is unset in Vercel, so `AD_PROVIDER` resolves to
-`"none"` and `AdSlot` renders nothing. Setting it to `adsterra` turns on every
-placement immediately.
+1. It is **not** true that every ad unit ID is empty. AdSense and Media.net maps
+   are, but the **Adsterra integration is complete** — leaderboard, mobile,
+   rectangle and native keys are all hardcoded with working script URLs.
+2. It is **not** true that `NEXT_PUBLIC_AD_PROVIDER` is unset. **It is set to
+   `adsterra` in Vercel.** The earlier conclusion came from curling HTML and
+   grepping for ad script URLs, which could never have detected it — Adsterra
+   injects client-side, so nothing appears in server HTML either way.
 
-- [ ] Decide **before** posting to Reddit. The r/skiing and r/snowboarding
-      drafts in `LAUNCH.md` say "No ads, no paywalls, no sign-up required."
-      That is true today and stops being true the moment this flips. Either
-      turn ads on and rewrite the copy, or keep them off through launch week.
+**The real problem is worse: ads are switched on and earning zero.** Verified on
+production:
+
+- `AD_PROVIDER` is `adsterra` — the native container div
+  `container-3131eb29c262292b191576cb34795553` renders, and that element only
+  exists on the adsterra code path. No `[data-ad-slot]` placeholders, which is
+  what `"none"` would produce.
+- The Adsterra client code **is** in the live bundle (chunk `930e5c78feee5c05.js`).
+- Yet **no script element is ever appended** and the container stays empty.
+- Not ad blocking: reproduced in a clean browser with no extensions, and the
+  Adsterra script URL fetches fine from the page.
+- Reproduced locally with `NEXT_PUBLIC_AD_PROVIDER=adsterra`. A `console.log` at
+  the very top of the `AdSlot` component body **never fires on the client**,
+  while the same file's code is confirmed present in the served dev chunk. The
+  module ships and loads; the component is never invoked client-side.
+
+So `AdSlot`'s `useEffect` never runs, and every placement is dead.
+
+- [ ] **Diagnose why the client component is never invoked.** Root cause not yet
+      found. Next step: replace the `useEffect` + `document.createElement`
+      injection with `next/script` (`strategy="afterInteractive"`), which is the
+      idiomatic path for third-party scripts and does not depend on the
+      component's own effect running.
+- [ ] Until fixed, every ad slot on the site renders an empty box. Any revenue
+      reporting will read zero because there is nothing to report.
+- [x] `LAUNCH.md` copy fixed 2026-08-09 — the "No ads, no paywalls" line was an
+      error, replaced with an honest ad-supported line. Store count corrected
+      from "1,100+" to "1,000+" (actual: 1,053). The r/snowboarding post is now
+      genuinely different from r/skiing rather than a verbatim copy, which the
+      checklist in that file already warned against.
 
 ### 4.2 — Affiliate programmes (researched 2026-08-09, nothing built yet)
 
