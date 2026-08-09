@@ -16,10 +16,24 @@ export interface PlatformRating {
   platformUrl: string;
 }
 
+/**
+ * Cache lifetimes for platform ratings.
+ *
+ * These were 30 minutes / 6 hours / 12 hours, which cost roughly $260 in two
+ * days. The lifetime was never the real problem though — the fetch path ran
+ * during page render, so 1,053 store pages under continuous crawler traffic
+ * wired Googlebot directly to the API bill with no ceiling. A shop's star
+ * rating does not move measurably in 30 minutes, and nothing about the product
+ * needs it to.
+ *
+ * Refreshing is now a scheduled job (scripts/refresh-ratings.ts) with an
+ * explicit cap, and the render path stays read-only via getPlatformRatings.
+ * These TTLs only bound how stale a scheduled refresh will tolerate.
+ */
 const TTL: Record<PlatformName, number> = {
-  google: 30 * 60 * 1000, // 30 minutes
-  facebook: 6 * 60 * 60 * 1000, // 6 hours
-  foursquare: 12 * 60 * 60 * 1000, // 12 hours
+  google: 30 * 24 * 60 * 60 * 1000, // 30 days
+  facebook: 30 * 24 * 60 * 60 * 1000, // 30 days
+  foursquare: 30 * 24 * 60 * 60 * 1000, // 30 days
 };
 
 type FetchResult =

@@ -51,3 +51,6 @@ drizzle/
 # claude
 .claude/
 tsconfig.tsbuildinfo
+
+# discovery output — regenerable, not source
+scripts/output/

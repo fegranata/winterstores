@@ -102,6 +102,40 @@ climbing, the pool is the next thing to look at.
 
 ---
 
+## API cost — what actually happened, and the rule that follows
+
+Roughly **$260 in two days** ($200 of credit plus €60 out of pocket) went on
+Google Places. The cause was not pricing and not the discovery pipeline:
+`TTL.google` in `platform-cache.ts` was **30 minutes**, and the fetch path ran
+*during page render*. With 1,053 store pages under continuous crawler traffic,
+Googlebot was wired directly to the API bill with no ceiling.
+
+Commit `fa26f39` responded by removing the fetch path from the render path
+entirely. That stopped the bleeding but went further than intended — ratings
+have been frozen since March 2026, and `getOrFetchPlatformRatings` still exists
+in `store-search.ts` with **no callers**.
+
+**The rule: a page render must never trigger a paid API call.** Traffic-coupled
+spend has no ceiling, and crawlers are traffic.
+
+Fixed 2026-08-09:
+
+- [x] TTLs raised from 30min/6h/12h to 30 days across all three platforms. A
+      star rating does not move measurably in half an hour.
+- [x] `scripts/refresh-ratings.ts` — scheduled, capped refresh. Oldest-first so
+      repeated capped runs eventually cover everything; dry run by default and
+      prints the exact call count before `--commit`.
+- [x] Render path stays read-only via `getPlatformRatings`. Keep it that way.
+
+Cadence: monthly, e.g. `npx tsx scripts/refresh-ratings.ts --limit 300 --commit`.
+A full pass over ~1,050 stores with a place ID is ~1,050 Place Details calls.
+
+**For calibration: discovery was never the expensive part.** It costs 3 Google
+Text Search calls per resort — a full 82-resort sweep is ~246 calls, well under
+$10. Only the render-path refresh was capable of running away.
+
+---
+
 ## Phase 0.5 — Confirmed bugs from the GSC issue detail (fixed 2026-08-09)
 
 Working through each "why pages aren't indexed" bucket turned up three real bugs
@@ -278,7 +312,35 @@ directory does — but they are not editorial content. If "Crawled – currently
 not indexed" has not started falling in 4–6 weeks, the next lever is genuine
 per-store copy for the shops that matter most, not more generation.
 
-### 1.2 — Break up chain near-duplicates
+### 1.2 — Resort coverage: the discovery script cannot fill the gaps as-is
+
+8 resorts have **zero** stores within 30km (Laax, Hakuba, Trysil, Sunday River,
+Portillo, Sierra Nevada, Baqueira-Beret, Kranjska Gora) and 30 have fewer than
+five — including Jackson Hole, Crested Butte, Åre, Nozawa and Thredbo at 1 each.
+Meanwhile Chamonix has 40 and Lech 41. `LAUNCH.md` invites people to "check if
+your local shop is listed", so these gaps are launch-visible.
+
+A targeted dry run over those 18 resorts (`--resorts`, added 2026-08-09) found
+only **35 candidates, of which ~11 were usable**. Two problems, both in the
+script rather than the data:
+
+1. **The 50km radius is not enforced.** Google's `searchText` treats radius as a
+   *bias*, not a filter, and nothing checks the result. 24 of 35 results were
+   outside it — Portillo returned 19 shops 67–78km away in Santiago and Las
+   Condes (city sports shops, not resort shops), and Kranjska Gora reached 105km
+   into Villach, Klagenfurt and Lignano Sabbiadoro, an Adriatic beach town,
+   including a surf shop.
+2. **15 of the 18 resorts returned nothing at all**, including Hakuba, Jackson
+   Hole and Laax — the ones most worth filling. Not a dedup artifact: only 7 of
+   42 were removed as duplicates. Cause not yet diagnosed; likely the quality
+   gates or the query set failing outside western Europe.
+
+- [ ] Enforce the radius as a hard filter on results, not just a request param
+- [ ] Log per-resort raw/passed/deduped counts so silent zero-yield is visible
+- [ ] Diagnose the 15 zero-yield resorts before re-running
+- [ ] Do **not** insert the current `scripts/output/discovered-stores.json`
+
+### 1.3 — Break up chain near-duplicates
 
 Five Christy Sports Telluride pages that differ by a street address will never
 all get indexed, and they dilute each other.
@@ -290,7 +352,7 @@ all get indexed, and they dilute each other.
       evo Whistler (5), Sport* Livigno (5), Skimium Les Deux Alpes (4),
       Intersport Crans-Montana (4), Breck Sports Breckenridge (4)
 
-### 1.3 — Fix the slug diacritics bug
+### 1.4 — Fix the slug diacritics bug
 
 `slugify()` in `scripts/discover-stores.ts:386` lowercases then applies
 `.replace(/[^a-z0-9]+/g, "-")`, which deletes every non-ASCII character instead
@@ -383,12 +445,60 @@ Run it in parallel with Phase 1–2, not instead of them.
 
 ## Phase 4 — Revenue, ready before the season
 
-- [ ] Affiliate booking CTAs (roadmap P0 #2). Must be live *before* the traffic
-      arrives, not after — otherwise the season converts nothing.
-- [ ] Decide the ads question. Right now monetization is structurally zero:
-      `NEXT_PUBLIC_AD_PROVIDER` is unset or `none` in Vercel, and every ad unit
-      ID in `AdSlot.tsx` is an empty string. "Monitor ad revenue" is not
-      actionable until this is switched on.
+### 4.1 — Ads are one environment variable from live
+
+Correcting an earlier note in this file: it is **not** true that every ad unit
+ID is empty. The AdSense and Media.net maps in `AdSlot.tsx` are empty, but the
+**Adsterra integration is complete** — leaderboard, mobile, rectangle and native
+keys are all hardcoded, with working script URLs and a slot map.
+
+`NEXT_PUBLIC_AD_PROVIDER` is unset in Vercel, so `AD_PROVIDER` resolves to
+`"none"` and `AdSlot` renders nothing. Setting it to `adsterra` turns on every
+placement immediately.
+
+- [ ] Decide **before** posting to Reddit. The r/skiing and r/snowboarding
+      drafts in `LAUNCH.md` say "No ads, no paywalls, no sign-up required."
+      That is true today and stops being true the moment this flips. Either
+      turn ads on and rewrite the copy, or keep them off through launch week.
+
+### 4.2 — Affiliate programmes (researched 2026-08-09, nothing built yet)
+
+Deliberately not scaffolded: which programmes accept you changes the design.
+
+**The key finding is that gear retail is the wrong category to lead with.**
+Traffic intent here is "find a rental shop near this resort", so rental booking
+matches intent far better and should convert several times higher than sending
+people to buy skis.
+
+**Tier 1 — matches intent, start here**
+
+| Programme | Terms | Why |
+|---|---|---|
+| Skiset (via Awin) | 30-day cookie; rate "varies by results" | 800 shops / 450+ resorts, heavy overlap with our listings |
+| Snowrental (via Awin) | Per-booking commission | Same group as Skiset; 1,000 shops / 400 resorts |
+| Ski-Lifts | up to 10% | Resort transfers — high-intent adjacent purchase |
+
+Skiset and Snowrental are both Ski Company group and both on Awin, so one
+application covers both.
+
+**Tier 2 — gear, for pages with no rental angle**
+
+Peter Glenn 9–12% with a **150-day cookie** (unusually long, worth having as the
+fallback), OutdoorMaster 15%, Backcountry 4–12%, UtahSkis 10%, evo 5%, Burton up
+to 6%, REI 5% but only a 15-day cookie.
+
+**Tier 3 — highest margin, weakest fit**
+
+Travel insurance pays 20–25% (Allianz) and converts well for adventure sports,
+but it is a stretch from "which shop should I rent from". Guide pages only, not
+store pages.
+
+- [ ] Apply to Awin for Skiset + Snowrental. Approval takes weeks and some
+      programmes vet publisher traffic — with 5 clicks in 12 months a decline is
+      possible, which is exactly why applying early matters.
+- [ ] Add Peter Glenn as the gear fallback, for the cookie length.
+- [ ] Implementation once accepted is small: an env-driven config mirroring
+      `ad-config.ts`, plus a CTA on store pages. Roughly half a day.
 
 ---
 

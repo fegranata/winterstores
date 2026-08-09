@@ -41,6 +41,19 @@ const AUTO_INSERT = process.argv.includes("--auto-insert");
 const regionIdx = process.argv.indexOf("--region");
 const REGION_FILTER = regionIdx !== -1 ? process.argv[regionIdx + 1] : null;
 
+// --resorts "Laax,Hakuba,Jackson Hole" → filter to a specific list.
+// Region granularity is too coarse for topping up known coverage gaps, and
+// every extra resort is 3 paid Google Text Search calls, so being able to name
+// exactly the resorts worth searching keeps a run to a couple of dollars.
+const resortsIdx = process.argv.indexOf("--resorts");
+const RESORT_FILTER =
+  resortsIdx !== -1
+    ? process.argv[resortsIdx + 1]
+        .split(",")
+        .map((r) => r.trim().toLowerCase())
+        .filter(Boolean)
+    : null;
+
 const SEARCH_QUERIES = [
   "ski shop",
   "snowboard store",
@@ -446,6 +459,21 @@ async function main() {
       const regions = [...new Set(RESORT_LOCATIONS.map((r) => r.region))].sort();
       console.error(`No resorts found for region "${REGION_FILTER}".`);
       console.error(`Available regions: ${regions.join(", ")}`);
+      process.exit(1);
+    }
+  }
+  if (RESORT_FILTER) {
+    resorts = resorts.filter((r) =>
+      RESORT_FILTER.includes(r.name.toLowerCase())
+    );
+    const unknown = RESORT_FILTER.filter(
+      (want) => !RESORT_LOCATIONS.some((r) => r.name.toLowerCase() === want)
+    );
+    // Fail loudly rather than silently searching fewer resorts than asked for —
+    // a typo would otherwise look like "that resort has no shops".
+    if (unknown.length > 0) {
+      console.error(`Unknown resort(s): ${unknown.join(", ")}`);
+      console.error("Check spelling against scripts/resort-locations.ts");
       process.exit(1);
     }
   }
