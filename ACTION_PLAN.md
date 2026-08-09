@@ -164,15 +164,39 @@ noindex then lifts itself automatically on the next build.
   deliberately noindexes. Correct. The two store URLs and `/browse/cz` in this
   bucket were the 200-instead-of-404 bug above.
 
-### Known fragility: the build is at its limit
+### ~~Known fragility: the build is at its limit~~ — resolved 2026-08-09
 
-**The country-listing routes cannot be prerendered.** Adding
-`generateStaticParams` to `/best-ski-shops/[slug]` made those 21 pages hang past
-a 180s per-page timeout; removing it and adding the same to `/browse/[country]`
-moved the identical failure there. It is not route-specific and not query cost —
-it is whichever DB-heavy listing route runs at the *tail* of the build, after
-~1,000 store pages have saturated the connection pool. Both now generate on
-first request under ISR.
+**This was a query bug, not a capacity limit, and the original diagnosis was
+wrong.** Adding `generateStaticParams` to the country-listing routes made them
+hang past a 180s per-page timeout, and the failure followed whichever route ran
+at the tail of the build. That looked like connection-pool saturation from sheer
+page count. It wasn't.
+
+`getStoresByCountry` and `getRegionsByCountry` compared `LOWER(country_code)`,
+which defeats `idx_stores_country_code` and forces a sequential scan — and
+neither they nor `getUniqueCountries` were `cache()`-wrapped, so browse and
+best-ski-shops each ran the same full scans two or three times per render,
+across 15 concurrent workers.
+
+With the column compared directly and all three helpers cached, the same build
+prerenders **1,227 pages in 11 seconds**. All three routes are now `●` SSG with
+a 24h revalidate:
+
+```
+├ ● /best-ski-shops/[slug]      1d   1y
+├ ● /browse/[country]           1d   1y
+├ ● /browse/[country]/[page]    1d   1y
+```
+
+That unlocked the two items that were blocked on it: `dynamicParams = false` now
+closes the soft-404 hole on `/browse/*`, and the routes are genuinely cached
+rather than serving `no-store` on every request.
+
+`/browse/[country]` is also paginated at 48 per page — **paginated, not capped**,
+because this route is the main source of internal links into store pages (each
+store has only 4–6). A top-N cap would have deleted most of them; splitting
+keeps every store linked exactly once. Paginated URLs are in the sitemap, each
+self-canonical, since every page lists a distinct set of stores.
 
 A related symptom from the same cause: one build died with
 `TypeError: Cannot read properties of undefined (reading 'toFixed')` on two

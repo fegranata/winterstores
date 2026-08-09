@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { RESORTS } from "@/lib/data/resorts";
 import { GUIDES } from "@/lib/data/guides";
 import { isGhostStore } from "@/lib/store-quality";
+import { COUNTRY_PAGE_SIZE } from "@/components/browse/CountryBrowse";
 
 // Shorter TTL than the page routes: the catch below degrades to a partial
 // sitemap if the DB is briefly unavailable, so limit how long that can stick.
@@ -42,6 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         updatedAt: schema.storesTable.updatedAt,
         website: schema.storesTable.website,
         totalReviewCount: schema.storesTable.totalReviewCount,
+        countryCode: schema.storesTable.countryCode,
       })
       .from(schema.storesTable);
 
@@ -60,12 +62,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    const countryPages: MetadataRoute.Sitemap = countries.map((c) => ({
-      url: `${baseUrl}/browse/${c.countryCode.toLowerCase()}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    }));
+    // Browse pages, including pagination — each paginated page lists a distinct
+    // set of stores, so leaving them out would hide most listings from crawlers
+    // that don't follow the pager.
+    const storeCountByCountry = new Map<string, number>();
+    for (const s of allStores) {
+      if (isGhostStore(s)) continue;
+      const key = s.countryCode.toLowerCase();
+      storeCountByCountry.set(key, (storeCountByCountry.get(key) ?? 0) + 1);
+    }
+
+    const countryPages: MetadataRoute.Sitemap = countries.flatMap((c) => {
+      const code = c.countryCode.toLowerCase();
+      const totalPages = Math.max(
+        1,
+        Math.ceil((storeCountByCountry.get(code) ?? 0) / COUNTRY_PAGE_SIZE)
+      );
+
+      return Array.from({ length: totalPages }, (_, i) => ({
+        url: i === 0 ? `${baseUrl}/browse/${code}` : `${baseUrl}/browse/${code}/${i + 1}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: i === 0 ? 0.6 : 0.4,
+      }));
+    });
 
     const bestShopsPages: MetadataRoute.Sitemap = countries.map((c) => ({
       url: `${baseUrl}/best-ski-shops/${c.countryCode.toLowerCase()}`,
