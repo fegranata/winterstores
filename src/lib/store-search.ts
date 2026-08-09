@@ -248,7 +248,12 @@ export async function getNearbyStores(
     .slice(0, limitCount);
 }
 
-export async function getUniqueCountries(): Promise<{
+/**
+ * cache()-wrapped: the browse and best-ski-shops pages each call this from both
+ * generateMetadata and the page body, so without it every render pays for two
+ * full-table aggregations instead of one.
+ */
+export const getUniqueCountries = cache(async function getUniqueCountries(): Promise<{
   country: string;
   countryCode: string;
   count: number;
@@ -269,21 +274,27 @@ export async function getUniqueCountries(): Promise<{
     countryCode: r.countryCode,
     count: r.count,
   }));
-}
+});
 
-export async function getStoresByCountry(countryCode: string): Promise<Store[]> {
+/**
+ * Compares against the column directly rather than LOWER(country_code), which
+ * defeated idx_stores_country_code and forced a sequential scan on every call
+ * (and left the planner estimating 5 rows where 327 came back). Codes are
+ * stored uppercase — verified, zero rows differ from their upper() form.
+ */
+export const getStoresByCountry = cache(async function getStoresByCountry(
+  countryCode: string
+): Promise<Store[]> {
   const db = getDb();
   const rows = await db
     .select()
     .from(storesTable)
-    .where(
-      eq(sql`LOWER(${storesTable.countryCode})`, countryCode.toLowerCase())
-    );
+    .where(eq(storesTable.countryCode, countryCode.toUpperCase()));
 
   return rows.map(rowToStore);
-}
+});
 
-export async function getRegionsByCountry(
+export const getRegionsByCountry = cache(async function getRegionsByCountry(
   countryCode: string
 ): Promise<{ region: string; count: number }[]> {
   const db = getDb();
@@ -293,14 +304,12 @@ export async function getRegionsByCountry(
       count: drizzleCount(),
     })
     .from(storesTable)
-    .where(
-      eq(sql`LOWER(${storesTable.countryCode})`, countryCode.toLowerCase())
-    )
+    .where(eq(storesTable.countryCode, countryCode.toUpperCase()))
     .groupBy(storesTable.region)
     .orderBy(desc(drizzleCount()));
 
   return rows.map((r) => ({ region: r.region, count: r.count }));
-}
+});
 
 export async function getStoresByRegion(
   countryCode: string,

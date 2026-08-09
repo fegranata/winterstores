@@ -194,31 +194,50 @@ lever is prerendering fewer pages — which §1.1's pruning delivers for free.
 This is the highest-leverage work on the list. Until it lands, links and content
 elsewhere are pushing against a door Google is holding shut.
 
-### 1.1 — Decide the fate of the 602
+### 1.1 — The fate of the 602 — **done 2026-08-09**
 
-Two viable strategies. **Pick one, don't half-do both.**
+Measuring the corpus killed the original plan. Pruning "pages with no unique
+content" would have meant noindexing **1,021 of 1,053 pages**:
 
-**Option A — Enrich (better ceiling, more work).** Give each store page enough
-unique content that it earns its index slot: a written description per store,
-per-store service detail, opening hours, price context, nearby-resort context,
-real reviews. Realistically needs generated-then-reviewed copy; ~1,053 stores is
-too many to hand-write.
+| Signal | Stores that have it |
+|---|---|
+| Any written description | **32** |
+| Description ≥200 chars | **0** |
+| Any photo | **0** |
+| ≥3 services | 32 |
+| ≥10 reviews | 988 |
+| A website | 1,006 |
+| No website *and* <5 reviews (true ghosts) | **12** |
 
-**Option B — Prune (faster, safer, lower ceiling).** `noindex` the store pages
-that have no unique content — no description, no platform ratings, no photos —
-and keep only the ones that stand up. They stay on the site and remain usable
-for humans; they just leave the index. This concentrates crawl budget and removes
-the sitewide quality drag.
+There is no useful middle signal — a quality bar either keeps ~everything or
+~nothing. So pruning alone could not have worked, and the chosen route was
+**compose descriptions from data that already exists, and prune only the 12
+genuine ghosts.**
 
-**Recommendation: B first, then A on the survivors.** Pruning is a days-long job
-with an immediate effect on the quality signal; enrichment is a months-long job.
-Do the cheap structural fix, then invest in depth on the pages worth keeping.
+- [x] `src/lib/store-description.ts` composes a factual summary from services,
+      sports, price level, city/region, score, review count and distance to the
+      nearest resort. A **render-time fallback, not a DB migration**: written
+      descriptions still win, new stores are covered with no backfill, and it
+      can be reverted in one commit rather than unpicked from 1,021 rows.
+      Phrasing is chosen by a stable hash of the slug so two shops with
+      near-identical facts still read differently.
+- [x] The composed text also replaces the old meta description, which was
+      identical boilerplate on every store page and made a poor snippet.
+- [x] `isGhostStore()` drives `noindex, follow` on the 12, and removes them from
+      the sitemap so the two signals agree (1,053 → 1,041 URLs).
 
-- [ ] Add a `hasSubstantiveContent` check (description present AND ≥1 platform
-      rating AND ≥3 services) driving `robots: { index: false }` in
-      `generateMetadata` for store pages that fail it
-- [ ] Exclude noindexed stores from `src/app/sitemap.ts`
-- [ ] Record the before/after count — this number is the KPI for Phase 1
+**Measured effect** on the two Bründl Ischgl pages that motivated this:
+
+| | Before | After |
+|---|---|---|
+| Page length | 288 words | 525 words |
+| Distinguishing vocabulary between the two | **10** | **39** |
+
+**Be honest about what this is.** Composed factual summaries are a large
+improvement on ten-words-different, and they are what every legitimate
+directory does — but they are not editorial content. If "Crawled – currently
+not indexed" has not started falling in 4–6 weeks, the next lever is genuine
+per-store copy for the shops that matter most, not more generation.
 
 ### 1.2 — Break up chain near-duplicates
 

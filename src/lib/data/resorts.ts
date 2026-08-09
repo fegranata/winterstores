@@ -142,6 +142,32 @@ export function getResortsByRegion(): Map<string, Resort[]> {
   return map;
 }
 
+/**
+ * Closest resort to a point, with distance. Pure in-memory over the static
+ * RESORTS array — no query — so store pages can cite a nearby resort without
+ * adding to the per-page DB load that already strains the build.
+ */
+export function getNearestResort(
+  lat: number,
+  lng: number
+): { resort: Resort; distanceKm: number } | null {
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+
+  let best: { resort: Resort; distanceKm: number } | null = null;
+  for (const resort of RESORTS) {
+    // Equirectangular approximation: plenty accurate at these distances and
+    // far cheaper than haversine across every resort for every store.
+    const latDelta = ((resort.lat - lat) * Math.PI) / 180;
+    const lngDelta =
+      (((resort.lng - lng) * Math.PI) / 180) *
+      Math.cos((((resort.lat + lat) / 2) * Math.PI) / 180);
+    const distanceKm = 6371 * Math.hypot(latDelta, lngDelta);
+
+    if (!best || distanceKm < best.distanceKm) best = { resort, distanceKm };
+  }
+  return best;
+}
+
 export function getAllResortSlugs(): string[] {
   return RESORTS.map((r) => r.slug);
 }

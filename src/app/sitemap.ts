@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { RESORTS } from "@/lib/data/resorts";
 import { GUIDES } from "@/lib/data/guides";
+import { isGhostStore } from "@/lib/store-quality";
 
 // Shorter TTL than the page routes: the catch below degrades to a partial
 // sitemap if the DB is briefly unavailable, so limit how long that can stick.
@@ -35,12 +36,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { getDb, schema } = await import("@/lib/db");
     const db = getDb();
 
-    const stores = await db
+    const allStores = await db
       .select({
         slug: schema.storesTable.slug,
         updatedAt: schema.storesTable.updatedAt,
+        website: schema.storesTable.website,
+        totalReviewCount: schema.storesTable.totalReviewCount,
       })
       .from(schema.storesTable);
+
+    // Keep the sitemap consistent with the noindex on those same pages —
+    // advertising a URL we tell Google not to index wastes crawl budget.
+    const stores = allStores.filter((s) => !isGhostStore(s));
 
     const countries = await db
       .selectDistinct({ countryCode: schema.storesTable.countryCode })

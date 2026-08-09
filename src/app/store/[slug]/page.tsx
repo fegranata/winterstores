@@ -14,6 +14,23 @@ import PlatformRatings from "@/components/store/PlatformRatings";
 import ReviewSection from "@/components/store/ReviewSection";
 import RelatedGuides from "@/components/store/RelatedGuides";
 import { getGuidesForStore } from "@/lib/data/guides";
+import { getNearestResort } from "@/lib/data/resorts";
+import { resolveStoreDescription } from "@/lib/store-description";
+import { isGhostStore } from "@/lib/store-quality";
+import type { Store } from "@/types/store";
+
+/** Nearest-resort context for the description, shared by metadata and the page. */
+function describeContext(store: Store) {
+  const nearest = getNearestResort(store.latitude, store.longitude);
+  return nearest
+    ? {
+        nearestResort: {
+          name: nearest.resort.name,
+          distanceKm: nearest.distanceKm,
+        },
+      }
+    : {};
+}
 import AdSlot from "@/components/ui/AdSlot";
 import type { Metadata } from "next";
 
@@ -44,11 +61,18 @@ export async function generateMetadata({ params }: StorePageProps): Promise<Meta
   if (!store) return { title: "Store Not Found" };
 
   const title = `${store.name} — Winter Sport Store in ${store.city}, ${store.country}`;
-  const description = store.description || `Find reviews, services, and details for ${store.name} in ${store.city}, ${store.country}.`;
+  // Prefer the real (or composed) description over the old generic fallback,
+  // which was identical for every store and made a poor search snippet.
+  const description =
+    resolveStoreDescription(store, describeContext(store))?.slice(0, 300) ||
+    `Find reviews, services, and details for ${store.name} in ${store.city}, ${store.country}.`;
 
   return {
     title,
     description,
+    // No website and effectively no reviews: nothing to say and nothing to
+    // verify, so keep it usable for humans but out of the index.
+    ...(isGhostStore(store) && { robots: { index: false, follow: true } }),
     openGraph: {
       title,
       description,
@@ -81,6 +105,8 @@ export default async function StorePage({ params }: StorePageProps) {
     getPlatformRatings(store.id),
     getStoreReviews(store.id),
   ]);
+
+  const description = resolveStoreDescription(store, describeContext(store));
 
   const priceDollars = "$".repeat(store.priceLevel);
 
@@ -157,11 +183,11 @@ export default async function StorePage({ params }: StorePageProps) {
             </div>
           </div>
 
-          {/* About */}
-          {store.description && (
+          {/* About — falls back to a composed summary when no copy was written */}
+          {description && (
             <div className="rounded-xl border border-slate-200 bg-white p-6">
               <h2 className="text-lg font-semibold text-slate-900 mb-3">About</h2>
-              <p className="text-slate-600 leading-relaxed">{store.description}</p>
+              <p className="text-slate-600 leading-relaxed">{description}</p>
             </div>
           )}
 
