@@ -57,7 +57,7 @@ Neither is a titles/meta problem. Do not spend time there.
 | — Alternate page with proper canonical | 50 |
 | — Discovered, currently not indexed | 25 |
 | — noindex / redirects / 404s / other | 34 |
-| Store pages in sitemap | 1,053 |
+| Store pages in sitemap | 1,053 (now 1,377 — see §1.2) |
 | **External backlinks** | **0** |
 | Internal links | 4,924 — but see below |
 
@@ -320,25 +320,45 @@ five — including Jackson Hole, Crested Butte, Åre, Nozawa and Thredbo at 1 ea
 Meanwhile Chamonix has 40 and Lech 41. `LAUNCH.md` invites people to "check if
 your local shop is listed", so these gaps are launch-visible.
 
-A targeted dry run over those 18 resorts (`--resorts`, added 2026-08-09) found
-only **35 candidates, of which ~11 were usable**. Two problems, both in the
-script rather than the data:
+**Resolved 2026-08-09 — 324 stores added, corpus 1,053 → 1,377.**
 
-1. **The 50km radius is not enforced.** Google's `searchText` treats radius as a
-   *bias*, not a filter, and nothing checks the result. 24 of 35 results were
-   outside it — Portillo returned 19 shops 67–78km away in Santiago and Las
-   Condes (city sports shops, not resort shops), and Kranjska Gora reached 105km
-   into Villach, Klagenfurt and Lignano Sabbiadoro, an Adriatic beach town,
-   including a surf shop.
-2. **15 of the 18 resorts returned nothing at all**, including Hakuba, Jackson
-   Hole and Laax — the ones most worth filling. Not a dedup artifact: only 7 of
-   42 were removed as duplicates. Cause not yet diagnosed; likely the quality
-   gates or the query set failing outside western Europe.
+The first dry run over those 18 resorts found only 35 candidates, ~11 usable,
+with 15 resorts returning nothing at all. Both causes were bugs in the script,
+not thin terrain:
 
-- [ ] Enforce the radius as a hard filter on results, not just a request param
-- [ ] Log per-resort raw/passed/deduped counts so silent zero-yield is visible
-- [ ] Diagnose the 15 zero-yield resorts before re-running
-- [ ] Do **not** insert the current `scripts/output/discovered-stores.json`
+1. **Every query was throwing its results away.** `c.types.includes(...)` on a
+   Google address component with no `types` field threw, and the `catch`
+   returned `[]` — discarding every result collected before the bad one. Nothing
+   was logged, so a crashed search looked exactly like a resort with no shops.
+   Google was in fact returning 40–60 places per resort the whole time.
+2. **The 50km radius was never enforced.** Google treats `locationBias` as a
+   bias, not a filter. Portillo returned Santiago shops 70km away; Kranjska Gora
+   reached 105km to an Adriatic beach town, surf shop included.
+
+Also fixed: blacklist terms matched as substrings, so `"inn"` rejected
+Intersport **Inn**sbruck and `"bar"` rejected **Bar**donecchia. Now whole-word.
+
+Same 18 resorts after the fixes: **670 passed gates, 333 new after dedup, none
+beyond 50km**, median distance 5.7km, 293 of 333 with websites. Portillo still
+yields 0 — correctly, it genuinely has nothing within 50km.
+
+Per-resort diagnostics now print raw/kept/gate-failures/out-of-radius plus top
+rejection reasons and any API error, so silent zero-yield can't recur.
+
+Cost: ~54 Google Text Search calls per full 18-resort run, about $2.
+
+**Follow-up from the insert:** 9 stores whose names are entirely Japanese,
+Korean or Chinese produced city-only slugs (`/store/hakuba`) because the ASCII
+pass stripped the name to nothing. `slugify` now NFKC-normalises (folding
+full-width Latin) and falls back to city + place-id suffix. The 9 rows were
+repaired in place. This is also the likely explanation for the script reporting
+336 inserts while the table grew by 324 — slug collisions.
+
+**Watch this against Phase 1.** These 324 pages are new thin pages, in the
+middle of fixing 602 that Google already declined. They do get composed
+descriptions automatically, and they fill launch-visible gaps at famous resorts,
+but if "Crawled – currently not indexed" climbs rather than falls at the next
+check, this batch is the first thing to suspect.
 
 ### 1.3 — Break up chain near-duplicates
 
