@@ -6,7 +6,12 @@ import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  const countries = await getUniqueCountries();
+  return countries.map((c) => ({ slug: c.countryCode.toLowerCase() }));
+}
 
 interface Props {
   params: Promise<{ slug: string }>;

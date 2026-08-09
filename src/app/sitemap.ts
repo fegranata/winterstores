@@ -2,7 +2,9 @@ import type { MetadataRoute } from "next";
 import { RESORTS } from "@/lib/data/resorts";
 import { GUIDES } from "@/lib/data/guides";
 
-export const dynamic = "force-dynamic";
+// Shorter TTL than the page routes: the catch below degrades to a partial
+// sitemap if the DB is briefly unavailable, so limit how long that can stick.
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://winterstores.co";

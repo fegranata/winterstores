@@ -4,7 +4,7 @@ import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Browse Winter Sport Stores by Country",

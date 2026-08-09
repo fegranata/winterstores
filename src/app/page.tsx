@@ -5,8 +5,15 @@ import type { SportType } from "@/types/store";
 import { getUniqueCountries, getStoreCount, getTotalReviewCount } from "@/lib/store-search";
 import AdSlot from "@/components/ui/AdSlot";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
+import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400; // counts/country list change rarely — no need for per-request DB reads
+
+// Title/description come from the root layout; this only pins the canonical,
+// which was the one page on the site without one.
+export const metadata: Metadata = {
+  alternates: { canonical: "https://winterstores.co" },
+};
 
 const FEATURED_SPORTS: SportType[] = [
   "skiing",
