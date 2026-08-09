@@ -354,11 +354,40 @@ full-width Latin) and falls back to city + place-id suffix. The 9 rows were
 repaired in place. This is also the likely explanation for the script reporting
 336 inserts while the table grew by 324 — slug collisions.
 
-**Watch this against Phase 1.** These 324 pages are new thin pages, in the
-middle of fixing 602 that Google already declined. They do get composed
-descriptions automatically, and they fill launch-visible gaps at famous resorts,
-but if "Crawled – currently not indexed" climbs rather than falls at the next
-check, this batch is the first thing to suspect.
+**Discovery alone leaves stores unrated — always run verification after.**
+`discover-stores.ts --auto-insert` writes rows with `winterstores_score = 0` and
+`total_review_count = 0`, which renders as "0.0" and "Based on 0 reviews" on
+every new page. It also pushed 38 of the 324 into the ghost bucket purely for
+having no reviews yet.
+
+`scripts/verify-stores.ts` is the missing second step: for every store with
+`is_verified = false` and a place id, it fetches the Google rating, writes
+`winterstores_score` + `total_review_count`, caches the result and marks the row
+verified. After running it:
+
+| | Before | After |
+|---|---|---|
+| New stores with score 0 | 324 | 5 (Google has no rating for them) |
+| Average score / reviews | 0.00 / 0 | **4.43★ / 135** |
+| Ghosts among the new rows | 38 | 13 |
+
+Cost is 1 Place Details call per store, and **`--dry-run` still makes the calls**
+— it previews the writes, not the spend. Budget for two passes if you dry-run
+first.
+
+**The full sequence for any future coverage fill:**
+
+```
+npx tsx scripts/discover-stores.ts --resorts "A,B,C"              # dry, review output
+npx tsx scripts/discover-stores.ts --resorts "A,B,C" --auto-insert
+npx tsx scripts/verify-stores.ts                                  # REQUIRED
+```
+
+**Watch this against Phase 1.** These 324 pages are new thin pages, added in the
+middle of fixing 602 that Google already declined. They get composed
+descriptions and real ratings, and they fill launch-visible gaps at famous
+resorts, but if "Crawled – currently not indexed" climbs rather than falls at
+the next check, this batch is the first thing to suspect.
 
 ### 1.3 — Break up chain near-duplicates
 
