@@ -4,6 +4,7 @@ import CountryBrowse, {
   COUNTRY_PAGE_SIZE,
   getCountryPageData,
 } from "@/components/browse/CountryBrowse";
+import { parsePageParam } from "@/lib/pagination";
 import type { Metadata } from "next";
 
 export const revalidate = 86400;
@@ -35,15 +36,9 @@ interface PagedCountryProps {
   params: Promise<{ country: string; page: string }>;
 }
 
-/** Rejects "01", "2.5", "-1" and similar so only canonical page URLs resolve. */
-function parsePage(raw: string): number | null {
-  if (!/^[1-9][0-9]*$/.test(raw)) return null;
-  return Number(raw);
-}
-
 export async function generateMetadata({ params }: PagedCountryProps): Promise<Metadata> {
   const { country: code, page: rawPage } = await params;
-  const page = parsePage(rawPage);
+  const page = parsePageParam(rawPage);
   if (page === null) return { title: "Not Found" };
 
   const data = await getCountryPageData(code, page);
@@ -63,7 +58,7 @@ export async function generateMetadata({ params }: PagedCountryProps): Promise<M
 
 export default async function PagedCountryPage({ params }: PagedCountryProps) {
   const { country: code, page: rawPage } = await params;
-  const page = parsePage(rawPage);
+  const page = parsePageParam(rawPage);
   if (page === null || page === 1) notFound(); // page 1 canonically lives at /browse/[country]
 
   const data = await getCountryPageData(code, page);

@@ -383,9 +383,28 @@ function deduplicateDiscovered(stores: DiscoveredStore[]): DiscoveredStore[] {
 }
 
 // ─── Slug generation ─────────────────────────────────────
+// German/Nordic characters that should expand rather than reduce to a bare
+// vowel — "Kitzbühel" belongs at kitzbuehel, not kitzbuhel.
+const TRANSLITERATE: Record<string, string> = {
+  ä: "ae",
+  ö: "oe",
+  ü: "ue",
+  ß: "ss",
+  å: "a",
+  æ: "ae",
+  ø: "oe",
+};
+
 function slugify(name: string, city: string): string {
   return `${name}-${city}`
     .toLowerCase()
+    .replace(/[äöüßåæø]/g, (c) => TRANSLITERATE[c] ?? c)
+    // Split accents off their base letters, then drop them, so "Brașov"
+    // becomes brasov. Without this the [^a-z0-9] pass below deleted the
+    // accented letter outright and produced slugs like "br-ndl-sports"
+    // (Bründl) and "sportgesch-ft" (Sportgeschäft).
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }

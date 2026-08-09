@@ -49,13 +49,28 @@ const PRICE_PHRASE: Record<1 | 2 | 3, string> = {
   3: "premium",
 };
 
-/** Stable, order-independent hash so phrasing is deterministic per store. */
+/**
+ * Stable hash, deterministic per store so phrasing never changes between builds.
+ *
+ * FNV-1a with a murmur3 finalizer rather than the usual `h * 31 + c`. That
+ * simpler form is useless here: 31 ≡ 1 (mod 3), so `h % 3` collapses to a digit
+ * sum, and salting the input with a slot number just shifts the result by one
+ * each time — leaving every sentence slot perfectly correlated. The avalanche
+ * step makes the low bits depend on all input bits, which is what actually
+ * decorrelates the slots.
+ */
 function hash(input: string): number {
-  let h = 0;
+  let h = 2166136261 >>> 0;
   for (let i = 0; i < input.length; i++) {
-    h = (h * 31 + input.charCodeAt(i)) | 0;
+    h ^= input.charCodeAt(i);
+    h = Math.imul(h, 16777619) >>> 0;
   }
-  return Math.abs(h);
+  h ^= h >>> 16;
+  h = Math.imul(h, 2246822507) >>> 0;
+  h ^= h >>> 13;
+  h = Math.imul(h, 3266489909) >>> 0;
+  h ^= h >>> 16;
+  return h >>> 0;
 }
 
 /** "a, b and c" */
@@ -74,9 +89,13 @@ export function buildStoreDescription(
   store: Store,
   context: StoreDescriptionContext = {}
 ): string {
-  const seed = hash(store.slug);
-  const pick = <T,>(options: T[], offset: number): T =>
-    options[(seed + offset) % options.length];
+  // Hash the slug together with the slot rather than offsetting one shared
+  // seed. With a single seed, two slugs congruent modulo the option count
+  // collide in *every* slot at once — a 1-in-3 chance of two shops reading
+  // identically, which is exactly the duplication this is meant to avoid.
+  // Salting per slot makes the slots independent.
+  const pick = <T,>(options: T[], slot: number): T =>
+    options[hash(`${store.slug}#${slot}`) % options.length];
 
   const sentences: string[] = [];
 

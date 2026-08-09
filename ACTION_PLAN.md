@@ -150,7 +150,22 @@ the nearby-store count is zero; they stay usable for humans.
 Fix them properly by running discovery for those regions (roadmap #9) — the
 noindex then lifts itself automatically on the next build.
 
-### Real: slug diacritics — see §1.3
+### Real: slug diacritics — generator fixed 2026-08-09, existing URLs left alone
+
+`slugify` in both `scripts/discover-stores.ts` and `scripts/scrape/google-places.ts`
+now transliterates (ä→ae, ü→ue, ß→ss) and NFD-normalises before stripping, so
+new imports produce `bruendl-sports-ischgl`, `sportgeschaeft`, `brasov`,
+`kitzbuehel` instead of `br-ndl`, `sportgesch-ft`, `bra-ov`, `kitzbuhel`.
+
+**The existing 1,053 URLs were deliberately not migrated.** An earlier count of
+"144 mangled slugs" conflated genuine diacritic damage with slugs that merely
+predate the current naming scheme (`christy-sports-vail` →
+`christy-sports-vail-bridge-street-vail`). Renaming live URLs needs 301s for
+marginal gain on pages sitting at position 31. If store content is ever
+regenerated wholesale, do it in that same pass — not as a standalone migration.
+
+Note `src/lib/data/resorts.ts` already had a correct NFD-normalising slugify;
+only the `scripts/` copies were broken.
 
 ### False alarms — no action needed
 

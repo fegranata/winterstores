@@ -8,6 +8,7 @@ import {
 import StoreCard from "@/components/store/StoreCard";
 import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { pageCount, pageSlice, pageStart } from "@/lib/pagination";
 
 /**
  * Stores per page.
@@ -36,7 +37,7 @@ export async function getCountryPageData(code: string, page: number) {
   if (!countryInfo) return null;
 
   const all = await getStoresByCountry(code);
-  const totalPages = Math.max(1, Math.ceil(all.length / COUNTRY_PAGE_SIZE));
+  const totalPages = pageCount(all.length, COUNTRY_PAGE_SIZE);
   if (page < 1 || page > totalPages) return null;
 
   return { countryInfo, total: all.length, totalPages };
@@ -59,17 +60,14 @@ export default async function CountryBrowse({ code, page }: CountryBrowseProps) 
     getRegionsByCountry(code),
   ]);
 
-  const totalPages = Math.max(
-    1,
-    Math.ceil(allStores.length / COUNTRY_PAGE_SIZE)
-  );
+  const totalPages = pageCount(allStores.length, COUNTRY_PAGE_SIZE);
   if (page < 1 || page > totalPages) notFound();
 
   const ranked = [...allStores].sort(
     (a, b) => b.winterstoresScore - a.winterstoresScore
   );
-  const start = (page - 1) * COUNTRY_PAGE_SIZE;
-  const stores = ranked.slice(start, start + COUNTRY_PAGE_SIZE);
+  const start = pageStart(page, COUNTRY_PAGE_SIZE);
+  const stores = pageSlice(ranked, page, COUNTRY_PAGE_SIZE);
 
   const lower = code.toLowerCase();
 

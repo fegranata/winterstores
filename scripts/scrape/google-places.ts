@@ -73,9 +73,24 @@ interface PlaceDetails {
   }[];
 }
 
+const TRANSLITERATE: Record<string, string> = {
+  ä: "ae",
+  ö: "oe",
+  ü: "ue",
+  ß: "ss",
+  å: "a",
+  æ: "ae",
+  ø: "oe",
+};
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
+    .replace(/[äöüßåæø]/g, (c) => TRANSLITERATE[c] ?? c)
+    // \w is ASCII-only, so the strip below deleted accented letters instead of
+    // folding them — "Bründl" became "brndl". Normalise first.
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/[^\w\s-]/g, "")
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
