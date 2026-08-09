@@ -120,7 +120,9 @@ export default async function ResortPage({ params }: ResortPageProps) {
             <div key={store.id} className="relative">
               <StoreCard store={store} />
               <span className="absolute right-3 top-3 rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500">
-                {store.distance.toFixed(1)}km
+                {Number.isFinite(store.distance)
+                  ? `${store.distance.toFixed(1)}km`
+                  : "—"}
               </span>
             </div>
           ))}

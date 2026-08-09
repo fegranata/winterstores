@@ -107,7 +107,11 @@ export default function StoreMapInner({
               </p>
               <div className="flex items-center gap-1 text-xs mb-1">
                 <span className="text-amber-500">{"★".repeat(Math.round(store.winterstoresScore))}</span>
-                <span className="font-semibold text-slate-700">{store.winterstoresScore.toFixed(1)}</span>
+                <span className="font-semibold text-slate-700">
+                  {Number.isFinite(store.winterstoresScore)
+                    ? store.winterstoresScore.toFixed(1)
+                    : "—"}
+                </span>
                 <span className="text-slate-400">({store.totalReviewCount})</span>
               </div>
               <div className="flex flex-wrap gap-1 mb-1.5">
