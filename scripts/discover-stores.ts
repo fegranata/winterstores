@@ -104,6 +104,15 @@ const REJECTED_DOMAINS = [
   "tripadvisor.com", "vrbo.com", "agoda.com", "hostelworld.com",
 ];
 
+// Match blacklist terms as whole words. Plain substring matching rejected far
+// too much: "inn" hit Intersport *Inn*sbruck, "bar" hit Bardonecchia, "tour"
+// hit anything with Tourbillon or Tourist. Short terms in this list are common
+// letter sequences, and a directory of alpine shop names is full of them.
+const BLACKLIST_PATTERNS = NAME_BLACKLIST.map(
+  (kw) =>
+    new RegExp(`(^|[^\\p{L}])${kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}([^\\p{L}]|$)`, "iu")
+);
+
 function passesQualityGates(
   name: string,
   types: string[],
@@ -112,9 +121,9 @@ function passesQualityGates(
   const nameLower = name.toLowerCase();
 
   // 1. Name blacklist — reject obviously wrong businesses
-  for (const keyword of NAME_BLACKLIST) {
-    if (nameLower.includes(keyword)) {
-      return { passes: false, reason: `name blacklist: "${keyword}"` };
+  for (let i = 0; i < BLACKLIST_PATTERNS.length; i++) {
+    if (BLACKLIST_PATTERNS[i].test(name)) {
+      return { passes: false, reason: `name blacklist: "${NAME_BLACKLIST[i]}"` };
     }
   }
 
@@ -191,12 +200,35 @@ function haversine(
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
+// ─── Per-resort diagnostics ──────────────────────────────
+// Without these a resort that yields nothing is indistinguishable from a resort
+// with no shops. A dry run over the 18 worst-covered resorts returned nothing
+// for 15 of them and there was no way to tell whether Google returned nothing,
+// the quality gates ate everything, or the request simply failed.
+interface SearchStats {
+  raw: number;
+  rejectedByGate: number;
+  outOfRadius: number;
+  kept: number;
+  reasons: Record<string, number>;
+  errors: string[];
+}
+
+function newStats(): SearchStats {
+  return { raw: 0, rejectedByGate: 0, outOfRadius: 0, kept: 0, reasons: {}, errors: [] };
+}
+
 // ─── Google Places: Text Search ──────────────────────────
 async function searchGoogle(
   query: string,
-  location: ResortLocation
+  location: ResortLocation,
+  stats: SearchStats = newStats()
 ): Promise<DiscoveredStore[]> {
   if (!GOOGLE_KEY) return [];
+
+  // Declared outside the try so a mid-loop throw can still return what was
+  // collected instead of silently dropping the entire query.
+  const results: DiscoveredStore[] = [];
 
   try {
     const res = await fetch(
@@ -222,11 +254,16 @@ async function searchGoogle(
       }
     );
 
-    if (!res.ok) return [];
+    if (!res.ok) {
+      // Was silently `return []`, so an API error looked exactly like "no shops
+      // near this resort" — the single most misleading thing this script did.
+      const body = await res.text().catch(() => "");
+      stats.errors.push(`google ${res.status}: ${body.slice(0, 180)}`);
+      return [];
+    }
     const data = await res.json();
     const places = data.places ?? [];
-
-    const results: DiscoveredStore[] = [];
+    stats.raw += places.length;
 
     for (const p of places as Array<{
       displayName?: { text?: string };
@@ -248,17 +285,41 @@ async function searchGoogle(
       // ── Quality Gate ──────────────────────────────────
       const check = passesQualityGates(name, types, p.websiteUri);
       if (!check.passes) {
-        continue; // silently skip bad results
+        stats.rejectedByGate++;
+        const key = check.reason ?? "unknown";
+        stats.reasons[key] = (stats.reasons[key] ?? 0) + 1;
+        continue;
       }
 
+      // Google treats locationBias as a *bias*, not a filter, and happily
+      // returns results far outside the circle. Portillo came back with shops
+      // 70km away in Santiago; Kranjska Gora reached 105km to an Adriatic beach
+      // town. Enforce the radius ourselves — the API will not do it for us.
+      const lat = p.location?.latitude;
+      const lng = p.location?.longitude;
+      if (typeof lat !== "number" || typeof lng !== "number") {
+        stats.outOfRadius++;
+        continue;
+      }
+      const distanceKm = haversine(location.lat, location.lng, lat, lng);
+      if (distanceKm > SEARCH_RADIUS / 1000) {
+        stats.outOfRadius++;
+        continue;
+      }
+
+      stats.kept++;
+      // Not every address component carries `types`. Without the optional
+      // chaining this threw, and because the catch below returned [], a single
+      // malformed component discarded every result for the whole query — which
+      // is why most resorts appeared to have no shops at all.
       const components = p.addressComponents ?? [];
       const city =
-        components.find((c) => c.types.includes("locality"))?.longText ?? "";
+        components.find((c) => c.types?.includes("locality"))?.longText ?? "";
       const country =
-        components.find((c) => c.types.includes("country"))?.longText ??
+        components.find((c) => c.types?.includes("country"))?.longText ??
         location.country;
       const countryCode =
-        components.find((c) => c.types.includes("country"))?.shortText ??
+        components.find((c) => c.types?.includes("country"))?.shortText ??
         location.countryCode;
 
       results.push({
@@ -278,8 +339,12 @@ async function searchGoogle(
     }
 
     return results;
-  } catch {
-    return [];
+  } catch (err) {
+    // Return what was collected rather than []. Discarding a whole query's
+    // results because the last place had a malformed field is how this script
+    // lost ~90% of its finds without saying a word.
+    stats.errors.push(`google threw: ${(err as Error).message}`);
+    return results;
   }
 }
 
@@ -509,15 +574,28 @@ async function main() {
 
     // Search with a couple of queries to get good coverage
     const queriesToUse = SEARCH_QUERIES.slice(0, 3); // Use first 3 queries
+    const stats = newStats();
 
     for (const query of queriesToUse) {
       const [googleResults, fsqResults] = await Promise.all([
-        searchGoogle(query, resort),
+        searchGoogle(query, resort, stats),
         searchFoursquare(query, resort),
       ]);
 
       allDiscovered.push(...googleResults, ...fsqResults);
     }
+
+    const topReasons = Object.entries(stats.reasons)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([r, n]) => `${r} ×${n}`)
+      .join(", ");
+    console.log(
+      `        google: ${stats.raw} raw → ${stats.kept} kept ` +
+        `(${stats.rejectedByGate} failed gates, ${stats.outOfRadius} outside ${SEARCH_RADIUS / 1000}km)` +
+        (topReasons ? `\n        gates: ${topReasons}` : "")
+    );
+    for (const e of stats.errors) console.log(`        ⚠️  ${e}`);
 
     // Rate limiting
     await new Promise((r) => setTimeout(r, 300));
