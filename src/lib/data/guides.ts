@@ -13,6 +13,13 @@ export interface Guide {
   title: string;
   description: string;
   publishedAt: string;
+  /**
+   * The one thing this guide is chiefly about, if it has one. General-interest
+   * guides leave it undefined. Must also appear in `topics`; it is not a
+   * separate tag, just a pointer at which topic is the subject rather than a
+   * supporting mention.
+   */
+  primaryTopic?: GuideTopic;
   topics: GuideTopic[];
   sections: { heading: string; content: string }[];
 }
@@ -24,6 +31,7 @@ export const GUIDES: Guide[] = [
     description:
       "A practical guide to finding the right ski rental shop for your next trip. Learn what to look for in equipment quality, pricing, location, and service.",
     publishedAt: "2026-03-20",
+    primaryTopic: "rentals",
     topics: ["rentals", "skiing", "snowboarding"],
     sections: [
       {
@@ -64,6 +72,7 @@ export const GUIDES: Guide[] = [
     description:
       "Everything you need to know about getting a proper ski boot fitting. From shell sizing to custom insoles, this guide helps you find the perfect fit.",
     publishedAt: "2026-03-22",
+    primaryTopic: "boot-fitting",
     topics: ["boot-fitting", "custom-fitting", "skiing"],
     sections: [
       {
@@ -104,6 +113,7 @@ export const GUIDES: Guide[] = [
     description:
       "Should you rent or buy your ski gear? A cost breakdown and practical comparison to help you decide based on how often you ski and your experience level.",
     publishedAt: "2026-03-25",
+    primaryTopic: "used-gear",
     topics: ["rentals", "used-gear", "skiing"],
     sections: [
       {
@@ -189,6 +199,7 @@ export const GUIDES: Guide[] = [
     description:
       "Planning your first ski trip? This step-by-step guide covers choosing a resort, booking, lessons, gear, packing, and budgeting so nothing catches you off guard.",
     publishedAt: "2026-03-30",
+    primaryTopic: "lessons",
     topics: ["lessons", "rentals", "skiing"],
     sections: [
       {
@@ -234,6 +245,7 @@ export const GUIDES: Guide[] = [
     description:
       "The top beginner-friendly ski resorts in the US, Europe, and Japan. Chosen for gentle terrain, quality ski schools, and welcoming atmospheres for first-timers.",
     publishedAt: "2026-04-01",
+    primaryTopic: "lessons",
     topics: ["lessons", "skiing", "snowboarding"],
     sections: [
       {
@@ -274,6 +286,7 @@ export const GUIDES: Guide[] = [
     description:
       "A step-by-step guide to waxing and tuning your skis at home. Save money, improve performance, and learn when it is better to let a shop handle it.",
     publishedAt: "2026-04-02",
+    primaryTopic: "waxing",
     topics: ["waxing", "repairs", "skiing"],
     sections: [
       {
@@ -364,6 +377,29 @@ export function getAllGuideSlugs(): string[] {
 }
 
 /**
+ * How much a service tells you about a shop.
+ *
+ * Nearly every store rents gear, so a rentals match is weak evidence and a poor
+ * reason to pick one guide over another. A boot-fitting bench or a used-gear
+ * rack is a deliberate investment that genuinely characterises the shop. Scoring
+ * every service equally let a guide that incidentally matched two weak services
+ * outrank the guide actually about what the shop is known for.
+ */
+const SERVICE_WEIGHT: Record<ServiceType, number> = {
+  rentals: 1,
+  repairs: 2,
+  waxing: 2,
+  storage: 2,
+  lessons: 3,
+  "used-gear": 3,
+  "custom-fitting": 4,
+  "boot-fitting": 4,
+};
+
+/** A guide's own subject matching a store's service is worth far more than a passing mention. */
+const PRIMARY_TOPIC_MULTIPLIER = 5;
+
+/**
  * Guides worth showing next to a given store, best match first.
  *
  * Search Console shows guide articles receiving essentially no internal links
@@ -371,10 +407,14 @@ export function getAllGuideSlugs(): string[] {
  * guides on store pages is the cheapest way to route equity to the pages that
  * can realistically rank, since store pages are by far the most numerous type.
  *
- * Services score higher than sports: "this shop does boot fitting" is a much
- * stronger reason to read the boot-fitting guide than "this shop does skiing",
- * which is true of almost every store. Ties break on recency, and the list is
- * topped up with the newest guides so a sparsely-tagged store still links out.
+ * Scoring, strongest signal first:
+ *   - the guide's primary subject is a service this shop offers, weighted by how
+ *     distinctive that service is (so boot-fitting beats rentals)
+ *   - a supporting topic matches a service, same weighting
+ *   - a topic matches one of the shop's sports (weak — nearly all stores ski)
+ *
+ * Ties break on recency, and the list tops up with the newest guides so a
+ * sparsely-tagged store still links out rather than rendering nothing.
  */
 export function getGuidesForStore(
   store: { services: ServiceType[]; sportTypes: SportType[] },
@@ -386,8 +426,15 @@ export function getGuidesForStore(
   const scored = GUIDES.map((guide) => {
     let score = 0;
     for (const topic of guide.topics) {
-      if (services.has(topic)) score += 3;
-      else if (sports.has(topic)) score += 1;
+      if (services.has(topic)) {
+        const weight = SERVICE_WEIGHT[topic as ServiceType] ?? 2;
+        score +=
+          topic === guide.primaryTopic
+            ? weight * PRIMARY_TOPIC_MULTIPLIER
+            : weight;
+      } else if (sports.has(topic)) {
+        score += 1;
+      }
     }
     return { guide, score };
   })
