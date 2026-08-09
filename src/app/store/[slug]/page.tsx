@@ -15,7 +15,7 @@ import ReviewSection from "@/components/store/ReviewSection";
 import AdSlot from "@/components/ui/AdSlot";
 import type { Metadata } from "next";
 
-export const revalidate = 3600; // re-render at most once per hour
+export const revalidate = 86400; // once per day — 1053 store pages under constant crawler traffic
 
 export async function generateStaticParams() {
   const db = getDb();
