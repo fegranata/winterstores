@@ -8,6 +8,12 @@ import type { Metadata } from "next";
 
 export const revalidate = 86400;
 
+// A "best shops" page should be a shortlist, not the full index. Rendering
+// every store made this a near-duplicate of /browse/[country] (same store
+// set, different sort) and pushed /best-ski-shops/us past 1MB of HTML.
+// The full list lives on /browse/[country], linked at the foot of the page.
+const TOP_N = 30;
+
 export async function generateStaticParams() {
   const countries = await getUniqueCountries();
   return countries.map((c) => ({ slug: c.countryCode.toLowerCase() }));
@@ -44,9 +50,10 @@ export default async function BestSkiShopsCountryPage({ params }: Props) {
   if (!countryInfo) notFound();
 
   const stores = await getStoresByCountry(slug);
-  const ranked = stores.sort(
-    (a, b) => b.winterstoresScore - a.winterstoresScore
-  );
+  const ranked = [...stores]
+    .sort((a, b) => b.winterstoresScore - a.winterstoresScore)
+    .slice(0, TOP_N);
+  const remaining = stores.length - ranked.length;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -82,8 +89,9 @@ export default async function BestSkiShopsCountryPage({ params }: Props) {
         Best Ski Shops in {countryInfo.country}
       </h1>
       <p className="mt-2 text-slate-500">
-        {ranked.length} winter sport store{ranked.length !== 1 ? "s" : ""}{" "}
-        ranked by WinterStores Score
+        {remaining > 0
+          ? `The top ${ranked.length} of ${stores.length} winter sport stores, ranked by WinterStores Score`
+          : `${ranked.length} winter sport store${ranked.length !== 1 ? "s" : ""} ranked by WinterStores Score`}
       </p>
 
       {/* Top 3 highlight */}
@@ -108,7 +116,7 @@ export default async function BestSkiShopsCountryPage({ params }: Props) {
       {ranked.length > 3 && (
         <>
           <h2 className="mt-10 text-xl font-semibold text-slate-800">
-            All Stores
+            Ranked #4–#{ranked.length}
           </h2>
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {ranked.slice(3).map((store) => (
@@ -120,11 +128,17 @@ export default async function BestSkiShopsCountryPage({ params }: Props) {
 
       {/* Cross-links */}
       <div className="mt-10 text-center">
+        {remaining > 0 && (
+          <p className="mb-4 text-sm text-slate-500">
+            {remaining} more store{remaining !== 1 ? "s" : ""} in{" "}
+            {countryInfo.country} didn&apos;t make the top {ranked.length}.
+          </p>
+        )}
         <Link
           href={`/browse/${slug.toLowerCase()}`}
           className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
         >
-          Browse all stores in {countryInfo.country}
+          Browse all {stores.length} stores in {countryInfo.country}
         </Link>
       </div>
 
