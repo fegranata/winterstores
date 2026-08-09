@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { RESORTS, getResortBySlug, getAllResortSlugs } from "@/lib/data/resorts";
-import { getStoresNearResort } from "@/lib/resort-search";
+import { getResortPageStores } from "@/lib/resort-search";
 import StoreCard from "@/components/store/StoreCard";
 import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
@@ -23,12 +23,18 @@ export async function generateMetadata({
   const resort = getResortBySlug(slug);
   if (!resort) return { title: "Resort Not Found" };
 
+  // A resort with no stores nearby renders as an empty "Ski Shops Near X"
+  // page, which Google files as a soft 404. Keep it for humans, keep it out
+  // of the index. Shares the page body's cached lookup — no extra query.
+  const { stores: nearby } = await getResortPageStores(resort.lat, resort.lng);
+
   return {
     title: `Ski Shops Near ${resort.name}, ${resort.country}`,
     description: `Find the best ski and snowboard shops near ${resort.name}. Browse winter sport stores within 30km of ${resort.name}, ${resort.region}.`,
     alternates: {
       canonical: `https://winterstores.co/resorts/${resort.slug}`,
     },
+    ...(nearby.length === 0 && { robots: { index: false, follow: true } }),
   };
 }
 
@@ -37,13 +43,11 @@ export default async function ResortPage({ params }: ResortPageProps) {
   const resort = getResortBySlug(slug);
   if (!resort) notFound();
 
-  // Try 30km first, expand to 50km if too few results
-  let stores = await getStoresNearResort(resort.lat, resort.lng, 30);
-  let radiusUsed = 30;
-  if (stores.length < 3) {
-    stores = await getStoresNearResort(resort.lat, resort.lng, 50);
-    radiusUsed = 50;
-  }
+  // 30km, widened to 50km when that turns up too few (shared with generateMetadata)
+  const { stores, radiusUsed } = await getResortPageStores(
+    resort.lat,
+    resort.lng
+  );
 
   // Get nearby resorts in the same region for cross-linking
   const relatedResorts = RESORTS.filter(

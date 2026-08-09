@@ -46,3 +46,23 @@ export const getStoresNearResort = cache(
       .sort((a, b) => a.distance - b.distance);
   }
 );
+
+/**
+ * The store list a resort page actually displays: 30km, widened to 50km when
+ * that turns up fewer than 3 shops.
+ *
+ * Both the page body and its generateMetadata need this. Going through one
+ * cache()-wrapped helper means they share a single result — calling
+ * getStoresNearResort directly with different radii would miss the cache and
+ * double the query count for every resort at build time.
+ */
+export const getResortPageStores = cache(
+  async (
+    lat: number,
+    lng: number
+  ): Promise<{ stores: StoreWithDistance[]; radiusUsed: number }> => {
+    const near = await getStoresNearResort(lat, lng, 30);
+    if (near.length >= 3) return { stores: near, radiusUsed: 30 };
+    return { stores: await getStoresNearResort(lat, lng, 50), radiusUsed: 50 };
+  }
+);

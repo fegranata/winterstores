@@ -17,6 +17,13 @@ import type { Metadata } from "next";
 
 export const revalidate = 86400; // once per day — 1053 store pages under constant crawler traffic
 
+// Without this, an unknown slug renders a "Store Not Found" page with HTTP 200
+// instead of a 404, and each unique bogus URL a crawler probes becomes its own
+// ISR cache entry — i.e. a billable write. generateStaticParams below already
+// enumerates every store, and nothing inserts into storesTable at runtime
+// (suggestions land in storeSuggestionsTable), so the set is complete at build.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const db = getDb();
   const rows = await db
@@ -136,7 +143,9 @@ export default async function StorePage({ params }: StorePageProps) {
             <div className="mt-3 flex items-center gap-3">
               <span className="inline-flex items-center justify-center rounded-lg bg-blue-50 px-3 py-1.5">
                 <span className="text-xl font-bold text-blue-700">
-                  {store.winterstoresScore.toFixed(1)}
+                  {Number.isFinite(store.winterstoresScore)
+                    ? store.winterstoresScore.toFixed(1)
+                    : "—"}
                 </span>
               </span>
               <RatingStars rating={store.winterstoresScore} size="md" showValue={false} />

@@ -12,10 +12,16 @@ import type { Metadata } from "next";
 
 export const revalidate = 86400;
 
-export async function generateStaticParams() {
-  const countries = await getUniqueCountries();
-  return countries.map((c) => ({ country: c.countryCode.toLowerCase() }));
-}
+// Deliberately no generateStaticParams / dynamicParams here, unlike
+// store/[slug]. Prerendering the 21 country pages reliably times out at the
+// tail of the build, once ~1,000 store pages have saturated the DB pool —
+// /best-ski-shops/[slug] fails the same way. They generate on first request
+// under ISR instead and then cache for 24h.
+//
+// Cost of that choice: an unknown country slug still answers 200 rather than
+// 404. Far less severe than it was on /store/*, where crawlers probing random
+// slugs were minting ISR cache entries. Fix properly by paginating this page
+// (it ships 1.1MB of HTML for /browse/us) so prerendering becomes affordable.
 
 interface CountryPageProps {
   params: Promise<{ country: string }>;

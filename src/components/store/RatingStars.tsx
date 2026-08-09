@@ -23,9 +23,13 @@ export default function RatingStars({
     lg: "text-base",
   }[size];
 
-  const fullStars = Math.floor(rating);
-  const hasHalf = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
-  const fullRoundUp = rating - fullStars >= 0.75;
+  // A missing or non-numeric rating must not throw: this renders during static
+  // generation, where one bad value would fail the entire build.
+  const safeRating = Number.isFinite(rating) ? rating : 0;
+
+  const fullStars = Math.floor(safeRating);
+  const hasHalf = safeRating - fullStars >= 0.25 && safeRating - fullStars < 0.75;
+  const fullRoundUp = safeRating - fullStars >= 0.75;
   const adjustedFull = fullRoundUp ? fullStars + 1 : fullStars;
   const emptyStars = maxRating - adjustedFull - (hasHalf ? 1 : 0);
 
@@ -42,7 +46,7 @@ export default function RatingStars({
       </div>
       {showValue && (
         <span className={`font-semibold text-slate-700 ${valueSizeClass}`}>
-          {rating.toFixed(1)}
+          {safeRating.toFixed(1)}
         </span>
       )}
     </div>

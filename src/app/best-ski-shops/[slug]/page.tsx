@@ -14,10 +14,12 @@ export const revalidate = 86400;
 // The full list lives on /browse/[country], linked at the foot of the page.
 const TOP_N = 30;
 
-export async function generateStaticParams() {
-  const countries = await getUniqueCountries();
-  return countries.map((c) => ({ slug: c.countryCode.toLowerCase() }));
-}
+// Deliberately no generateStaticParams. Prerendering these 21 pages at build
+// time reliably hangs past the per-page timeout — only this route, while
+// /browse/[country] makes near-identical queries and builds fine, so it is not
+// query cost. Under ISR they generate on first request and then cache for 24h,
+// which costs one slow visit per country per day and nothing else. Worth
+// revisiting; not worth blocking a deploy over.
 
 interface Props {
   params: Promise<{ slug: string }>;

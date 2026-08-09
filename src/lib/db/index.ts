@@ -24,7 +24,14 @@ export function getDb(): Database {
 
   const client = postgres(connectionString, {
     prepare: false, // required for Supabase connection pooler (transaction mode)
-    max: 5, // allow parallel queries during SSR
+    // The build renders ~1,200 DB-backed pages across 15 worker processes, each
+    // with its own pool. 5 was too tight: pages queued, some timed out, and at
+    // least one query came back empty mid-render (which is how a missing score
+    // reached .toFixed() and killed a whole build). 10 gives headroom without
+    // pushing 15 workers past what the Supabase transaction pooler will hold.
+    max: 10,
+    idle_timeout: 20, // recycle idle connections rather than pinning them
+    connect_timeout: 30,
   });
 
   _db = drizzle(client, { schema });

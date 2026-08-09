@@ -50,3 +50,4 @@ drizzle/
 
 # claude
 .claude/
+tsconfig.tsbuildinfo
