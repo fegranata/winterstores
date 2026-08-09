@@ -6,6 +6,8 @@ import StoreCard from "@/components/store/StoreCard";
 import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import ResortJsonLd from "@/components/seo/ResortJsonLd";
+import RelatedGuides from "@/components/store/RelatedGuides";
+import { getGuidesForStore } from "@/lib/data/guides";
 import type { Metadata } from "next";
 
 interface ResortPageProps {
@@ -172,6 +174,15 @@ export default async function ResortPage({ params }: ResortPageProps) {
           Search with filters near {resort.name}
         </Link>
       </div>
+
+      {/* Match guides against what the shops around this resort actually offer,
+          so a resort known for boot fitting surfaces the boot-fitting guide. */}
+      <RelatedGuides
+        guides={getGuidesForStore({
+          services: [...new Set(stores.flatMap((s) => s.services))],
+          sportTypes: [...new Set(stores.flatMap((s) => s.sportTypes))],
+        })}
+      />
 
       {/* Bottom ad */}
       <div className="mt-8">

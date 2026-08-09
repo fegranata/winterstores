@@ -1,8 +1,19 @@
+import type { ServiceType, SportType } from "@/types/store";
+
+/**
+ * What a guide is about, expressed in the same vocabulary stores use.
+ * Reusing SportType/ServiceType (rather than free-text tags) means a guide
+ * can be matched against a store's own services and sports, and a typo or a
+ * renamed service breaks the build instead of silently killing the match.
+ */
+export type GuideTopic = SportType | ServiceType;
+
 export interface Guide {
   slug: string;
   title: string;
   description: string;
   publishedAt: string;
+  topics: GuideTopic[];
   sections: { heading: string; content: string }[];
 }
 
@@ -13,6 +24,7 @@ export const GUIDES: Guide[] = [
     description:
       "A practical guide to finding the right ski rental shop for your next trip. Learn what to look for in equipment quality, pricing, location, and service.",
     publishedAt: "2026-03-20",
+    topics: ["rentals", "skiing", "snowboarding"],
     sections: [
       {
         heading: "Why Your Rental Shop Choice Matters",
@@ -52,6 +64,7 @@ export const GUIDES: Guide[] = [
     description:
       "Everything you need to know about getting a proper ski boot fitting. From shell sizing to custom insoles, this guide helps you find the perfect fit.",
     publishedAt: "2026-03-22",
+    topics: ["boot-fitting", "custom-fitting", "skiing"],
     sections: [
       {
         heading: "Why Boot Fitting Matters More Than Skis",
@@ -91,6 +104,7 @@ export const GUIDES: Guide[] = [
     description:
       "Should you rent or buy your ski gear? A cost breakdown and practical comparison to help you decide based on how often you ski and your experience level.",
     publishedAt: "2026-03-25",
+    topics: ["rentals", "used-gear", "skiing"],
     sections: [
       {
         heading: "The Break-Even Point",
@@ -130,6 +144,7 @@ export const GUIDES: Guide[] = [
     description:
       "A complete checklist of ski gear for beginners. Know exactly what to buy, what to rent, and what to skip so you stay warm, safe, and within budget.",
     publishedAt: "2026-03-28",
+    topics: ["skiing", "snowboarding", "rentals"],
     sections: [
       {
         heading: "Base Layers: Your First Line of Defense",
@@ -174,6 +189,7 @@ export const GUIDES: Guide[] = [
     description:
       "Planning your first ski trip? This step-by-step guide covers choosing a resort, booking, lessons, gear, packing, and budgeting so nothing catches you off guard.",
     publishedAt: "2026-03-30",
+    topics: ["lessons", "rentals", "skiing"],
     sections: [
       {
         heading: "Choosing the Right Resort",
@@ -218,6 +234,7 @@ export const GUIDES: Guide[] = [
     description:
       "The top beginner-friendly ski resorts in the US, Europe, and Japan. Chosen for gentle terrain, quality ski schools, and welcoming atmospheres for first-timers.",
     publishedAt: "2026-04-01",
+    topics: ["lessons", "skiing", "snowboarding"],
     sections: [
       {
         heading: "What Makes a Resort Beginner-Friendly",
@@ -257,6 +274,7 @@ export const GUIDES: Guide[] = [
     description:
       "A step-by-step guide to waxing and tuning your skis at home. Save money, improve performance, and learn when it is better to let a shop handle it.",
     publishedAt: "2026-04-02",
+    topics: ["waxing", "repairs", "skiing"],
     sections: [
       {
         heading: "Why Waxing Matters",
@@ -296,6 +314,7 @@ export const GUIDES: Guide[] = [
     description:
       "A realistic cost breakdown for ski vacations at every budget level. Learn where the money goes and practical tips to save without sacrificing the experience.",
     publishedAt: "2026-04-03",
+    topics: ["rentals", "storage", "skiing"],
     sections: [
       {
         heading: "Lift Tickets: The Biggest Daily Expense",
@@ -342,4 +361,51 @@ export function getGuideBySlug(slug: string): Guide | undefined {
 
 export function getAllGuideSlugs(): string[] {
   return GUIDES.map((g) => g.slug);
+}
+
+/**
+ * Guides worth showing next to a given store, best match first.
+ *
+ * Search Console shows guide articles receiving essentially no internal links
+ * while the five header destinations soak up ~980 each. Surfacing matched
+ * guides on store pages is the cheapest way to route equity to the pages that
+ * can realistically rank, since store pages are by far the most numerous type.
+ *
+ * Services score higher than sports: "this shop does boot fitting" is a much
+ * stronger reason to read the boot-fitting guide than "this shop does skiing",
+ * which is true of almost every store. Ties break on recency, and the list is
+ * topped up with the newest guides so a sparsely-tagged store still links out.
+ */
+export function getGuidesForStore(
+  store: { services: ServiceType[]; sportTypes: SportType[] },
+  limit = 3
+): Guide[] {
+  const services = new Set<string>(store.services);
+  const sports = new Set<string>(store.sportTypes);
+
+  const scored = GUIDES.map((guide) => {
+    let score = 0;
+    for (const topic of guide.topics) {
+      if (services.has(topic)) score += 3;
+      else if (sports.has(topic)) score += 1;
+    }
+    return { guide, score };
+  })
+    .filter((entry) => entry.score > 0)
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        b.guide.publishedAt.localeCompare(a.guide.publishedAt)
+    )
+    .map((entry) => entry.guide);
+
+  if (scored.length >= limit) return scored.slice(0, limit);
+
+  // Top up with the newest guides the store didn't already match.
+  const chosen = new Set(scored.map((g) => g.slug));
+  const filler = [...GUIDES]
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .filter((g) => !chosen.has(g.slug));
+
+  return [...scored, ...filler].slice(0, limit);
 }

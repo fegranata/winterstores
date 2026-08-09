@@ -12,6 +12,8 @@ import PhotoGallery from "@/components/store/PhotoGallery";
 import ReportForm from "@/components/store/ReportForm";
 import PlatformRatings from "@/components/store/PlatformRatings";
 import ReviewSection from "@/components/store/ReviewSection";
+import RelatedGuides from "@/components/store/RelatedGuides";
+import { getGuidesForStore } from "@/lib/data/guides";
 import AdSlot from "@/components/ui/AdSlot";
 import type { Metadata } from "next";
 
@@ -313,6 +315,11 @@ export default async function StorePage({ params }: StorePageProps) {
           </div>
         </section>
       )}
+
+      <RelatedGuides
+        guides={getGuidesForStore(store)}
+        storeName={store.name}
+      />
     </div>
   );
 }

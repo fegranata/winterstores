@@ -61,13 +61,28 @@ Neither is a titles/meta problem. Do not spend time there.
 | **External backlinks** | **0** |
 | Internal links | 4,924 — but see below |
 
-Internal link distribution is badly lopsided. The five nav destinations (`/`,
+Internal link distribution was badly lopsided. The five nav destinations (`/`,
 `/best-ski-shops`, `/browse`, `/guides`, `/resorts`) each receive ~980 links
 because they sit in the header on every page. Individual store pages receive
-**4–6 each**, and no guide article appears in the top-linked list at all. Nav
-chrome is soaking up the internal equity while the pages that need to rank get
-almost none — worth fixing alongside §2.1, since new guides will inherit the
-same problem otherwise.
+**4–6 each**, and no guide article appeared in the top-linked list at all — nav
+chrome was soaking up all the internal equity while the pages that need to rank
+got none.
+
+**Addressed 2026-08-09.** Guides now carry `topics` tagged in the same
+`SportType`/`ServiceType` vocabulary stores use, and `getGuidesForStore()`
+scores them against a store's own services (weight 3) and sports (weight 1),
+topping up with the newest guides so every page links out. `RelatedGuides`
+renders on all 1,053 store pages and all 83 resort pages, matched on what the
+shops nearby actually offer.
+
+Effect: each guide goes from ~0 inbound internal links to hundreds of
+*contextual* ones — and because the match is on services, the boot-fitting guide
+is linked from boot-fitting shops rather than sitewide. Re-check the Links
+report in ~4 weeks; guide articles should start appearing in "Top linked pages".
+
+Note this changes nothing about **external** links, which remain 0 and are the
+harder ceiling. Internal linking decides how equity is *distributed*; it cannot
+create any.
 
 ---
 
