@@ -134,6 +134,40 @@ A full pass over ~1,050 stores with a place ID is ~1,050 Place Details calls.
 Text Search calls per resort — a full 82-resort sweep is ~246 calls, well under
 $10. Only the render-path refresh was capable of running away.
 
+### Supabase egress — the third instance of the same mistake
+
+Supabase reported the **5.5GB egress quota** exceeded, Fair Use grace period to
+2026-09-17. Third quota to blow in one day (Vercel ISR writes, Google Places,
+now Supabase), and all three were the same shape: **a per-page cost multiplied
+by how often pages regenerate.**
+
+`getNearbyStores` fetched every row in a ~100km bounding box, then sorted and
+truncated in JS, to render **4** cards. Measured: **71 rows per store page on
+average, 198 at worst** — ~97,400 rows and ~37MB per full regeneration pass.
+
+| | Egress |
+|---|---|
+| Old 1-hour ISR | ~0.87 GB/day → **~26 GB/month** vs a 5.5GB quota |
+| 24-hour ISR (fixed this morning) | ~1.09 GB/month |
+| + SQL ranking (`ca75c40`) | **~0.07 GB/month** |
+
+Fixed by ordering and limiting in SQL: squared planar distance with a cos²
+longitude correction, exact haversine still applied to the survivors. Verified
+the SQL-ordered top 4 matches the haversine-ordered top 4 exactly. 97,436 rows
+per pass → 5,508.
+
+**Also worth knowing: rebuilding is not free.** Roughly 18 full builds ran on
+2026-08-09 between local verification and Vercel deploys, at ~37MB of egress
+each — about 0.67GB, a meaningful slice of a 5.5GB monthly quota, spent on
+debugging rather than users. Batch changes into fewer builds when the corpus is
+this DB-heavy.
+
+**The generalised rule, now three times over: anything that runs per page
+render or per build is multiplied by a number you do not control.** Check the
+multiplier before shipping the query, not after the email arrives. The remaining
+unaudited `select()` calls (`getStoresByCountry`, `searchStores`) fetch all
+columns; at ~400 bytes/row they are not urgent, but they are the same pattern.
+
 ---
 
 ## Phase 0.5 — Confirmed bugs from the GSC issue detail (fixed 2026-08-09)
