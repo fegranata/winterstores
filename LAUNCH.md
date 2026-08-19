@@ -2,8 +2,17 @@
 
 ## Product Hunt
 
-### Tagline (55 chars — PH limit is 60)
-Find and compare the best winter sport stores worldwide
+### Tagline (54 chars — PH limit is 60)
+Compare ski shops near any resort by rating and service
+
+Deliberately no store count here. The number moved three times in one day
+(1,053 → 1,377), and the tagline is the line nobody remembers to update. Scale
+lives in the descriptions below, which the pre-launch checklist tells you to
+re-verify. "Near any resort" is the actual differentiator against Google Maps —
+the site is organised around resorts, not just pins on a map.
+
+Alternative if you want the scale signal up front:
+`Compare 1,300+ ski shops by rating, service and resort` (54 chars)
 
 ### Short Description
 WinterStores is a free directory of ski shops, snowboard stores, and winter gear retailers across 23 countries. We aggregate ratings from Google, Facebook, and Foursquare into a single score — 265,000+ reviews condensed into one number — so you can compare shops at a glance. Filter by sport type, services (rentals, boot fitting, repairs), price level, and location. Anyone can suggest a missing store, no account needed.

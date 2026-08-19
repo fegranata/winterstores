@@ -212,6 +212,21 @@ export async function getNearbyStores(
   const latDelta = 1.0;
   const lngDelta = 1.5;
 
+  // Rank and truncate in SQL rather than fetching the whole box and sorting in
+  // JS. The box averaged 71 rows per store page (198 at worst) to render 4
+  // cards, which across 1,377 store pages meant ~97k rows — about 37MB of
+  // Supabase egress per full regeneration pass. At the old 1-hour ISR that was
+  // ~26GB/month against a 5.5GB quota.
+  //
+  // Squared planar distance is enough to order by at this scale; the cos²
+  // factor compensates for longitude converging toward the poles. Exact
+  // haversine still runs below, on the handful of rows that survive.
+  const cosLat = Math.cos((store.latitude * Math.PI) / 180) ** 2;
+  const approxDistance = sql`(
+    (${storesTable.latitude} - ${store.latitude}) * (${storesTable.latitude} - ${store.latitude})
+    + (${storesTable.longitude} - ${store.longitude}) * (${storesTable.longitude} - ${store.longitude}) * ${cosLat}
+  )`;
+
   let rows = await db
     .select()
     .from(storesTable)
@@ -223,14 +238,20 @@ export async function getNearbyStores(
         gte(storesTable.longitude, store.longitude - lngDelta),
         lte(storesTable.longitude, store.longitude + lngDelta)
       )
-    );
+    )
+    .orderBy(approxDistance)
+    .limit(limitCount);
 
-  // Fallback: if bounding box is empty (isolated store), load all
+  // Fallback for an isolated store with nothing in its box: widen to the whole
+  // table, but still order and truncate in SQL — the previous version loaded
+  // every row in the database here.
   if (rows.length === 0) {
     rows = await db
       .select()
       .from(storesTable)
-      .where(sql`${storesTable.id} != ${store.id}`);
+      .where(sql`${storesTable.id} != ${store.id}`)
+      .orderBy(approxDistance)
+      .limit(limitCount);
   }
 
   return rows
