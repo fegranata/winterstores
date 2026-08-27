@@ -34,7 +34,22 @@ function describeContext(store: Store) {
 import AdSlot from "@/components/ui/AdSlot";
 import type { Metadata } from "next";
 
-export const revalidate = 86400; // once per day — 1053 store pages under constant crawler traffic
+// 7 days. Store data only changes when discovery or verify-stores runs, and
+// both are manual and followed by a deploy that rebuilds every page anyway —
+// so daily regeneration was buying nothing.
+//
+// This is the dominant term in Vercel's ISR Writes quota: 1,377 pages is by far
+// the largest route. At 24h the account still ran ~12,000 writes/day against an
+// expected ~1,550, which is an unexplained ~8x (region multiplication is the
+// leading suspect — check the Regions tab on the Writes graph). Whatever the
+// multiplier turns out to be, dividing the base rate by 7 shrinks it too.
+//
+// Cost of this choice: a newly posted review takes up to 7 days to appear,
+// because getStoreReviews is server-rendered into the page. Acceptable at
+// current volume (786 page views last month, zero reviews). If reviews become
+// active, move that section to a client fetch against
+// /api/stores/[slug]/ratings rather than shortening this back.
+export const revalidate = 604800;
 
 // Without this, an unknown slug renders a "Store Not Found" page with HTTP 200
 // instead of a 404, and each unique bogus URL a crawler probes becomes its own

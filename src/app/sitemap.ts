@@ -4,9 +4,13 @@ import { GUIDES } from "@/lib/data/guides";
 import { isGhostStore } from "@/lib/store-quality";
 import { COUNTRY_PAGE_SIZE } from "@/components/browse/CountryBrowse";
 
-// Shorter TTL than the page routes: the catch below degrades to a partial
-// sitemap if the DB is briefly unavailable, so limit how long that can stick.
-export const revalidate = 3600;
+// 6 hours — a compromise. Shorter than the page routes because the catch below
+// degrades to a partial sitemap if the DB is briefly unavailable, and that
+// should not stick for long. But this response is ~220KB and was regenerating
+// hourly while the account sat at 163% of its ISR Writes quota, so 24 writes a
+// day of the single largest payload on the site was not a good trade. 6h caps a
+// bad sitemap at a quarter of a day and cuts the writes 6x.
+export const revalidate = 21600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://winterstores.co";
