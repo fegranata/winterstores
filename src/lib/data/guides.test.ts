@@ -22,7 +22,13 @@ describe("getGuidesForStore", () => {
 
   it("prefers a distinctive service over a near-universal one", () => {
     // Almost every shop rents gear, so rentals must not outrank used-gear.
-    const ranked = slugs(["rentals", "used-gear"]);
+    // Rank the whole catalogue: with a growing guide list the rentals guide
+    // may fall outside the default top 3 entirely, which would make indexOf
+    // return -1 and invert the comparison.
+    const ranked = getGuidesForStore(
+      store(["rentals", "used-gear"]),
+      GUIDES.length
+    ).map((g) => g.slug);
     expect(ranked.indexOf("renting-vs-buying-ski-equipment")).toBeLessThan(
       ranked.indexOf("how-to-choose-ski-rental-shop")
     );

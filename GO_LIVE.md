@@ -60,10 +60,16 @@ ceiling and it was planned for August — it is already late.
 
 ## 3 — Content (September, needs 2–3 months to age before season)
 
-- [ ] **Guides 9 → 25–30.** The most behind-schedule item. Buyer-intent
-      long-tail: boot fitting, rental vs buying costs, what to check before
-      renting, season-pass comparisons, beginner checklists. The only surface
-      a zero-authority domain can rank on.
+- [x] **Guides 8 → 23 (2026-09-07).** Fifteen new buyer-intent guides:
+      rental checklist, ski vs snowboard, snowboard gear + boot fit, custom
+      footbeds, season passes, used gear, repairs, storage, adult lessons,
+      kids' gear, flying with gear, cross-country, snowshoeing, sales
+      calendar. Every service in the matching vocabulary now has a primary
+      guide (custom-fitting, repairs, storage, used-gear were uncovered), and
+      snowboarding/cross-country/snowshoeing get their first coverage.
+- [ ] Optional: 2–7 more guides to hit the 25–30 target (candidate topics:
+      helmet fit and replacement, goggle lens guide, altitude and first-trip
+      fitness, ski clothing layering system).
 - [ ] Resort-page audit (`ACTION_PLAN.md` §2.2): make each the definitive
       "where to rent at [resort]" page rather than a template.
 - [ ] Optional, lower priority: chain near-duplicate consolidation (§1.3 —
