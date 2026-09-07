@@ -976,6 +976,166 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+  {
+    slug: "ski-helmet-fit-guide",
+    title: "Ski Helmet Fit: How to Choose One and When to Replace It",
+    description:
+      "How a ski helmet should actually fit, what the safety standards mean, goggle compatibility, and the replacement rules most skiers learn too late.",
+    publishedAt: "2026-09-07",
+    topics: ["skiing", "snowboarding", "rentals"],
+    sections: [
+      {
+        heading: "The Two-Finger, No-Wobble Fit Test",
+        content:
+          "A helmet that fits sits level on your head — brim about two fingers above the eyebrows, not tipped back like a hat — and grips firmly enough that shaking your head moves the helmet and scalp together, with no independent wobble. Chin strap snug enough that only a finger or two fits underneath. The classic mistakes run in both directions: a loose helmet rotates on impact and protects far less than its rating suggests, while an overtightened small shell causes pressure headaches by lunch. Measure your head circumference above the ears and start from the size chart, then fine-tune with the adjustment dial most helmets carry.",
+      },
+      {
+        heading: "What the Certification Stickers Mean",
+        content:
+          "Two standards cover nearly every ski helmet sold: CE EN1077 in Europe and ASTM F2040 in North America. Either certifies the impact protection that matters; helmets sold by reputable shops carry at least one, and many carry both. Beyond the baseline, rotational-impact systems — MIPS is the common brand name — add a low-friction layer that lets the shell rotate slightly on impact, and the modest surcharge is generally considered worthwhile. A bicycle or skate helmet is not a substitute: different standards, different temperature ratings, and no warmth. If a deal looks too cheap and carries no certification sticker, it is decoration.",
+      },
+      {
+        heading: "Goggle Compatibility Is a Fit Problem, Not a Brand Problem",
+        content:
+          "The gap to avoid is the exposed strip of forehead between goggle frame and helmet brim — cold, sunburn-prone, and the sign of mismatched shapes. Try helmet and goggles together before committing to either: the goggle frame should rest against the helmet's front edge with no gap and no downward pressure on the nose. Same-brand pairings often mate well, but plenty of cross-brand combinations fit fine — the test is your face, not the logo. Check too that the helmet's goggle retainer clip or channel holds the strap, and that vents align rather than dumping cold air into the goggle top.",
+      },
+      {
+        heading: "Warmth, Venting, and Audio",
+        content:
+          "Helmets replaced hats for good reason: a lined helmet with ear pads is warmer than most beanies. The feature worth prioritizing is adjustable venting — slider-controlled vents let you dump heat on a spring afternoon and seal up on a storm day, which fixed-vent budget models cannot. Removable ear pads extend the helmet into warm-weather use. Audio-compatible ear pads accept drop-in speakers if that appeals; wired headphones under a helmet do not work well and earbuds under ear pads are a pressure-point lottery. None of this affects safety — buy certification and fit first, comfort features second.",
+      },
+      {
+        heading: "Replace It More Often Than You Think",
+        content:
+          "The rule that surprises people: replace a helmet after any significant impact, even with no visible damage. The protective foam crushes to absorb energy exactly once — a helmet that has done its job is spent, and the crush is invisible from outside. Beyond impacts, manufacturers recommend replacement every five years or so of regular use, as foam and shell materials degrade with UV, temperature cycles, and sweat. Buying used helmets, or borrowing one with an unknown history, fails on exactly this point: you cannot see whether it has already absorbed its one impact. Helmets are the one category where new is the only sensible answer.",
+      },
+      {
+        heading: "Rent or Buy, and What to Spend",
+        content:
+          "Rental helmets ($8-15/day) are certified, sanitized between users, and the right call for a first trip. Once you ski even a few days a season, buying wins: $60-120 covers a certified, dial-adjust, vented helmet from any major brand, $150-250 adds MIPS-style protection, lighter in-mold construction, and premium liners. Fit beats features at every price. Buy where you can try helmet and goggles together — which is an argument for a shop over a warehouse click — and note that many rental shops discount helmet purchases alongside a season lease. Shops near your resort and their services are comparable on WinterStores.",
+      },
+    ],
+  },
+  {
+    slug: "ski-goggle-lens-guide",
+    title: "Ski Goggle Lenses Explained: VLT, Tints, and What to Actually Buy",
+    description:
+      "Why you can't see on flat-light days, what VLT percentages mean, which lens tints do what, and how to build a two-lens quiver without wasting money.",
+    publishedAt: "2026-09-07",
+    topics: ["skiing", "snowboarding", "rentals"],
+    sections: [
+      {
+        heading: "VLT: The Only Number on the Box That Matters",
+        content:
+          "Visible Light Transmission is the percentage of light a lens lets through, and it is the entire story of why a lens works or fails. Low VLT (5-20%) suits bright bluebird days — dark, heavily mirrored lenses that cut glare. High VLT (40-80%) suits storms, fog, and dusk — light rose, yellow, or clear lenses that let every available photon through. The classic beginner mistake is one dark lens worn everywhere: on a flat-light day it turns the slope into a gray void exactly when you most need to read the snow. Match VLT to conditions and half of goggle shopping is done.",
+      },
+      {
+        heading: "Flat Light Is a Contrast Problem",
+        content:
+          "Overcast days kill depth perception because shadows vanish — the bumps and dips that shadows reveal all flatten into uniform white. The fix is twofold: more light (high VLT) and more contrast. Rose, amber, and yellow tints amplify the blue-orange contrast range where snow detail lives, which is why storm lenses are warm-toned rather than gray. The contrast-enhancing technologies the big brands market under various names push the same idea further by filtering the wavelengths that wash detail out. They work and are worth having in the storm lens especially — but a $40 rose lens beats a $200 dark lens on a gray day every time.",
+      },
+      {
+        heading: "Tints, Decoded Quickly",
+        content:
+          "Clear and light yellow: night skiing and heavy snowfall, maximum light. Rose and pink: the flat-light workhorses, boosting contrast in dim and variable conditions. Amber and orange: the versatile middle, decent from partial sun to light overcast. Dark gray, brown, and heavy mirrors: bright sun, where their glare control earns the lost contrast. Photochromic lenses shift VLT with UV exposure and genuinely cover a wide range in one lens — at a price, and with the caveat that they adjust over minutes, not instantly. Polarized lenses cut glare beautifully but can hide the sheen that identifies ice, which is why many skiers deliberately avoid them.",
+      },
+      {
+        heading: "The Two-Lens Quiver Beats One Expensive Lens",
+        content:
+          "The practical setup for most skiers: one low-VLT lens for sunny days and one high-VLT rose or amber lens for everything else. Most mid-range and better goggles now sell with two lenses in the box and quick-change magnetic or lever systems that make swapping a chairlift job rather than a lodge job. This costs less than one flagship photochromic lens and covers a wider range. Buying used or entry-level? Prioritize the storm lens — bright-day vision is merely uncomfortable when compromised, but flat-light vision is a safety item.",
+      },
+      {
+        heading: "Fit, Fog, and the Care Rules",
+        content:
+          "A goggle must seal to your face without pressure points and mate cleanly with your helmet — try all three together. Anti-fog is mostly about airflow and discipline: keep vents clear, do not rest fogged goggles on a wet forehead or hat, never wipe the fragile anti-fog coating on the inner lens (blot gently with the bag they came in), and dry them at room temperature, never on a heater. Double-pane lenses fog far less than single-pane budget options and are worth insisting on. Spectacle wearers should look for OTG (over-the-glasses) frames or consider inserts — squeezing frames under a standard goggle bends both.",
+      },
+      {
+        heading: "What to Spend and Where",
+        content:
+          "Budget $50-100 for a solid double-pane goggle with one good lens, $120-200 for a two-lens quick-change package from a major brand — the sweet spot for anyone skiing more than a week a season — and beyond that you are paying for flagship optics and style. Rental shops rarely rent goggles (hygiene and scratch economics), so this is a purchase even for renters, and it is the accessory most worth buying in the November sales when last season's colorways drop 30-40%. Try before buying where possible: shops let you test the helmet-goggle-face triangle that no size chart captures. Find well-reviewed shops near your resort on WinterStores.",
+      },
+    ],
+  },
+  {
+    slug: "ski-clothing-layering-guide",
+    title: "How to Layer for Skiing: The Three-Layer System Explained",
+    description:
+      "Base, mid, and shell — how the layering system actually works, what each layer costs, the cotton rule, and how to adapt one set of clothes to any ski day.",
+    publishedAt: "2026-09-07",
+    topics: ["skiing", "snowboarding", "cross-country", "snowshoeing"],
+    sections: [
+      {
+        heading: "Why Layers Beat One Big Jacket",
+        content:
+          "Skiing alternates hard aerobic effort with sitting still on a chairlift in wind — a range no single garment covers. The three-layer system solves it with division of labor: a base layer against the skin manages sweat, a mid layer traps warmth, and a shell blocks wind and snow. The system's real feature is adjustability — shed the mid layer on a warm afternoon, add it back for the last cold hour — and it is why experienced skiers in three thin layers stay more comfortable than beginners in one enormous parka that is too hot at 11am and soaked by 2pm.",
+      },
+      {
+        heading: "The Cotton Rule Has No Exceptions",
+        content:
+          "Cotton absorbs sweat, holds it against your skin, and turns cold the moment you stop moving — the textbook recipe for a miserable, and in bad conditions genuinely risky, day on the mountain. That includes the t-shirt under your jacket, the hoodie you nearly wore, and standard athletic socks. Merino wool and synthetics (polyester blends sold as technical or wicking fabrics) move moisture outward and insulate even when damp. If one sentence of this guide survives in memory, make it this one: nothing cotton on a ski day, top to bottom, socks included.",
+      },
+      {
+        heading: "Base Layers: The Skin-Side Decision",
+        content:
+          "Base layers come in merino, synthetic, and blends. Merino ($60-110 a set) regulates temperature across a wider range and resists odor through a multi-day trip; synthetics ($30-60) dry faster, wear harder, and cost less. Fit should be snug — a loose base layer cannot wick. Weight matters less than marketing suggests: lightweight suits most resort skiing, midweight suits the genuinely cold, and heavy expedition-weight base layers under an insulated jacket mostly produce sweat. One set plus sink-washing covers a week; two sets cover indecision. Ski socks follow the same fabric rule and should be thin — thick socks compress circulation inside a fitted boot and make feet colder.",
+      },
+      {
+        heading: "Mid Layers: Where the Warmth Lives",
+        content:
+          "The mid layer is the thermostat. A 100-200 weight fleece ($40-80) is the durable, breathable default; a light synthetic-insulated jacket ($80-150) packs smaller and blocks a bit of wind for lift rides; a light down layer is warmest per gram but loses its insulation when damp, which limits it to cold, dry climates or under a fully waterproof shell. Cold-day trick: two thin mid layers beat one thick one, trapping more air and offering one more increment of adjustment. Warm spring days need no mid layer at all — base plus shell is a legitimate and common setup.",
+      },
+      {
+        heading: "The Shell: Weatherproofing, Not Warmth",
+        content:
+          "The outer layer's job is wind and water, and its two specs are waterproofing and breathability, both rated in the thousands — 10,000/10,000 is the practical floor for resort skiing, 20,000-class fabrics earn their price in wet climates and heavy weather. Insulated jackets bundle the mid layer into the shell: simpler and warmer for cold-climate resort skiing, less adaptable across conditions — fine as a first jacket, which is why the beginner checklist recommends them. Uninsulated hardshells maximize flexibility for everyone else. Features that matter: pit zips for venting, a powder skirt, helmet-compatible hood, and pockets that close. Pants follow the same logic, and bibs solve the snow-at-the-waist problem for deep-snow days.",
+      },
+      {
+        heading: "Sample Setups and a Sensible Budget",
+        content:
+          "Mild spring day: light base, shell, done. Standard winter day: light or midweight base, fleece mid, shell. Genuinely cold day: midweight base, two mids or one lofty one, shell, plus the accessories that punch above their weight — a buff for the neck and face, glove liners, and a helmet's warmth counted as part of the system. Starting from zero, the full stack runs roughly $250-450 at mid-range prices, less in the November and spring sales, and every piece doubles for winter hiking, snowshoeing, and cross-country. Rental shops rent hardware, not clothing — layers are the part of the kit that is yours to get right before the trip.",
+      },
+    ],
+  },
+  {
+    slug: "altitude-and-ski-trip-fitness",
+    title: "Altitude, Fitness, and Your First Days on the Mountain",
+    description:
+      "Why the first day at a high resort feels so hard, how to handle altitude sensibly, and the four-week pre-trip fitness routine that saves your legs for day three.",
+    publishedAt: "2026-09-07",
+    topics: ["skiing", "snowboarding", "lessons"],
+    sections: [
+      {
+        heading: "Why Day One at Altitude Feels So Rough",
+        content:
+          "Major ski resorts sit high — base villages at 1,500-2,900 meters (5,000-9,500 feet), summits higher — and the air there carries meaningfully less oxygen than home for most visitors. The predictable result on arrival: breathlessness on stairs, a headache by evening, poor first-night sleep, and legs that fade faster than fitness explains. Mild altitude symptoms touch a large share of visitors sleeping above 2,400 meters and typically resolve within a day or two as the body adjusts. Knowing this in advance changes trip planning more than any gear choice: the first day is for easy runs, not for keeping up with the friend who arrived a week ago.",
+      },
+      {
+        heading: "The Sensible Altitude Playbook",
+        content:
+          "The evidence-backed basics are unglamorous. Hydrate seriously from the day before travel — altitude drives fluid loss through breathing, and cold suppresses thirst. Go very easy on alcohol the first two nights; it amplifies every symptom and wrecks the sleep your adjustment depends on. Eat normally, favoring carbohydrates. Ski moderately on day one regardless of how good you feel at 9am. If you can shape the itinerary, a night at an intermediate elevation en route helps, as does sleeping lower than you ski — some resorts offer exactly that geometry. Headache pills handle the common mild headache; symptoms that worsen instead of fading — severe headache, vomiting, confusion, breathlessness at rest — mean descending and seeking medical help, not toughing it out.",
+      },
+      {
+        heading: "Skiing Is a Strength-Endurance Sport",
+        content:
+          "The dominant physical experience of a ski day is repeated sub-maximal leg efforts — hundreds of turns, each a partial squat absorbed eccentrically — stacked over four to six hours. That profile is why runners and cyclists still get destroyed by day two: aerobic fitness helps recovery between runs, but the burn mid-run is muscular endurance in the quads, glutes, and core, loaded in positions distance sports never visit. The practical consequence: general fitness helps, targeted preparation helps more, and nothing prepares you like skiing — which is an argument for pacing the first days rather than for despair.",
+      },
+      {
+        heading: "A Four-Week Pre-Trip Routine, No Gym Required",
+        content:
+          "Two or three short sessions a week for the month before the trip pay off out of proportion. The core four: squats (building toward single-leg or split variants), lunges in multiple directions, wall sits (the classic ski burner — work toward 60-90 second holds), and calf raises. Add a plank progression for the core that absorbs every bump, and lateral hops or skater jumps for the side-to-side power turns actually use. Twenty minutes, twice a week, four weeks: modest by any training standard, and the difference between day-three legs that carry you and day-three legs that quit at lunch. Cyclists and stair-climbers arrive with a head start; couch arrivals should double the wall sits.",
+      },
+      {
+        heading: "Pacing the Trip Itself",
+        content:
+          "The injury statistics are blunt: risk climbs sharply with fatigue, and the last-run-of-the-day crash is a cliche because it keeps happening. Structure the trip accordingly. Day one: half day, easy terrain, finish early and hydrate. Days two and three: full days with a real lunch break and an honest quit time — the legendary last run is optional every single day. Mid-trip rest half-day on longer trips: legs rebuild, and the snowshoe trail or spa exists for a reason. Stretching and easy movement in the evening beat collapsing into a chair. And warm muscles turn better: the first two runs each morning are warm-up runs at any age and any level.",
+      },
+      {
+        heading: "Lessons and Gear Choices That Protect Tired Legs",
+        content:
+          "Two purchasable advantages compound with fitness. A lesson early in the trip does more than teach technique — efficient technique is the difference between fighting the mountain all day and letting the skis do the work, which is why instructors ski until they are old and beginners are exhausted by 2pm. And properly fitted equipment spends your energy on skiing rather than on compensating: boots that fit transmit effort instead of absorbing it, and correctly sized, well-tuned rental skis turn without being wrestled. Both are bookable before the trip — shops and their lesson and fitting services are comparable by rating on WinterStores — and both are cheaper than the vacation day that tired legs lose.",
+      },
+    ],
+  },
 ];
 
 export function getGuideBySlug(slug: string): Guide | undefined {
