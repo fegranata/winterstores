@@ -8,6 +8,10 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import ResortJsonLd from "@/components/seo/ResortJsonLd";
 import RelatedGuides from "@/components/store/RelatedGuides";
 import { getGuidesForStore } from "@/lib/data/guides";
+import {
+  buildResortDescription,
+  buildResortMetaDescription,
+} from "@/lib/resort-description";
 import type { Metadata } from "next";
 
 interface ResortPageProps {
@@ -28,11 +32,16 @@ export async function generateMetadata({
   // A resort with no stores nearby renders as an empty "Ski Shops Near X"
   // page, which Google files as a soft 404. Keep it for humans, keep it out
   // of the index. Shares the page body's cached lookup — no extra query.
-  const { stores: nearby } = await getResortPageStores(resort.lat, resort.lng);
+  const { stores: nearby, radiusUsed } = await getResortPageStores(
+    resort.lat,
+    resort.lng
+  );
 
   return {
     title: `Ski Shops Near ${resort.name}, ${resort.country}`,
-    description: `Find the best ski and snowboard shops near ${resort.name}. Browse winter sport stores within 30km of ${resort.name}, ${resort.region}.`,
+    // Composed from this resort's actual store set — the previous description
+    // was identical boilerplate on all 83 resort pages.
+    description: buildResortMetaDescription(resort, nearby, radiusUsed),
     alternates: {
       canonical: `https://winterstores.co/resorts/${resort.slug}`,
     },
@@ -90,6 +99,18 @@ export default async function ResortPage({ params }: ResortPageProps) {
       <p className="mt-2 text-slate-500">
         {resort.region}, {resort.country}
       </p>
+
+      {/* Composed intro — driven by this resort's actual store set, so no
+          two resort pages share their prose (see resort-description.ts) */}
+      {stores.length > 0 && (
+        <div className="mt-5 max-w-3xl space-y-3">
+          {buildResortDescription(resort, stores, radiusUsed).map((p, i) => (
+            <p key={i} className="text-slate-600 leading-relaxed">
+              {p}
+            </p>
+          ))}
+        </div>
+      )}
 
       {/* Store count */}
       <div className="mt-6 rounded-lg bg-blue-50 px-4 py-3 text-sm text-blue-800">
