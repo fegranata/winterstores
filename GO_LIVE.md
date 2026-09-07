@@ -38,8 +38,11 @@ validation failed). Background lives in `ACTION_PLAN.md` and `HANDOVER.md`.
 Copy is ready in `LAUNCH.md`. This is the only lever on the zero-backlink
 ceiling and it was planned for August — it is already late.
 
-- [ ] Re-verify the store/resort/review counts in `LAUNCH.md` against the live
-      DB (they were correct at 1,377 / 83 / 265k on Aug 27, but they move).
+- [x] Counts re-verified against the live DB 2026-09-07 — all exact. Also
+      fixed a false claim: the copy said scores aggregate Google, Facebook
+      and Foursquare, but the ratings are 100% Google. Copy now pitches the
+      volume-weighted score without naming platforms (details in
+      `LAUNCH.md` pre-launch section).
 - [ ] Product Hunt launch (weekday, early PT morning).
 - [ ] r/SideProject post (same day or next).
 - [ ] r/indiehackers post.
@@ -84,11 +87,19 @@ ceiling and it was planned for August — it is already late.
       calendar. Every service in the matching vocabulary now has a primary
       guide (custom-fitting, repairs, storage, used-gear were uncovered), and
       snowboarding/cross-country/snowshoeing get their first coverage.
-- [ ] Optional: 2–7 more guides to hit the 25–30 target (candidate topics:
-      helmet fit and replacement, goggle lens guide, altitude and first-trip
-      fitness, ski clothing layering system).
-- [ ] Resort-page audit (`ACTION_PLAN.md` §2.2): make each the definitive
-      "where to rent at [resort]" page rather than a template.
+- [x] Four more guides 2026-09-07 (helmet fit, goggle lenses, layering,
+      altitude prep) — **27 total, inside the 25–30 target.**
+- [x] Resort-page audit done 2026-09-07: they had the store-page template
+      problem (zero prose, pages differing only by name). Fixed the same
+      way — `resort-description.ts` composes intro paragraphs and the meta
+      description from each resort's own store set (count, towns, service
+      tallies, review evidence, top-rated shop).
+- [ ] Follow-up surfaced by the resort intros: **services data is sparse** —
+      e.g. only 1 of Chamonix's 40 shops is tagged boot-fitting. The
+      composed copy is honest but thin because the underlying tags are.
+      A services-enrichment pass (from Google Places types/attributes or
+      website scraping) would improve store pages, resort intros, and
+      guide matching all at once.
 - [ ] Optional, lower priority: chain near-duplicate consolidation (§1.3 —
       Christy Sports Telluride ×5 etc.).
 
