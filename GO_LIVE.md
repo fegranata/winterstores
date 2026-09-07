@@ -6,17 +6,18 @@ validation failed). Background lives in `ACTION_PLAN.md` and `HANDOVER.md`.
 
 ## 0 — Stabilise (this week, blocks everything)
 
-- [ ] **Push and deploy the ISR write fix** (`29bde11`) — **after the billing
-      cycle resets** (dashboard suggests ~Sep 8; confirm the "current period"
-      dates on the usage page). Listing routes went 24h → 7d, sitemap 6h →
-      24h. Root cause of the "100% of ISR Writes" email is understood: Vercel
-      bills writes in **8KB units** — one ~60–100KB page regeneration costs
-      ~8–13 units, so ~1,550 regenerations/day read as ~12,000 units/day.
+- [ ] **Push and deploy the ISR write fix** (`29bde11`). Listing routes went
+      24h → 7d, sitemap 6h → 24h. Root cause of the "100% of ISR Writes" email
+      is understood: Vercel bills writes in **8KB units** — one ~60–100KB
+      page regeneration costs ~8–13 units, so ~1,550 regenerations/day read as
+      ~12,000 units/day.
 - [ ] **Dashboard verdict (checked 2026-09-07): the Aug 27 fix worked.**
       Writes fell from 11–16k/day to ~1–2k/day the day after `240eda7`
       deployed. Steady state is already under quota (~30–60k/month); this
-      commit trims it further. The cycle sits at 220k/200k (110%) only
-      because it includes the pre-fix Aug 8–27 burn plus one deploy spike.
+      commit trims it further. The alarming 220k/200k readout was the rolling
+      30-day graph window (pre-fix Aug 8–27 burn + one deploy spike); the
+      billing cycle is calendar-month and September sits at ~20k — no pause
+      risk, safe to deploy now.
 - [ ] **New rule from the Sep 3 spike: a full deploy costs ~12–17k write
       units** (~1,400 prerendered pages × ~9 units) — **6–8% of the monthly
       free quota per deploy.** The Vercel edition of "rebuilding is not free"
