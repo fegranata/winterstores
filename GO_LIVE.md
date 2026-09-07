@@ -6,18 +6,22 @@ validation failed). Background lives in `ACTION_PLAN.md` and `HANDOVER.md`.
 
 ## 0 — Stabilise (this week, blocks everything)
 
-- [ ] **Push and deploy the ISR write fix** (`29bde11`). Listing routes went
-      24h → 7d, sitemap 6h → 24h. Root cause of the "100% of ISR Writes" email
-      is now understood: Vercel bills writes in **8KB units** — one ~60–100KB
-      page regeneration costs ~8–13 units, so ~1,550 regenerations/day read as
-      ~12,000 units/day. Projected steady state after deploy: **~72k
-      units/month vs the 200k quota.**
-- [ ] **Vercel dashboard sanity check.** Confirm the billing-cycle reset date,
-      whether the project is at pause risk before the cycle rolls over, and —
-      a few days after deploying — that the Writes graph drops to roughly
-      2,000–3,000 units/day. If the cycle won't reset before overage pauses
-      the site during launch week, the $20 Pro month is cheap insurance;
-      otherwise don't upgrade.
+- [ ] **Push and deploy the ISR write fix** (`29bde11`) — **after the billing
+      cycle resets** (dashboard suggests ~Sep 8; confirm the "current period"
+      dates on the usage page). Listing routes went 24h → 7d, sitemap 6h →
+      24h. Root cause of the "100% of ISR Writes" email is understood: Vercel
+      bills writes in **8KB units** — one ~60–100KB page regeneration costs
+      ~8–13 units, so ~1,550 regenerations/day read as ~12,000 units/day.
+- [ ] **Dashboard verdict (checked 2026-09-07): the Aug 27 fix worked.**
+      Writes fell from 11–16k/day to ~1–2k/day the day after `240eda7`
+      deployed. Steady state is already under quota (~30–60k/month); this
+      commit trims it further. The cycle sits at 220k/200k (110%) only
+      because it includes the pre-fix Aug 8–27 burn plus one deploy spike.
+- [ ] **New rule from the Sep 3 spike: a full deploy costs ~12–17k write
+      units** (~1,400 prerendered pages × ~9 units) — **6–8% of the monthly
+      free quota per deploy.** The Vercel edition of "rebuilding is not free"
+      (`HANDOVER.md`). Batch changes into as few deploys as possible; don't
+      redeploy casually. No Pro upgrade needed at current burn.
 - [ ] **GSC noindex email: no action — do not "fix".** The failed validation
       for `Excluded by 'noindex' tag` covers pages that are noindexed **on
       purpose**: `/search`, `/login`, `/profile`, `/favorites`, ghost stores,
