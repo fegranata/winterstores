@@ -7,7 +7,7 @@ import CountryBrowse, {
 import { parsePageParam } from "@/lib/pagination";
 import type { Metadata } from "next";
 
-export const revalidate = 86400;
+export const revalidate = 604800; // matches /browse/[country]
 export const dynamicParams = false;
 
 /**

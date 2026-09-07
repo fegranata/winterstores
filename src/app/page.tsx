@@ -7,7 +7,7 @@ import AdSlot from "@/components/ui/AdSlot";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import type { Metadata } from "next";
 
-export const revalidate = 86400; // counts/country list change rarely — no need for per-request DB reads
+export const revalidate = 604800; // counts/country list change only on imports, which always end in a deploy
 
 // Title/description come from the root layout; this only pins the canonical,
 // which was the one page on the site without one.

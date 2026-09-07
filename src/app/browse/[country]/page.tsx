@@ -3,7 +3,9 @@ import { getUniqueCountries } from "@/lib/store-search";
 import CountryBrowse, { getCountryPageData } from "@/components/browse/CountryBrowse";
 import type { Metadata } from "next";
 
-export const revalidate = 86400;
+// 7 days, matching /store/[slug]: store data changes only via manual import
+// scripts, each followed by a deploy that rebuilds these pages anyway.
+export const revalidate = 604800;
 
 // Prerendering these was previously impossible: each page rendered every store
 // in the country (327 for the US, 1.1MB of HTML) and blew the build's per-page

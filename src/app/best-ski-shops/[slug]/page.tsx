@@ -6,7 +6,7 @@ import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 
-export const revalidate = 86400;
+export const revalidate = 604800; // store data changes only on imports, which always end in a deploy
 
 // A "best shops" page should be a shortlist, not the full index. Rendering
 // every store made this a near-duplicate of /browse/[country] (same store

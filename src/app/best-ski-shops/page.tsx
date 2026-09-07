@@ -4,7 +4,7 @@ import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 
-export const revalidate = 86400;
+export const revalidate = 604800; // store data changes only on imports, which always end in a deploy
 
 export const metadata: Metadata = {
   title: "Best Ski Shops Worldwide",

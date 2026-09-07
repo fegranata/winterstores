@@ -39,10 +39,11 @@ import type { Metadata } from "next";
 // so daily regeneration was buying nothing.
 //
 // This is the dominant term in Vercel's ISR Writes quota: 1,377 pages is by far
-// the largest route. At 24h the account still ran ~12,000 writes/day against an
-// expected ~1,550, which is an unexplained ~8x (region multiplication is the
-// leading suspect — check the Regions tab on the Writes graph). Whatever the
-// multiplier turns out to be, dividing the base rate by 7 shrinks it too.
+// the largest route. The "unexplained ~8x" (12,000 observed units/day vs ~1,550
+// expected regenerations) is resolved: Vercel bills ISR Writes in 8KB units,
+// not per write, so one ~60-100KB page regeneration costs ~8-13 units. Not
+// region multiplication. The levers are therefore regeneration frequency
+// (this TTL) and payload size.
 //
 // Cost of this choice: a newly posted review takes up to 7 days to appear,
 // because getStoreReviews is server-rendered into the page. Acceptable at

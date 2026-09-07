@@ -4,7 +4,9 @@ import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 
-export const revalidate = 86400;
+// 7 days, matching /store/[slug]: the country list only changes when import
+// scripts run, and those are always followed by a deploy that rebuilds this.
+export const revalidate = 604800;
 
 export const metadata: Metadata = {
   title: "Browse Winter Sport Stores by Country",
