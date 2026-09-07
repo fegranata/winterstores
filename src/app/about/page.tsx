@@ -6,7 +6,7 @@ const FAQ_ITEMS = [
   {
     question: "What is the WinterStores Score?",
     answer:
-      "The WinterStores Score is an aggregated rating we calculate from multiple review platforms including Google, Facebook, and Foursquare. It gives you a single, reliable number to compare winter sport stores at a glance.",
+      "The WinterStores Score condenses a store's aggregated reviews into one comparable number, weighted by review volume — so a 4.8 from a dozen reviews doesn't outrank a 4.4 from four hundred. It gives you a single, reliable number to compare winter sport stores at a glance.",
   },
   {
     question: "Is WinterStores free to use?",
@@ -26,7 +26,7 @@ const FAQ_ITEMS = [
   {
     question: "How often are ratings updated?",
     answer:
-      "We refresh ratings from external platforms regularly — Google ratings update every 30 minutes, Facebook every 6 hours, and Foursquare every 12 hours to keep scores current.",
+      "Ratings are refreshed on a rolling schedule, with every store's score periodically re-checked against its source platform so the numbers stay representative.",
   },
 ];
 
@@ -90,10 +90,10 @@ export default function AboutPage() {
           </h2>
           <p>
             Every store on our platform receives a WinterStores Score — an
-            aggregated rating based on reviews from multiple trusted platforms
-            including Google, Facebook, and Foursquare. This gives you a
-            single, reliable number to compare stores at a glance, rather than
-            checking each platform individually.
+            aggregated rating that condenses the store&apos;s reviews into one
+            number, weighted by review volume. This gives you a single,
+            reliable number to compare stores at a glance, rather than
+            weighing up each store&apos;s rating and review count yourself.
           </p>
         </section>
 
@@ -103,7 +103,7 @@ export default function AboutPage() {
           </h2>
           <ul className="list-disc pl-5 space-y-2">
             <li>Search and filter stores by sport type, services, and location</li>
-            <li>Compare ratings from Google, Facebook, and Foursquare in one place</li>
+            <li>Compare review-volume-weighted scores across 1,300+ stores</li>
             <li>Save your favorite stores for quick access</li>
             <li>Leave your own reviews to help the community</li>
             <li>Discover stores near popular ski resorts worldwide</li>

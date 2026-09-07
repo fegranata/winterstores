@@ -94,12 +94,27 @@ ceiling and it was planned for August — it is already late.
       way — `resort-description.ts` composes intro paragraphs and the meta
       description from each resort's own store set (count, towns, service
       tallies, review evidence, top-rated shop).
-- [ ] Follow-up surfaced by the resort intros: **services data is sparse** —
-      e.g. only 1 of Chamonix's 40 shops is tagged boot-fitting. The
-      composed copy is honest but thin because the underlying tags are.
-      A services-enrichment pass (from Google Places types/attributes or
-      website scraping) would improve store pages, resort intros, and
-      guide matching all at once.
+- [x] **Services enrichment done 2026-09-07.** `scripts/enrich-services.ts`
+      reads each store's own website and keyword-matches a multi-language
+      service vocabulary (strong keywords tag on one hit, weak ones need
+      two). Full pass: 1,174 sites read, **619 stores gained tags**
+      (boot-fitting +226, waxing +215, repairs +390, storage +103,
+      used-gear +99) — service coverage went from 2.3% to ~47% of the
+      corpus. Merge-only: hand-set tags always survive. Re-runnable after
+      future imports.
+- [ ] **Scheduled: fill the 13 thin marquee resorts AFTER the mid-September
+      GSC check** (kept out of the measurement window on purpose). Val
+      d'Isère (2), Courchevel (3), Méribel (3), Tignes (2), La Plagne (3),
+      Sölden (2), Niseko (2), Rusutsu (2), Madonna di Campiglio (3),
+      Ruka (3), Valle Nevado (2), Yongpyong (4), Portillo (0 — genuinely).
+      Runbook: `discover-stores.ts --resorts "..."` dry → `--auto-insert` →
+      `verify-stores.ts` → `enrich-services.ts` → redeploy (~$2 total).
+- [ ] **Reddit plan rewritten 2026-09-07** (`LAUNCH.md`): r/skiing rule 3
+      bans blatant promo and r/snowboarding rule 7 bans app-developer posts
+      outright. New plan: organic participation from September, a modmail-
+      cleared original-content data post on r/skiing in late October (the
+      265k-review analysis), no r/snowboarding post. Start the organic
+      commenting habit now.
 - [ ] Optional, lower priority: chain near-duplicate consolidation (§1.3 —
       Christy Sports Telluride ×5 etc.).
 

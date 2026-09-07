@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "WinterStores",
     title: "WinterStores — Find & Compare Winter Sport Shops Near You",
     description:
-      "Discover and compare 1,000+ winter sport stores across 21 countries. Aggregated ratings from Google, Facebook, and Foursquare. Filter by sport, services, and price.",
+      "Discover and compare 1,300+ winter sport stores across 23 countries. 265,000+ reviews condensed into one comparable score. Filter by sport, services, and price.",
     images: [
       { url: "/og-default.png", width: 1200, height: 630, alt: "WinterStores" },
     ],
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "WinterStores — Find & Compare Winter Sport Shops Near You",
     description:
-      "Discover and compare 1,000+ winter sport stores across 21 countries. Aggregated ratings from Google, Facebook, and Foursquare. Filter by sport, services, and price.",
+      "Discover and compare 1,300+ winter sport stores across 23 countries. 265,000+ reviews condensed into one comparable score. Filter by sport, services, and price.",
     images: ["/og-default.png"],
   },
   icons: {

@@ -38,8 +38,15 @@ This is very much a v1 — I'd love to hear:
 
 You can also suggest stores directly on the site. Thanks for checking it out!
 
-### Topics
-Travel, Sports, Community, Directory
+### Topics (PH caps launches at 3; the picker only accepts existing topics)
+1. **Travel** — the strongest fit and a large follower base
+2. **Sports** — the audience that actually skis
+3. **Web App** — the maker-browsing lane
+
+"Directory" is not a real PH topic and "Community" is a weak fit — both were
+listed here before and would have been rejected or wasted a slot. If the
+picker offers "Search" or "Maps" as suggestions, either is a fine swap for
+Web App.
 
 ### Gallery Screenshots (1270x760, retake from live site)
 
@@ -61,37 +68,47 @@ Tips for retaking:
 
 ## Reddit Posts
 
-### r/skiing
+### r/skiing and r/snowboarding — the launch-post format is DEAD. Do not post it.
 
-**Title:** I built a free directory to find and compare ski shops near any resort — would love your feedback
+**Checked against the actual sub rules 2026-09-07:**
 
-**Body:**
-Hey r/skiing — I got tired of the Google Maps guessing game every time I needed to find a rental shop or get my boots fitted somewhere new. So I built [WinterStores](https://winterstores.co) — a free directory of 1,300+ winter sport stores across 23 countries.
+- **r/skiing rule 3 — "No blatant self promotion posts."** A post "primarily
+  about promoting your website" gets removed. Their own adage: *"It's fine to
+  be a redditor with a website; it's not okay to be a website with a reddit
+  account."* It IS fine to post content you created, as long as you are
+  contributing to the community.
+- **r/snowboarding rule 7 — "No 'App Developer' Posts."** An outright ban on
+  exactly the post that was drafted here. There is no compliant version of a
+  launch post in this sub.
 
-Each store has a score aggregated from hundreds of reviews — weighted by volume, so a shiny 4.9 from a handful of reviews doesn't outrank an honest 4.4 from four hundred — and you can filter by services (rentals, boot fitting, repairs, waxing), sport type, and price level.
+The two draft posts that used to live in this section were both removable on
+sight and have been deleted. The replacement plan:
 
-This is the first version and I know there are gaps. I'd really appreciate it if you:
-- Check if your local shop or favorite resort-area store is listed
-- [Suggest a store](https://winterstores.co/suggest) if it's missing
-- Tell me what would make this actually useful for you
+**Prerequisite, starting now (September):** participate genuinely from the
+personal account. Answer "where should I rent in X" questions (weekly threads
+count), give real gear advice, build comment history. The account must look
+like a skier who happens to have built something, not an account created to
+promote. Low effort, but it cannot be faked retroactively in one week.
 
-Free to use and no sign-up required. There are banner ads to cover hosting — I'd rather that than put a directory behind a paywall.
+**r/skiing, late October — an original-content data post, not a launch post.**
+Rule 3 explicitly allows content you created that contributes. We are sitting
+on 265,000 aggregated reviews of 1,377 shops — the post is the *analysis*, not
+the site: e.g. "I analyzed 265k reviews of 1,377 ski shops in 23 countries —
+here's what separates highly rated shops from the rest" (which services
+correlate with top ratings, how resort-base shops compare to town shops,
+which countries' shops rate highest). Insights and charts live IN the post;
+the site is named once as the data source. Message the mods first describing
+the post — a yes turns scrutiny into cover. Claude can generate the full
+analysis from the DB when it's time.
 
-### r/snowboarding
+**r/snowboarding:** no post. Organic participation only, unless modmail
+explicitly approves a snowboard-specific version of the data post. Rule 7
+leaves no room for interpretation.
 
-**Title:** I built a free directory to find and compare snowboard shops near any resort — would love your feedback
-
-**Body:**
-Hey r/snowboarding — planning a trip somewhere new always meant the same routine for me: open Google Maps, squint at a dozen shop pins, then cross-check reviews one by one to work out which ones actually carry boards rather than just skis. So I built [WinterStores](https://winterstores.co) — a directory of 1,300+ winter sport shops across 23 countries.
-
-You can filter to snowboarding specifically, then narrow by service — rentals, repairs, waxing, boot fitting — and each shop carries a score aggregated from its reviews and weighted by volume, so you're not comparing a 4.8 from 12 reviews against a 4.3 from 400.
-
-It's a first version and the gaps are real — coverage is much better in the Alps than in Japan or the Rockies right now. Genuinely useful to me if you'd:
-- Check whether your home shop is on there
-- [Add one](https://winterstores.co/suggest) if it's missing
-- Tell me what would make you actually use this over Maps
-
-Free to use and no sign-up required. There are banner ads to cover hosting — I'd rather that than put a directory behind a paywall.
+**Smaller subs as alternatives** (verify each sub's rules before posting
+anything): r/skigear and r/snowboardingnoobs are gear-question communities
+where genuinely answering questions is the whole culture. No launch posts
+there either — just be useful and link when it actually answers.
 
 ### r/SideProject
 
@@ -171,15 +188,21 @@ planning a ski trip. These land identically in August and November, so there is
 no reason to wait — and the backlinks start ageing now, which matters because
 Search Console currently reports **zero** external links to the domain.
 
-**Late October–November — skier audiences, season-critical**
-- [ ] r/skiing first (largest audience)
-- [ ] r/snowboarding 2–3 hours later
+**September onward — organic participation (prerequisite for October)**
+- [ ] Comment genuinely in r/skiing / r/snowboarding weekly threads from the
+      personal account — answer rental/shop questions, no links unless truly
+      relevant
+
+**Late October — skier audiences, season-critical, rules-compliant**
+- [ ] Modmail r/skiing describing the data post; wait for a response
+- [ ] r/skiing: original-content data post (analysis of the 265k reviews —
+      see the section above; Claude generates the analysis from the DB)
+- [ ] r/snowboarding: NO post (rule 7 bans app-developer posts) — organic
+      participation only, unless modmail approves a variant
 - [ ] Respond to every comment
 
-These are one-shot. Posted in August, r/skiing is not thinking about boot
-fitting and the thread dies; posted when people are actually booking trips, the
-same post lands. By then the guides written in Phase 2 have had two to three
-months to index, so the traffic arrives at pages that can hold it.
+The timing logic still holds: posted when people are booking trips, with the
+Phase 2 guides aged two months so arriving traffic lands on pages that rank.
 
 ### Post-launch (first 48 hours)
 - [ ] Monitor and reply to all PH comments

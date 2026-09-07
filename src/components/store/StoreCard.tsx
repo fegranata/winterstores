@@ -29,7 +29,9 @@ export default function StoreCard({ store }: StoreCardProps) {
               {store.name}
             </h3>
             <p className="mt-0.5 text-sm text-slate-500 truncate">
-              {store.city}, {store.region}, {store.country}
+              {[store.city, store.region, store.country]
+                .filter((part) => part && part.trim())
+                .join(", ")}
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-1.5">
@@ -81,7 +83,9 @@ export default function StoreCard({ store }: StoreCardProps) {
               Online Shop
             </span>
           )}
-          <span>{store.services.length} services</span>
+          <span>
+            {store.services.length} service{store.services.length !== 1 && "s"}
+          </span>
         </div>
       </Link>
     </div>

@@ -25,7 +25,7 @@ export default function WebSiteJsonLd() {
     url: BASE_URL,
     logo: `${BASE_URL}/icon.svg`,
     description:
-      "WinterStores is a free, community-powered directory that helps you find and compare winter sport stores worldwide using aggregated ratings from Google, Facebook, and Foursquare.",
+      "WinterStores is a free, community-powered directory that helps you find and compare winter sport stores worldwide using review-volume-weighted aggregated scores.",
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",
