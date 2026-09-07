@@ -43,12 +43,20 @@ ceiling and it was planned for August — it is already late.
       and Foursquare, but the ratings are 100% Google. Copy now pitches the
       volume-weighted score without naming platforms (details in
       `LAUNCH.md` pre-launch section).
-- [ ] Product Hunt launch (weekday, early PT morning).
-- [ ] r/SideProject post (same day or next).
-- [ ] r/indiehackers post.
+- [x] **Product Hunt launch posted 2026-09-07** — with Snow sports / Travel
+      tags and shoutouts. First external backlinks ever for the domain.
+- [x] **r/SideProject posted 2026-09-07.**
+- [ ] r/indiehackers: blocked by a minimum-activity requirement — comment
+      genuinely on a few threads over the coming days, then post. Meanwhile
+      consider indiehackers.com itself (the forum, separate from the
+      subreddit) — product pages and launch posts are its core content.
 - [ ] Directory / "built with Next.js" showcase submissions.
+- [ ] **Launch-day duty: respond to every PH and Reddit comment** — engagement
+      drives both algorithms, and comments are feature requests in disguise.
 - [ ] Watch quota dashboards during launch week — launch traffic is exactly
-      the multiplier the three August quota fires were about.
+      the multiplier the three August quota fires were about. (Risk is much
+      lower now: 7-day TTLs and full prerendering mean spikes hit the edge
+      cache, not regeneration.)
 
 ## 2 — Revenue plumbing (parallel with §1, before season)
 
