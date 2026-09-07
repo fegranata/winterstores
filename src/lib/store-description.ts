@@ -59,7 +59,7 @@ const PRICE_PHRASE: Record<1 | 2 | 3, string> = {
  * step makes the low bits depend on all input bits, which is what actually
  * decorrelates the slots.
  */
-function hash(input: string): number {
+export function hash(input: string): number {
   let h = 2166136261 >>> 0;
   for (let i = 0; i < input.length; i++) {
     h ^= input.charCodeAt(i);
@@ -74,7 +74,7 @@ function hash(input: string): number {
 }
 
 /** "a, b and c" */
-function list(items: string[]): string {
+export function list(items: string[]): string {
   if (items.length === 0) return "";
   if (items.length === 1) return items[0];
   return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
@@ -139,9 +139,9 @@ export function buildStoreDescription(
     sentences.push(
       pick(
         [
-          `It holds a WinterStores Score of ${score} out of 5, aggregated from ${reviews} reviews across Google, Facebook and Foursquare.`,
-          `Across ${reviews} reviews on Google, Facebook and Foursquare it scores ${score} out of 5.`,
-          `Its WinterStores Score is ${score} out of 5, based on ${reviews} reviews from multiple platforms.`,
+          `It holds a WinterStores Score of ${score} out of 5, aggregated from ${reviews} reviews.`,
+          `Across ${reviews} aggregated reviews it scores ${score} out of 5.`,
+          `Its WinterStores Score is ${score} out of 5, based on ${reviews} reviews.`,
         ],
         2
       )

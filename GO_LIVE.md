@@ -49,10 +49,27 @@ ceiling and it was planned for August — it is already late.
 
 ## 2 — Revenue plumbing (parallel with §1, before season)
 
-- [ ] Apply to **Awin for Skiset + Snowrental** (one application covers both —
-      same group). Approval takes weeks and may vet traffic; apply now so a
-      decline arrives while there's time to react. Rationale in
-      `ACTION_PLAN.md` §4.2.
+- [ ] Apply to **Awin for Skiset + Snowrental** (one network account covers
+      both — same group). Step-by-step, verified 2026-09-07:
+      1. Sign up at ui.awin.com/publisher-signup — user details, then
+         publisher details: site URL `winterstores.co`, type "content /
+         comparison site", and a promotion description (suggested: "Free
+         directory of 1,300+ ski and snowboard shops near 83 resorts;
+         review-weighted scores and service filters. Rental-booking CTAs
+         will sit on store and resort pages matched to user intent.").
+      2. Pay the ~$5/£5 verification deposit (card; refunded with the first
+         commission payment). Applications are manually reviewed, usually
+         within 1-2 working days.
+      3. Verify the account from the confirmation email, then add payment
+         details (Account > Payment Details) so approvals aren't blocked.
+      4. In the platform: Advertisers > Join Programmes, search "Skiset" and
+         apply; repeat for "Snowrental". Each advertiser approves separately
+         — days to weeks, which is why this starts now.
+      5. While waiting, optionally apply to Peter Glenn (gear fallback,
+         150-day cookie — via its own network, see ACTION_PLAN.md §4.2).
+      6. On acceptance: build the env-driven affiliate config mirroring
+         `ad-config.ts` + store-page CTA (~half a day, Claude task).
+      Rationale and programme tiers in `ACTION_PLAN.md` §4.2.
 - [ ] Add Peter Glenn as the gear fallback (150-day cookie).
 - [ ] Once accepted: env-driven affiliate config mirroring `ad-config.ts` +
       store-page CTA (~half a day). Nothing to build before acceptance.
