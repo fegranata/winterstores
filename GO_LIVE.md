@@ -108,10 +108,12 @@ ceiling and it was planned for August — it is already late.
       no-website stores are legitimate Google-only businesses, keep them.
       4 CLOSED_TEMPORARILY are off-season closures (TSAKIRIS Bansko, 1,429
       reviews — reopens in winter), keep. 1 FUTURE_OPENING, keep.
-- [ ] **Delete the one CLOSED_PERMANENTLY store** (needs Fernando's
-      approval — production row delete): `powe-snowboards-stowe`, 2 reviews.
-      `DELETE FROM stores WHERE slug = 'powe-snowboards-stowe';` then it
-      drops from sitemap/build at the next deploy.
+- [x] **Deleted `powe-snowboards-stowe`** (approved 2026-09-07) — the one
+      CLOSED_PERMANENTLY store. Corpus: 1,377 → 1,376. Drops from the
+      sitemap and build at the next deploy. `refresh-ratings.ts` now fetches
+      `businessStatus` in its existing API call and lists non-operational
+      shops at the end of every monthly run, so future closures surface
+      automatically (never auto-deleted — human decision).
 - [ ] Backlog: enrichment v2 for the ~554 sites read without evidence —
       crawl one level into service-ish subpages ("/services", "Skiservice",
       "atelier"), with a headless-Chrome fallback for JS-only sites. Expected

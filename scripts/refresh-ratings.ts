@@ -99,6 +99,11 @@ async function main() {
 
   let updated = 0;
   let failed = 0;
+  // Same API call, one extra field: catches shops Google has marked closed,
+  // so permanent closures surface every month instead of via one-off audits
+  // (the 2026-09-07 audit found one this way). Never auto-deleted — closures
+  // are listed at the end for a human decision.
+  const closed: { name: string; status: string }[] = [];
 
   for (const [i, store] of stale.entries()) {
     process.stdout.write(`[${i + 1}/${stale.length}] ${store.name.slice(0, 45).padEnd(45)}`);
@@ -109,7 +114,7 @@ async function main() {
         {
           headers: {
             "X-Goog-Api-Key": GOOGLE_KEY,
-            "X-Goog-FieldMask": "rating,userRatingCount,googleMapsUri",
+            "X-Goog-FieldMask": "rating,userRatingCount,googleMapsUri,businessStatus",
           },
           cache: "no-store",
         }
@@ -122,6 +127,9 @@ async function main() {
       }
 
       const data = await res.json();
+      if (data.businessStatus && data.businessStatus !== "OPERATIONAL") {
+        closed.push({ name: store.name, status: data.businessStatus });
+      }
       if (!data.rating) {
         console.log(" – no rating");
         continue;
@@ -157,6 +165,12 @@ async function main() {
   }
 
   console.log(`\nUpdated: ${updated}  Failed: ${failed}  Calls made: ${stale.length}`);
+
+  if (closed.length > 0) {
+    console.log(`\n⚠ Non-operational per Google (${closed.length}) — review before removing anything.`);
+    console.log(`  CLOSED_TEMPORARILY in the off-season is normal for ski shops.`);
+    for (const c of closed) console.log(`  ${c.status.padEnd(20)} ${c.name}`);
+  }
 }
 
 main()
