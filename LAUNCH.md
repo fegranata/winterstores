@@ -38,15 +38,15 @@ This is very much a v1 — I'd love to hear:
 
 You can also suggest stores directly on the site. Thanks for checking it out!
 
-### Topics (PH caps launches at 3; the picker only accepts existing topics)
-1. **Travel** — the strongest fit and a large follower base
-2. **Sports** — the audience that actually skis
-3. **Web App** — the maker-browsing lane
+### Launch tags (the form allows up to three; picker is autocomplete-only)
+1. **Snow sports** — selected 2026-09-07; the precise audience tag
+2. **Travel** — the trip-planning intent
+3. First of these the picker offers: **Web App** → **Search** → **Maps** —
+   the product-discovery lane
 
-"Directory" is not a real PH topic and "Community" is a weak fit — both were
-listed here before and would have been rejected or wasted a slot. If the
-picker offers "Search" or "Maps" as suggestions, either is a fine swap for
-Web App.
+One tag for who it's for, one for the job it does, one for what kind of
+product it is — three distinct discovery paths. ("Directory" and "Community"
+from the original draft aren't real tags / weak fits.)
 
 ### Gallery Screenshots (1270x760, retake from live site)
 

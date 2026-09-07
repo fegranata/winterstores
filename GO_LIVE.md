@@ -102,6 +102,21 @@ ceiling and it was planned for August — it is already late.
       used-gear +99) — service coverage went from 2.3% to ~47% of the
       corpus. Merge-only: hand-set tags always survive. Re-runnable after
       future imports.
+- [x] **Closure audit 2026-09-07** (are no-website / dead-site stores fake?):
+      of 1,292 websites only 19 are truly dead; Google businessStatus on all
+      104 suspects (19 dead + 85 no-website) says **98 OPERATIONAL** — the
+      no-website stores are legitimate Google-only businesses, keep them.
+      4 CLOSED_TEMPORARILY are off-season closures (TSAKIRIS Bansko, 1,429
+      reviews — reopens in winter), keep. 1 FUTURE_OPENING, keep.
+- [ ] **Delete the one CLOSED_PERMANENTLY store** (needs Fernando's
+      approval — production row delete): `powe-snowboards-stowe`, 2 reviews.
+      `DELETE FROM stores WHERE slug = 'powe-snowboards-stowe';` then it
+      drops from sitemap/build at the next deploy.
+- [ ] Backlog: enrichment v2 for the ~554 sites read without evidence —
+      crawl one level into service-ish subpages ("/services", "Skiservice",
+      "atelier"), with a headless-Chrome fallback for JS-only sites. Expected
+      to lift service coverage from ~47% toward 60–70%. Never force-tag:
+      absence of evidence stays absence of a tag.
 - [ ] **Scheduled: fill the 13 thin marquee resorts AFTER the mid-September
       GSC check** (kept out of the measurement window on purpose). Val
       d'Isère (2), Courchevel (3), Méribel (3), Tignes (2), La Plagne (3),
