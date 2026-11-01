@@ -38,7 +38,7 @@ export default function ReportForm({ storeName, storeSlug }: ReportFormProps) {
       `Store: ${storeName}\nURL: https://winterstores.co/store/${storeSlug}\nCategory: ${category}\n\nDetails:\n${details}`
     );
     window.open(
-      `mailto:corrections@winterstores.com?subject=${subject}&body=${body}`,
+      `mailto:corrections@winterstores.co?subject=${subject}&body=${body}`,
       "_self"
     );
     toast("Thank you for your report!", "success");

@@ -373,3 +373,24 @@ Decisions pending (Fernando):
   attempted but the tool timed out before confirming — redo those first
   next session, then continue down the resort list by store count
   (St. Anton, Saalbach, …), ~10 per day.
+
+## 8 — Email for the project (2026-11-01)
+
+- **Bug fixed:** the contact page and the store Report form pointed at
+  `hello@winterstores.com` / `corrections@winterstores.com` — a `.com`
+  domain registered to someone else. Every contact or correction sent from
+  the site has been lost. Both now use `@winterstores.co`.
+- DNS is on Cloudflare and **Email Routing is already active** (MX →
+  Cloudflare, SPF includes it). Fernando: Cloudflare → winterstores.co →
+  Email → Email Routing → make sure `hello@` and `corrections@` exist as
+  custom addresses (or a catch-all) forwarding to a mailbox you read.
+- **Sending as hello@winterstores.co** (free path): Gmail → Settings →
+  Accounts → "Send mail as" → add hello@winterstores.co via Gmail's SMTP
+  (needs an app password on the Google account). Then add
+  `include:_spf.google.com` to the SPF record and a DMARC record
+  `_dmarc.winterstores.co TXT "v=DMARC1; p=none; rua=mailto:hello@winterstores.co"`.
+  If a Google Workspace account can't add a non-Workspace alias, the paid
+  alternative is a Workspace mailbox for winterstores.co (~€7/month), which
+  also gives proper DKIM — the better choice if outreach volume grows.
+- Warm the address up: 10–20 outreach emails a day the first week, then
+  50. Cold mail from a brand-new sender at volume lands in spam.

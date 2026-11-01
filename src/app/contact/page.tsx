@@ -30,7 +30,7 @@ export default function ContactPage() {
     const message = data.get("message") as string;
 
     const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    const mailto = `mailto:hello@winterstores.com?subject=${encodeURIComponent(
+    const mailto = `mailto:hello@winterstores.co?subject=${encodeURIComponent(
       `[WinterStores] ${subject}`
     )}&body=${encodeURIComponent(body)}`;
 
@@ -65,10 +65,10 @@ export default function ContactPage() {
           <p className="mt-2 text-sm text-green-600">
             If it didn&apos;t, you can email us directly at{" "}
             <a
-              href="mailto:hello@winterstores.com"
+              href="mailto:hello@winterstores.co"
               className="font-medium underline"
             >
-              hello@winterstores.com
+              hello@winterstores.co
             </a>
           </p>
           <button
