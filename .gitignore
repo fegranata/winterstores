@@ -54,3 +54,6 @@ tsconfig.tsbuildinfo
 
 # discovery output — regenerable, not source
 scripts/output/
+
+# Shop outreach lists (business contact data) — never committed
+outreach/
