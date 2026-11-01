@@ -26,9 +26,15 @@ Found via the Vercel dashboards while investigating "traffic from Singapore":
   clamped. Fourth instance of the HANDOVER.md multiplier rule.
 
 - [x] Code fix shipped (`searchStores` in SQL).
-- [ ] **Vercel Firewall rules (needs Fernando — config change):** deny the
-      Tencent ASN, challenge the JA4 fingerprint, enable Bot Protection.
-      Without this the bot still costs ~75 MB/day even after the code fix.
+- [x] **Vercel Firewall rules published 2026-11-01** (approved by Fernando):
+      `Deny Tencent Cloud bot farm` (AS Number = 132203, action Deny),
+      `Challenge bot-farm JA4 fingerprint` (JA4 Digest =
+      `t13d131000_f57a46bbacb6_e7c285222651`, action Challenge), and Bot
+      Protection set to Challenge. The "AI Bots" blocker in the same panel
+      was deliberately left OFF — see the crawler policy in HANDOVER.md.
+      Hobby plan allows 3 custom rules + 3 rate limits; one rule slot left.
+      If the bot moves networks, the next lever is a rate limit on
+      `/search` (per-IP, ~30 req/min).
 - [ ] **Adsterra:** the bot executes JS, so it has been generating ad
       impressions for weeks. Check the publisher dashboard for an
       invalid-traffic warning before it becomes a suspension.
