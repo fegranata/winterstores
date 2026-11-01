@@ -394,3 +394,18 @@ Decisions pending (Fernando):
   also gives proper DKIM — the better choice if outreach volume grows.
 - Warm the address up: 10–20 outreach emails a day the first week, then
   50. Cold mail from a brand-new sender at volume lands in spam.
+- **Done in Cloudflare 2026-11-01:** routing rules `hello@winterstores.co`
+  and `corrections@winterstores.co` → fernandogranata@gmail.com (Active),
+  alongside the existing `hi@`. Cloudflare's own Email Sending needs the
+  paid Workers plan — not used. Outbound = Gmail "Send mail as" (free).
+- **Still to paste in Cloudflare DNS (Claude is not permitted to change DNS):**
+  1. TXT  name `_dmarc`  content `v=DMARC1; p=none; rua=mailto:hello@winterstores.co`
+  2. Edit the existing SPF TXT on `@` from
+     `v=spf1 include:_spf.mx.cloudflare.net ~all` to
+     `v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all`
+     (needed so mail sent via Gmail as hello@ passes SPF; Email Routing
+     may show the record as locked — unlock it in Email Routing → Settings
+     if the edit button is greyed).
+- **Then in Gmail (free):** Settings → Accounts and Import → Send mail as →
+  Add → hello@winterstores.co, SMTP smtp.gmail.com:587 with an app
+  password from myaccount.google.com → Security → App passwords.
