@@ -355,3 +355,14 @@ Decisions pending (Fernando):
   30 days). The September note that "a deploy costs ~12–17k units" was
   wrong — the Sep 3 spike had some other cause. Deploy freely; the write
   budget is governed by TTLs and bot traffic, not by builds.
+- **Shop outreach built 2026-11-01** (the link strategy that replaces
+  Reddit): `/for-shops` is live with the "Listed on WinterStores" badge and
+  embed snippet (footer link "For Shop Owners");
+  `scripts/extract-contact-emails.ts` found **784 contact emails for 1,351
+  shops with websites** (669 on homepages, 95 on contact/Impressum pages;
+  133 sites unreachable) → `outreach/shop-contacts-2026-11-01.csv`,
+  git-ignored. Templates in EN/DE/FR/IT:
+  `content/outreach-email-template.md`. **Sending is Fernando's step:**
+  start with the ~50 highest-reviewed shops from his own address, in the
+  shop's language, and track replies in the CSV. A 2% link rate on 784
+  contacts is ~15 real links; every one counts from zero.
