@@ -337,3 +337,8 @@ Decisions pending (Fernando):
       those pages render). Re-check GSC in 4–6 weeks: "Indexed" should
       stabilise near the indexable count and "Crawled – currently not
       indexed" should fall as Google drops the noindexed URLs.
+- **Awin account activated 2026-11-01**, affiliate ID 3141407, promotion
+  model "Directorio de tiendas" + "Contenido editorial", sectors
+  Equipamiento deportivo + Turismo y atracciones. Next: complete profile /
+  payment details, then apply to Skiset and Snowrental from the advertiser
+  directory (each advertiser approves separately).
