@@ -226,3 +226,10 @@ diagnose hydration/Suspense in the in-app preview browser.
   `GOOGLE_PLACES_API_KEY` in the cloud environment.
 - Both only push when `tsc` and `npm test` pass; otherwise they open a PR
   and stop. Each push is one deploy (~15k ISR units, ~37MB Supabase egress).
+- Routine IDs: weekly guide `trig_01VyFym34Skeb2u8nNBY3G2F`, monthly
+  maintenance `trig_01Nt7Mq8dLjKoLHWTUQ2qhKA` — both at
+  https://claude.ai/code/routines. Connectors stripped from both (a content
+  agent has no business holding Gmail/Slack access).
+- The maintenance routine stops at a precondition check until
+  `DATABASE_URL` and `GOOGLE_PLACES_API_KEY` exist in the cloud
+  environment — Fernando adds those; secrets are never pasted by Claude.
