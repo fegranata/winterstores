@@ -245,3 +245,11 @@ diagnose hydration/Suspense in the in-app preview browser.
   Until (1) is done, the weekly routine writes a guide every Tuesday and
   loses it; nothing is published. Re-run the routine after installing to
   confirm.
+- **Status 2026-11-01, later:** both prerequisites done. Claude GitHub App
+  installed on the repo (weekly guide rerun pushed `b75b18e`, guide #28,
+  straight to main). Dedicated cloud environment **`winterstores`**
+  (`env_01XJkkjTQ1zQSnt8As8QPuZP`) created with full network access and the
+  `.env.local` variables; the monthly maintenance routine now runs there
+  (Default's network access is "Limited", which would block Supabase, Google
+  Places and the shop-website fetches). The weekly guide routine stays on
+  Default — it only needs npm and GitHub.
