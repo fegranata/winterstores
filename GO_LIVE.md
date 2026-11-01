@@ -35,6 +35,12 @@ Found via the Vercel dashboards while investigating "traffic from Singapore":
       Hobby plan allows 3 custom rules + 3 rate limits; one rule slot left.
       If the bot moves networks, the next lever is a rate limit on
       `/search` (per-IP, ~30 req/min).
+      **Side effect to remember:** Bot Protection challenges every
+      non-browser client, so `curl` health checks and scripts now get a 429
+      challenge page instead of HTML. Verify the site in a real browser.
+      Verified bots (Googlebot, Bingbot) and known AI crawlers pass; if GSC
+      coverage ever drops after this date, switch Bot Protection to Log
+      first before suspecting anything else.
 - [ ] **Adsterra:** the bot executes JS, so it has been generating ad
       impressions for weeks. Check the publisher dashboard for an
       invalid-traffic warning before it becomes a suspension.
