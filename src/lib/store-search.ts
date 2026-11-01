@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { getDb, schema } from "@/lib/db";
-import { eq, gte, lte, and, or, desc, sql, count as drizzleCount } from "drizzle-orm";
+import { eq, gte, lte, and, or, desc, asc, ilike, sql, count as drizzleCount } from "drizzle-orm";
 import { haversineDistance } from "@/lib/geo";
 import type {
   Store,
@@ -53,9 +53,29 @@ export function rowToStore(row: StoreRow): Store {
 
 type StoreWithDistance = Store & { distance?: number };
 
+/** Hard ceilings so no request — bot or human — can make this expensive. */
+const SEARCH_MAX_LIMIT = 50;
+const SEARCH_MAX_PAGE = 100;
+const SEARCH_MAX_QUERY_CHARS = 100;
+
+/** Escape LIKE metacharacters so a query of "100%" means the literal text. */
+function likePattern(q: string): string {
+  return `%${q.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
+}
+
+/**
+ * Every filter, the sort and the pagination run in SQL. Until 2026-11-01
+ * this pulled the entire stores table (all columns, no LIMIT) on every
+ * request and filtered in JS — about 1MB of Supabase egress per search.
+ * /search is the one route that is dynamic per request, so a bot farm
+ * hitting it ~5,000 times a day burned through the 5GB monthly egress
+ * quota and got the project's database service suspended. Fourth instance
+ * of the per-request-cost-times-uncontrolled-multiplier rule in HANDOVER.md.
+ * A page of 20 rows is now ~15KB.
+ */
 export async function searchStores(params: StoreSearchParams): Promise<StoreSearchResult> {
   const {
-    q,
+    q: rawQ,
     sport,
     service,
     lat,
@@ -66,12 +86,50 @@ export async function searchStores(params: StoreSearchParams): Promise<StoreSear
     priceLevel,
     country,
     sort = "highest-rated",
-    page = 1,
-    limit = 20,
   } = params;
 
-  // Build SQL conditions for scalar filters
+  const limit = Math.min(Math.max(1, Math.floor(params.limit ?? 20)), SEARCH_MAX_LIMIT);
+  const page = Math.min(Math.max(1, Math.floor(params.page ?? 1)), SEARCH_MAX_PAGE);
+  const q = rawQ?.trim().slice(0, SEARCH_MAX_QUERY_CHARS);
+  const hasPoint =
+    lat != null && lng != null && Number.isFinite(lat) && Number.isFinite(lng);
+
   const conditions = [];
+
+  if (q) {
+    const pattern = likePattern(q);
+    conditions.push(
+      or(
+        ilike(storesTable.name, pattern),
+        ilike(storesTable.city, pattern),
+        ilike(storesTable.region, pattern),
+        ilike(storesTable.country, pattern),
+        ilike(storesTable.description, pattern)
+      )!
+    );
+  }
+
+  if (sport) {
+    const sportArr: SportType[] = Array.isArray(sport) ? sport : [sport];
+    conditions.push(
+      or(
+        ...sportArr.map(
+          (sp) => sql`${storesTable.sportTypes} @> ${JSON.stringify([sp])}::jsonb`
+        )
+      )!
+    );
+  }
+
+  if (service) {
+    const serviceArr: ServiceType[] = Array.isArray(service) ? service : [service];
+    conditions.push(
+      or(
+        ...serviceArr.map(
+          (sv) => sql`${storesTable.services} @> ${JSON.stringify([sv])}::jsonb`
+        )
+      )!
+    );
+  }
 
   if (minRating != null) {
     conditions.push(gte(storesTable.winterstoresScore, minRating));
@@ -95,95 +153,57 @@ export async function searchStores(params: StoreSearchParams): Promise<StoreSear
     );
   }
 
-  // Query with SQL-level filters
+  // Planar squared distance with a cos² longitude correction — the same
+  // ranking expression getNearbyStores uses. Good to well under 1% at the
+  // radii involved; the exact haversine is still computed for display.
+  const cosLat = hasPoint ? Math.cos((lat! * Math.PI) / 180) : 1;
+  const distanceKm2 = hasPoint
+    ? sql<number>`(
+        power((${storesTable.latitude} - ${lat}) * 111.32, 2) +
+        power((${storesTable.longitude} - ${lng}) * 111.32 * ${cosLat}, 2)
+      )`
+    : null;
+
+  if (maxDistance != null && distanceKm2) {
+    conditions.push(sql`${distanceKm2} <= ${maxDistance * maxDistance}`);
+  }
+
   const db = getDb();
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 
-  const rows = await db.select().from(storesTable).where(whereClause);
+  const orderBy =
+    sort === "closest" && distanceKm2
+      ? [asc(distanceKm2)]
+      : sort === "most-reviewed"
+        ? [desc(storesTable.totalReviewCount), desc(storesTable.winterstoresScore)]
+        : sort === "newest"
+          ? [desc(storesTable.createdAt)]
+          : [desc(storesTable.winterstoresScore), desc(storesTable.totalReviewCount)];
 
-  let results: StoreWithDistance[] = rows.map((row) => {
+  const [rows, [{ total }]] = await Promise.all([
+    db
+      .select()
+      .from(storesTable)
+      .where(whereClause)
+      .orderBy(...orderBy)
+      .limit(limit)
+      .offset((page - 1) * limit),
+    db.select({ total: drizzleCount() }).from(storesTable).where(whereClause),
+  ]);
+
+  const stores: StoreWithDistance[] = rows.map((row) => {
     const store: StoreWithDistance = rowToStore(row);
-    if (lat != null && lng != null) {
-      store.distance = haversineDistance(
-        lat,
-        lng,
-        store.latitude,
-        store.longitude
-      );
+    if (hasPoint) {
+      store.distance = haversineDistance(lat!, lng!, store.latitude, store.longitude);
     }
     return store;
   });
 
-  // -- Text search (post-filter) --
-  if (q) {
-    const lower = q.toLowerCase();
-    results = results.filter(
-      (s) =>
-        s.name.toLowerCase().includes(lower) ||
-        s.city.toLowerCase().includes(lower) ||
-        s.region.toLowerCase().includes(lower) ||
-        s.country.toLowerCase().includes(lower) ||
-        s.description.toLowerCase().includes(lower)
-    );
-  }
-
-  // -- Sport type filter (JSONB array, post-filter) --
-  if (sport) {
-    const sportArr: SportType[] = Array.isArray(sport) ? sport : [sport];
-    results = results.filter((s) =>
-      sportArr.some((sp) => s.sportTypes.includes(sp))
-    );
-  }
-
-  // -- Service filter (JSONB array, post-filter) --
-  if (service) {
-    const serviceArr: ServiceType[] = Array.isArray(service)
-      ? service
-      : [service];
-    results = results.filter((s) =>
-      serviceArr.some((sv) => s.services.includes(sv))
-    );
-  }
-
-  // -- Distance filter --
-  if (maxDistance != null && lat != null && lng != null) {
-    results = results.filter(
-      (s) => s.distance != null && s.distance <= maxDistance
-    );
-  }
-
-  // -- Sort --
-  switch (sort) {
-    case "closest":
-      results.sort(
-        (a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity)
-      );
-      break;
-    case "highest-rated":
-      results.sort((a, b) => b.winterstoresScore - a.winterstoresScore);
-      break;
-    case "most-reviewed":
-      results.sort((a, b) => b.totalReviewCount - a.totalReviewCount);
-      break;
-    case "newest":
-      results.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-      break;
-  }
-
-  // -- Pagination --
-  const total = results.length;
-  const totalPages = Math.ceil(total / limit);
-  const offset = (page - 1) * limit;
-  const paginated = results.slice(offset, offset + limit);
-
   return {
-    stores: paginated,
+    stores,
     total,
     page,
-    totalPages,
+    totalPages: Math.ceil(total / limit),
   };
 }
 

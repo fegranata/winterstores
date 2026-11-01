@@ -4,6 +4,38 @@ The working list for taking WinterStores from "deployed" to "launched", in
 order. Built 2026-09-07 after two alert emails (Vercel ISR at 100%, GSC noindex
 validation failed). Background lives in `ACTION_PLAN.md` and `HANDOVER.md`.
 
+## 0b — Incident 2026-11-01: bot farm → /search → Supabase suspended
+
+Found via the Vercel dashboards while investigating "traffic from Singapore":
+- Vercel Analytics (7d): 1,102 visitors, **80% Singapore, 97% Windows
+  desktop**, `/search` 264 visitors vs 8 on the homepage. Headless browsers
+  (they run the analytics JS), not people.
+- Vercel Firewall (24h): **22.2k of ~31k requests from Tencent Cloud**
+  (AS "Tencent Building, Kejizhongyi Avenue"), one JA4 fingerprint
+  (`t13d131000_f57a46bbacb6_e7c285222651`) = 18k requests, rotating fake
+  Chrome user agents. Top path `/search` 5.0k/day. Bot Protection was
+  inactive, zero custom rules.
+- Supabase: egress **6.42 / 5 GB (128%)**, ~150–370 MB/day all cycle →
+  **"All services restricted", REST/Auth answer 402** until the Nov 3
+  reset. Direct Postgres (what the app uses) still works, so prerendered
+  pages and SSR survive; Supabase Auth sign-in and anything via the REST
+  API do not.
+- Root cause in code: `searchStores` ran `SELECT *` with no LIMIT and
+  filtered in JS — ~1MB egress per request. Fixed 2026-11-01: every filter,
+  sort and page now runs in SQL; ~15KB per page; limit/page/query length
+  clamped. Fourth instance of the HANDOVER.md multiplier rule.
+
+- [x] Code fix shipped (`searchStores` in SQL).
+- [ ] **Vercel Firewall rules (needs Fernando — config change):** deny the
+      Tencent ASN, challenge the JA4 fingerprint, enable Bot Protection.
+      Without this the bot still costs ~75 MB/day even after the code fix.
+- [ ] **Adsterra:** the bot executes JS, so it has been generating ad
+      impressions for weeks. Check the publisher dashboard for an
+      invalid-traffic warning before it becomes a suspension.
+- [ ] Supabase: either wait for the Nov 3 reset (free) or upgrade to Pro to
+      lift the 402 today. Sign-in is broken until one of those happens.
+- [ ] After reset: confirm egress/day drops to single-digit MB.
+
 ## 0 — Stabilise (this week, blocks everything)
 
 - [ ] **Push and deploy the ISR write fix** (`29bde11`). Listing routes went

@@ -25,6 +25,7 @@ mistake: a per-page cost multiplied by a number nobody was tracking.**
 | Vercel ISR Writes (200k/mo) | 1 write per page | 1-hour TTL × 1,053 pages | 100% of free tier |
 | Google Places | 1 API call per render | 30-minute cache TTL | **$260 in two days** |
 | Supabase egress (5.5GB) | **71 DB rows per page** | 1-hour TTL × 1,053 pages | ~26 GB/month |
+| Supabase egress, again (Oct 2026) | **~1MB per /search** (full table, no LIMIT, filtered in JS) | Headless bot farm, ~5k req/day | 6.4GB in a cycle → **DB service suspended** |
 
 **The rule: anything that runs per page render or per build is multiplied by
 traffic you do not control, and crawlers are traffic.** Check the multiplier
