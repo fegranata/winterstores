@@ -253,3 +253,14 @@ diagnose hydration/Suspense in the in-app preview browser.
   (Default's network access is "Limited", which would block Supabase, Google
   Places and the shop-website fetches). The weekly guide routine stays on
   Default — it only needs npm and GitHub.
+- **Correction, same day:** the Anthropic cloud sandbox cannot open a raw
+  Postgres connection to the Supabase pooler (port 6543) even with network
+  access set to Full — the maintenance routine's precondition timed out.
+  The monthly maintenance job therefore lives in **GitHub Actions** instead:
+  `.github/workflows/monthly-maintenance.yml` (1st of month 05:00 UTC, or
+  Actions → "Monthly maintenance" → Run workflow). Same scripts, same caps,
+  deterministic, commits the log entry that deploys new stores. Needs two
+  repository secrets: `DATABASE_URL`, `GOOGLE_PLACES_API_KEY` (GitHub →
+  Settings → Secrets and variables → Actions). The cloud routine
+  `trig_01Nt7Mq8dLjKoLHWTUQ2qhKA` is disabled, not deleted. The weekly guide
+  routine is unaffected (no DB).

@@ -1,0 +1,137 @@
+# Monthly data maintenance — runs in GitHub Actions, not on anyone's machine.
+#
+# Why here and not a Claude cloud routine: the Anthropic cloud sandbox cannot
+# open a raw Postgres connection to the Supabase pooler (port 6543) even with
+# "Full" network access, so the DB-backed scripts can only run where outbound
+# TCP is unrestricted. GitHub-hosted runners qualify, the job is deterministic
+# (no judgement needed), and repository secrets hold the two credentials.
+#
+# Every step has a hard spend cap (see HANDOVER.md): 300 Place Details calls
+# for ratings, 5 resorts for discovery. The final commit to
+# content/maintenance-log.md is also what triggers the Vercel deploy that
+# makes newly discovered stores routable (/store/[slug] has dynamicParams =
+# false, so script-inserted stores 404 until a build).
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   DATABASE_URL, GOOGLE_PLACES_API_KEY
+
+name: Monthly maintenance
+
+on:
+  schedule:
+    - cron: "0 5 1 * *" # 1st of the month, 05:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monthly-maintenance
+  cancel-in-progress: false
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Preconditions
+        run: |
+          missing=""
+          [ -n "$DATABASE_URL" ] || missing="$missing DATABASE_URL"
+          [ -n "$GOOGLE_PLACES_API_KEY" ] || missing="$missing GOOGLE_PLACES_API_KEY"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secrets:$missing"
+            exit 1
+          fi
+
+      - name: Coverage report (which resorts are thin)
+        id: coverage
+        run: |
+          npx tsx scripts/coverage-report.ts --max 5 | tee coverage.log
+          thin=$(grep '^THIN:' coverage.log | sed 's/^THIN: *//')
+          echo "thin=$thin" >> "$GITHUB_OUTPUT"
+
+      - name: Ratings refresh (cap 300 Place Details calls)
+        run: npx tsx scripts/refresh-ratings.ts --limit 300 --commit | tee ratings.log
+
+      - name: Service enrichment (website keyword pass, no API cost)
+        run: npx tsx scripts/enrich-services.ts --commit | tee enrich.log
+
+      - name: Coverage fill (cap 5 resorts)
+        if: steps.coverage.outputs.thin != ''
+        run: |
+          npx tsx scripts/discover-stores.ts --resorts "${{ steps.coverage.outputs.thin }}" --auto-insert | tee discover.log
+          npx tsx scripts/verify-stores.ts | tee verify.log
+          npx tsx scripts/enrich-services.ts --commit | tee enrich2.log
+
+      - name: Typecheck and tests
+        run: |
+          npx tsc --noEmit
+          npm test
+
+      - name: Append maintenance log entry
+        shell: bash
+        run: |
+          set -euo pipefail
+          date=$(date -u +%F)
+          ratings=$(grep -E '^Updated:' ratings.log | tail -1 || echo "no summary line")
+          nonop=$(awk '/Non-operational per Google/{f=1;next} f && /^  [A-Z_]+ +/{sub(/^ +/,""); print "  - " $0}' ratings.log || true)
+          services=$(grep -E 'Stores gaining tags' enrich.log | head -1 | sed 's/^ *//' || echo "no summary line")
+          per_service=$(sed -n '/Tags gained by service/,/^$/p' enrich.log | grep -vE 'Tags gained|^ *$' | awk '{print $1": "$2}' | paste -sd ', ' - || true)
+          thin="${{ steps.coverage.outputs.thin }}"
+          if [ -n "$thin" ] && [ -f discover.log ]; then
+            inserted=$(grep -E 'Inserted [0-9]+ new stores|No new stores discovered' discover.log | tail -1 || echo "no summary line")
+            verified=$(grep -E '^ *Verified:' verify.log | head -1 | sed 's/^ *//' || true)
+            coverage="resorts under threshold: $thin — $inserted; $verified"
+          else
+            coverage="nothing below threshold"
+          fi
+          {
+            echo
+            echo "## $date"
+            echo "- Ratings: $ratings"
+            echo "- Services: $services${per_service:+ ($per_service)}"
+            echo "- Coverage: $coverage"
+            if [ -n "$nonop" ]; then
+              echo "- Needs a human (non-operational per Google — review, never auto-deleted):"
+              echo "$nonop"
+            else
+              echo "- Needs a human: none"
+            fi
+          } >> content/maintenance-log.md
+          tail -n 12 content/maintenance-log.md
+
+      - name: Commit and push (this deploys the new stores)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/maintenance-log.md
+          git commit -m "Monthly maintenance $(date -u +%F)" -m "Automated by .github/workflows/monthly-maintenance.yml"
+          git push origin HEAD:main
+
+      - name: Keep the raw script logs for 90 days
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-logs-${{ github.run_id }}
+          path: |
+            coverage.log
+            ratings.log
+            enrich.log
+            discover.log
+            verify.log
+            enrich2.log
+          if-no-files-found: ignore
+          retention-days: 90
