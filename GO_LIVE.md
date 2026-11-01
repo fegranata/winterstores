@@ -366,3 +366,10 @@ Decisions pending (Fernando):
   start with the ~50 highest-reviewed shops from his own address, in the
   shop's language, and track replies in the CSV. A 2% link rate on 784
   contacts is ~15 real links; every one counts from zero.
+- **Indexing requested via URL Inspection 2026-11-01** (confirmed "added to
+  a priority crawl queue"): the Matterhorn Sport store page and the resort
+  pages for Lech, Chamonix, Morzine, Les Gets, Avoriaz, Megève,
+  Alta-Snowbird. Cortina d'Ampezzo, Courmayeur and Lake Tahoe were
+  attempted but the tool timed out before confirming — redo those first
+  next session, then continue down the resort list by store count
+  (St. Anton, Saalbach, …), ~10 per day.
