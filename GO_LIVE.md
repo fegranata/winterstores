@@ -281,3 +281,11 @@ diagnose hydration/Suspense in the in-app preview browser.
 - **Needs Fernando:** the run flagged 2 CLOSED_PERMANENTLY shops ("Ski +
   Bike", "Ski School Mayrhofen | Snowsports Mayrhofen") — delete or keep.
   The ~50 CLOSED_TEMPORARILY are off-season closures; ignore.
+- **Closed shops deleted 2026-11-01** (approved): `ski-bike-h-chst` and
+  `ski-school-mayrhofen-snowsports-mayrhofen-mayrhofen`, both
+  CLOSED_PERMANENTLY per Google. Corpus 1,441 → 1,439.
+- **Ratings refresh re-run with the fix 2026-11-01:** 299 of 300 written,
+  1 failed, 0 ratingless (the ratingless ones were recorded by the 8-store
+  test). 51 non-operational flagged: 50 CLOSED_TEMPORARILY (off-season) and
+  1 FUTURE_OPENING — nothing to delete. Remaining ~1,100 stores rotate
+  through the Dec 1 / Jan 1 / Feb 1 runs at 300 each.
