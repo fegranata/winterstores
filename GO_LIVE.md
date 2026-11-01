@@ -350,3 +350,8 @@ Decisions pending (Fernando):
   Crawl budget is the constraint the noindex rule targets. Cheap lever
   while waiting: "Request indexing" in URL Inspection for ~10 key pages a
   day (resort pages first, then top guides); it was done for that page.
+- **Correction on deploy cost (2026-11-01):** 13 production deploys today
+  produced ~1.5k ISR write units in total (dashboard: 55k/200k for the last
+  30 days). The September note that "a deploy costs ~12–17k units" was
+  wrong — the Sep 3 spike had some other cause. Deploy freely; the write
+  budget is governed by TTLs and bot traffic, not by builds.
