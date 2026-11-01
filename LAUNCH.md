@@ -193,13 +193,10 @@ Search Console currently reports **zero** external links to the domain.
       personal account — answer rental/shop questions, no links unless truly
       relevant
 
-**Late October — skier audiences, season-critical, rules-compliant**
-- [ ] Modmail r/skiing describing the data post; wait for a response
-- [ ] r/skiing: original-content data post (analysis of the 265k reviews —
-      see the section above; Claude generates the analysis from the DB)
-- [ ] r/snowboarding: NO post (rule 7 bans app-developer posts) — organic
-      participation only, unless modmail approves a variant
-- [ ] Respond to every comment
+**Skier subreddits — dropped 2026-11-01.** Fernando's call: even the
+data-post angle reads as commercial promotion under r/skiing rule 3, and
+r/snowboarding bans app-developer posts outright. No posts planned. The
+link-building effort moves to shop outreach instead (see GO_LIVE.md §7).
 
 The timing logic still holds: posted when people are booking trips, with the
 Phase 2 guides aged two months so arriving traffic lands on pages that rank.

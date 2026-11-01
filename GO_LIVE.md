@@ -289,3 +289,43 @@ diagnose hydration/Suspense in the in-app preview browser.
   test). 51 non-operational flagged: 50 CLOSED_TEMPORARILY (off-season) and
   1 FUTURE_OPENING — nothing to delete. Remaining ~1,100 stores rotate
   through the Dec 1 / Jan 1 / Feb 1 runs at 300 each.
+
+## 7 — GSC check done 2026-11-01 (first since the 2026-08-09 baseline)
+
+| Metric | 2026-08-09 | 2026-11-01 |
+|---|---|---|
+| Indexed pages | 683 | **418** |
+| Crawled – currently not indexed | 602 | 557 |
+| Discovered – currently not indexed | 25 | **562** |
+| Server error (5xx) | 39 | 0 |
+| External links | 0 | **0** |
+| Clicks / impressions (3 mo) | 5 / 8.6K (12 mo) | 6 / 2.9K |
+| Average position | 31.7 | 53.4 |
+| Queries | ~all branded | 669, now incl. "banff snowboard shops", "ski repair breckenridge", "whistler snowboard shop" |
+
+Reading: the composed descriptions did not unlock indexing (557 vs 602 is
+noise), and the August expansion added ~560 pages Google has *discovered
+but won't even crawl*. Indexed count fell by 40%. The one bright spot is
+the query mix: non-branded "[service] in [resort]" queries now appear —
+exactly the intent the resort pages serve — but at position ~50.
+External links are still zero: Product Hunt and Reddit produced none that
+Google counts. ACTION_PLAN.md predicted this fork: "composed descriptions
+weren't enough → fewer, better pages, not more generation."
+
+Store-page substance, measured 2026-11-01 (1,439 stores): 1,261 have ≥20
+reviews; only 729 have more than the `rentals` tag; 32 have a written
+description. **677** have ≥20 reviews *and* either multiple services or a
+written description — the candidate "index these, noindex the rest" set.
+
+Decisions pending (Fernando):
+- [ ] **Noindex the ~760 store pages without distinguishing substance**
+      (keep them for humans and as `follow` link hubs), concentrating crawl
+      budget on 677 store pages + 83 resort pages + 28 guides. Reversible
+      in one commit, same mechanism as the ghost rule.
+- [ ] **Shop outreach for links** instead of Reddit: ~1,200 listed shops
+      have websites; a "Listed on WinterStores" badge + a short email
+      ("your shop is listed, here's your page, feel free to link it") is
+      the standard directory link strategy. Even a 2% response rate is
+      ~25 real links from topically perfect domains — more than any launch
+      produced. Needs a badge asset, a mail-merge list, and Fernando's
+      sending identity.
