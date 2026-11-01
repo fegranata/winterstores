@@ -342,3 +342,11 @@ Decisions pending (Fernando):
   Equipamiento deportivo + Turismo y atracciones. Next: complete profile /
   payment details, then apply to Skiset and Snowrental from the advertiser
   directory (each advertiser approves separately).
+- **GSC live test 2026-11-01:** Googlebot fetches store pages normally with
+  Bot Protection on ("URL is available to Google", breadcrumbs and review
+  snippets valid) — verified bots pass. The same URL inspection showed a
+  strong page (Matterhorn Sport, 324 reviews) **last crawled July 4** —
+  Google has not recrawled it since before any August/September change.
+  Crawl budget is the constraint the noindex rule targets. Cheap lever
+  while waiting: "Request indexing" in URL Inspection for ~10 key pages a
+  day (resort pages first, then top guides); it was done for that page.
