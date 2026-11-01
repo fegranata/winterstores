@@ -264,3 +264,20 @@ diagnose hydration/Suspense in the in-app preview browser.
   Settings → Secrets and variables → Actions). The cloud routine
   `trig_01Nt7Mq8dLjKoLHWTUQ2qhKA` is disabled, not deleted. The weekly guide
   routine is unaffected (no DB).
+- **First GitHub Actions maintenance run 2026-11-01 — green end to end**
+  (run #2, ~25 min): coverage fill inserted and verified **65 stores** at
+  Niseko, Rusutsu, Sölden, Tignes (Portillo correctly 0); enrichment +78
+  stores; log committed and deployed (`eaf9376`). Corpus 1,376 → 1,441.
+  Still thin for next month: Valle Nevado (2), Madonna di Campiglio (3),
+  Ruka (3), Yongpyong (4), Portillo (0, genuine).
+- **Bug found by that run:** `refresh-ratings.ts` had never worked with
+  `--commit` — `ON CONFLICT (store_id, platform)` needs a unique constraint
+  the table doesn't have (plain index only, plus ~1,020 duplicate rows from
+  older code). All 294 writes failed; 300 Place Details calls (~$5) were
+  spent for nothing. Fixed: delete-then-insert in a transaction (retires the
+  duplicates one store at a time), and ratingless stores now get a null
+  cache row so they stop sorting to the front of every monthly run.
+  Verified with a live 8-store write.
+- **Needs Fernando:** the run flagged 2 CLOSED_PERMANENTLY shops ("Ski +
+  Bike", "Ski School Mayrhofen | Snowsports Mayrhofen") — delete or keep.
+  The ~50 CLOSED_TEMPORARILY are off-season closures; ignore.

@@ -99,6 +99,7 @@ async function main() {
 
   let updated = 0;
   let failed = 0;
+  let noRating = 0;
   // Same API call, one extra field: catches shops Google has marked closed,
   // so permanent closures surface every month instead of via one-off audits
   // (the 2026-09-07 audit found one this way). Never auto-deleted — closures
@@ -130,30 +131,44 @@ async function main() {
       if (data.businessStatus && data.businessStatus !== "OPERATIONAL") {
         closed.push({ name: store.name, status: data.businessStatus });
       }
-      if (!data.rating) {
-        console.log(" – no rating");
-        continue;
-      }
 
       const now = new Date();
       const expiresAt = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 
-      await sql`
-        INSERT INTO platform_ratings_cache
-          (store_id, platform, rating, review_count, platform_url, fetched_at, expires_at)
-        VALUES (
-          ${store.id}, 'google', ${data.rating}, ${data.userRatingCount ?? 0},
-          ${data.googleMapsUri ?? ""}, ${now}, ${expiresAt}
-        )
-        ON CONFLICT (store_id, platform) DO UPDATE SET
-          rating = EXCLUDED.rating,
-          review_count = EXCLUDED.review_count,
-          platform_url = EXCLUDED.platform_url,
-          fetched_at = EXCLUDED.fetched_at,
-          expires_at = EXCLUDED.expires_at
-      `;
+      // A store Google has no rating for still gets a (null-rated) cache row:
+      // without one its fetched_at stays NULL, it sorts to the front of every
+      // oldest-first run, and the same ratingless stores eat the call budget
+      // month after month. The render path ignores rows with a null rating.
+      const rating: number | null = data.rating ?? null;
+      const reviewCount: number = data.userRatingCount ?? 0;
 
-      console.log(` ✓ ${data.rating} (${data.userRatingCount ?? 0})`);
+      // platform_ratings_cache has only a plain index on (store_id, platform),
+      // not a unique one, so ON CONFLICT cannot be used — the first scheduled
+      // run (2026-11-01) failed every write that way and wasted 300 calls.
+      // Delete-then-insert in one transaction, as verify-stores.ts does; it
+      // also retires the ~1,000 historical duplicate rows one store at a time.
+      await sql.begin(async (tx) => {
+        await tx`
+          DELETE FROM platform_ratings_cache
+          WHERE store_id = ${store.id} AND platform = 'google'
+        `;
+        await tx`
+          INSERT INTO platform_ratings_cache
+            (id, store_id, platform, rating, review_count, platform_url, fetched_at, expires_at)
+          VALUES (
+            gen_random_uuid(), ${store.id}, 'google', ${rating}, ${reviewCount},
+            ${data.googleMapsUri ?? ""}, ${now}, ${expiresAt}
+          )
+        `;
+      });
+
+      if (rating == null) {
+        console.log(" – no rating (recorded, will not be retried for 30 days)");
+        noRating++;
+        continue;
+      }
+
+      console.log(` ✓ ${rating} (${reviewCount})`);
       updated++;
     } catch (err) {
       console.log(` ✗ ${(err as Error).message}`);
@@ -164,7 +179,7 @@ async function main() {
     await new Promise((r) => setTimeout(r, 120));
   }
 
-  console.log(`\nUpdated: ${updated}  Failed: ${failed}  Calls made: ${stale.length}`);
+  console.log(`\nUpdated: ${updated}  No rating: ${noRating}  Failed: ${failed}  Calls made: ${stale.length}`);
 
   if (closed.length > 0) {
     console.log(`\n⚠ Non-operational per Google (${closed.length}) — review before removing anything.`);
