@@ -233,3 +233,15 @@ diagnose hydration/Suspense in the in-app preview browser.
 - The maintenance routine stops at a precondition check until
   `DATABASE_URL` and `GOOGLE_PLACES_API_KEY` exist in the cloud
   environment — Fernando adds those; secrets are never pasted by Claude.
+- **Smoke-tested 2026-11-01.** Weekly guide: wrote the guide, tsc + 38
+  tests passed, **push refused (403) — the Claude GitHub App is not
+  installed on fegranata/winterstores.** Monthly maintenance: stopped
+  correctly at the secrets check. Two prerequisites, both Fernando's:
+  1. Install the Claude GitHub App on the repo with write access:
+     https://github.com/apps/claude/installations/select_target (or
+     reconnect GitHub at https://claude.ai/customize/connectors).
+  2. Add `DATABASE_URL` and `GOOGLE_PLACES_API_KEY` to the Default cloud
+     environment at claude.ai/code → Environments.
+  Until (1) is done, the weekly routine writes a guide every Tuesday and
+  loses it; nothing is published. Re-run the routine after installing to
+  confirm.
