@@ -1136,6 +1136,46 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+  {
+    slug: "ski-length-sizing-guide",
+    title: "How Long Should Your Skis Be? A Sizing Guide That Isn't Just Your Height",
+    description:
+      "Height sets a starting range, not the answer. How weight, ability, ski type, and rocker profile change the right ski length, and how to tell when yours is wrong.",
+    publishedAt: "2026-11-01",
+    topics: ["skiing", "rentals"],
+    sections: [
+      {
+        heading: "Height Gives You a Range, Not a Number",
+        content:
+          "Most sizing advice starts and ends with height: stand the ski on its tail and see where the tip lands. That is a reasonable first step, because it sets a window that for most adults runs from about chin height to the top of the head. But it is only a window. Two skiers of the same height can be well served by skis a hand's width apart in length, depending on how much they weigh, how they ski, what the ski is designed for, and how much of its length actually touches the snow. The rest of this guide works through those factors one at a time, so you can walk into a rental shop or a demo day with a sensible target rather than a single number copied from a chart.",
+      },
+      {
+        heading: "Ability and Weight Move You Within the Window",
+        content:
+          "Beginners generally belong at the short end of the window, around chin to nose height. A shorter ski pivots more easily, forgives a backseat stance, and is simply less to manage while learning to turn and stop. Intermediates linking parallel turns on blue runs usually move toward nose to forehead height, gaining stability at speed without losing much maneuverability. Advanced skiers who ski fast or off-piste often go at or above head height. Weight works alongside ability: a ski bends under the skier, so a heavier person flexes a given length more easily and can handle a longer ski, while a lighter skier may be better off sizing down at the same height and level. Be honest about both inputs; overrating your ability is the most common sizing error.",
+      },
+      {
+        heading: "Ski Type Changes the Sensible Length",
+        content:
+          "What a ski is built for shifts the right length. Narrow carving and frontside skis, designed to grip groomed snow on edge, are often sized a little shorter, because quick, tight turns are their purpose and their sidecut does much of the work. All-mountain skis, the default in most rental fleets on both sides of the Atlantic, sit in the middle of the window. Powder and freeride skis tend to be sized longer, since extra length and surface area help them float in soft snow. Park and freestyle skiers often go shorter for spins and rails, and touring skiers usually favor slightly shorter, lighter skis for kick turns on the climb. When renting a performance or demo package, ask which category the ski belongs to before accepting a length.",
+      },
+      {
+        heading: "Rocker Profile: Why Modern Skis Ski Shorter",
+        content:
+          "A traditional cambered ski touches the snow along almost its whole length when tipped on edge. Many modern skis add rocker, an upturned tip and sometimes tail that rises off the snow early, which shortens the effective edge, the part that actually grips. A rockered ski therefore skis shorter than its printed length suggests, and manufacturers generally expect it to be sized a little longer than a fully cambered ski of the same type. That is why a tip-rockered all-mountain ski can feel closer to a shorter traditional ski underfoot. Fully rockered powder skis take the effect further still. When comparing lengths, read the profile description or ask the technician how much rocker the ski has; ignoring it is the main reason height-only charts feel wrong on snow.",
+      },
+      {
+        heading: "Signs Your Skis Are the Wrong Length",
+        content:
+          "Skis that are too long usually feel hard to turn, with tails that hang on at the end of each turn and a temptation to sit back to stay in control, especially on steeper or bumpier runs. Skis that are too short tend to feel unstable at speed, nervous and twitchy on hard snow, with tips that dive in soft or heavy snow. If your skis start to wash out on fast groomers, you may have outgrown a beginner length. If every turn feels like a fight, a shorter or more rockered ski often helps more than blaming your technique. Notice these signs early in a trip, because rental shops can usually swap lengths, and renting rather than owning makes this kind of experimenting cheap and low-stakes.",
+      },
+      {
+        heading: "Let the Shop Size You, and Treat Length as Adjustable",
+        content:
+          "The most reliable way to get length right is to give the rental technician the full picture: height, weight, honest ability, the terrain you plan to ski, and whether you prefer quick turns or stability at speed. Good shops in North America and the Alps ask these questions routinely, and one that sizes you on height alone is skipping steps. Standard adult packages typically run about $25-60 or €25-50 a day, with performance and demo tiers costing more and often allowing swaps between lengths or models during a multi-day rental. If you are planning a trip, WinterStores lets you compare rental shops near your resort by rating and services, which helps you find one that takes fitting seriously. Length matters, but boot fit and a good tune still matter more.",
+      },
+    ],
+  },
 ];
 
 export function getGuideBySlug(slug: string): Guide | undefined {
