@@ -213,3 +213,16 @@ never block crawlers to save quota; a page render must never trigger a paid
 API call; anything per-render or per-build is multiplied by traffic you don't
 control; discovery imports require `verify-stores.ts` and a redeploy; never
 diagnose hydration/Suspense in the in-app preview browser.
+
+## 6 — Cloud routines (set up 2026-11-01, run without this machine)
+
+- **WinterStores — weekly guide** (Tuesdays 07:00 UTC = 08:00 Madrid in
+  winter): takes the next `queued` row in `content/guide-queue.md`, writes
+  the guide into `guides.ts`, typechecks, tests, pushes to main → deploys.
+  Steer it by editing the queue file. Manage at claude.ai/code/routines.
+- **WinterStores — monthly maintenance** (1st of month): ratings refresh
+  (capped), service enrichment for new stores, discovery+verify for resorts
+  under 5 shops (capped), push → deploy. Needs `DATABASE_URL` and
+  `GOOGLE_PLACES_API_KEY` in the cloud environment.
+- Both only push when `tsc` and `npm test` pass; otherwise they open a PR
+  and stop. Each push is one deploy (~15k ISR units, ~37MB Supabase egress).
