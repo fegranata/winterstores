@@ -329,3 +329,11 @@ Decisions pending (Fernando):
       ~25 real links from topically perfect domains — more than any launch
       produced. Needs a badge asset, a mail-merge list, and Fernando's
       sending identity.
+- [x] **Noindex rule shipped 2026-11-01** (`isIndexableStore` in
+      `store-quality.ts`): a store page is indexable only with ≥20 reviews
+      AND (a service tag beyond `rentals` OR a written description >50
+      chars); everything else is `noindex, follow` and out of the sitemap.
+      Browse pagination still counts every non-ghost store (that is what
+      those pages render). Re-check GSC in 4–6 weeks: "Indexed" should
+      stabilise near the indexable count and "Crawled – currently not
+      indexed" should fall as Google drops the noindexed URLs.

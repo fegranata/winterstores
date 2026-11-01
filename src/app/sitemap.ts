@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { RESORTS } from "@/lib/data/resorts";
 import { GUIDES } from "@/lib/data/guides";
-import { isGhostStore } from "@/lib/store-quality";
+import { isGhostStore, isIndexableStore } from "@/lib/store-quality";
 import { COUNTRY_PAGE_SIZE } from "@/components/browse/CountryBrowse";
 
 // 24 hours. This response is ~220KB — at 8KB per ISR write unit that is ~28
@@ -48,12 +48,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         website: schema.storesTable.website,
         totalReviewCount: schema.storesTable.totalReviewCount,
         countryCode: schema.storesTable.countryCode,
+        services: schema.storesTable.services,
+        description: schema.storesTable.description,
       })
       .from(schema.storesTable);
 
     // Keep the sitemap consistent with the noindex on those same pages —
     // advertising a URL we tell Google not to index wastes crawl budget.
-    const stores = allStores.filter((s) => !isGhostStore(s));
+    // Only stores with distinguishing substance are listed (store-quality.ts);
+    // the browse pagination below still counts every non-ghost store because
+    // that is what the browse pages actually render.
+    const stores = allStores.filter((s) =>
+      isIndexableStore({ ...s, services: s.services as string[] | null })
+    );
 
     const countries = await db
       .selectDistinct({ countryCode: schema.storesTable.countryCode })

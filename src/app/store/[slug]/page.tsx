@@ -16,7 +16,7 @@ import RelatedGuides from "@/components/store/RelatedGuides";
 import { getGuidesForStore } from "@/lib/data/guides";
 import { getNearestResort } from "@/lib/data/resorts";
 import { resolveStoreDescription } from "@/lib/store-description";
-import { isGhostStore } from "@/lib/store-quality";
+import { isIndexableStore } from "@/lib/store-quality";
 import type { Store } from "@/types/store";
 
 /** Nearest-resort context for the description, shared by metadata and the page. */
@@ -86,9 +86,10 @@ export async function generateMetadata({ params }: StorePageProps): Promise<Meta
   return {
     title,
     description,
-    // No website and effectively no reviews: nothing to say and nothing to
-    // verify, so keep it usable for humans but out of the index.
-    ...(isGhostStore(store) && { robots: { index: false, follow: true } }),
+    // Only pages with distinguishing substance ask to be indexed (see
+    // store-quality.ts); the rest stay usable for humans and keep linking
+    // outward, but no longer compete for crawl budget.
+    ...(!isIndexableStore(store) && { robots: { index: false, follow: true } }),
     openGraph: {
       title,
       description,
