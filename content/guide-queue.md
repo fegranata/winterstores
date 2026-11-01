@@ -48,6 +48,12 @@ rows, add topics, or set a row to `hold`.
 | queued | snowboard-vs-ski-rental-costs | Ski vs Snowboard Rental Costs: What You'll Pay and Why | Package components, resort vs town, premium tiers, multi-day math, helmet add-ons. | rentals, skiing, snowboarding |
 | queued | end-of-day-gear-care-on-a-trip | Looking After Rental Gear on a Trip: The Five-Minute Evening Routine | Drying boots, edges, overnight storage options, damage-waiver-relevant habits. | storage, rentals, skiing, snowboarding |
 | queued | spring-skiing-gear-guide | Spring Skiing: How Gear and Wax Choices Change in Warm Snow | Warm wax, lens choice, layering down, timing the day, slush technique. | waxing, skiing, snowboarding |
+| queued | ski-trip-packing-list | The Complete Ski Trip Packing List (and What You Can Rent Instead) | A dedicated, printable-feeling checklist by category — on-mountain, evenings, documents, kids — with an honest rent-vs-pack call on every hardgoods line. | skiing, snowboarding, rentals |
+| queued | first-ski-boots-buying-guide | Buying Your First Ski Boots: When to Stop Renting and How to Do It Right | The signal you're ready, why boots come before skis, what a first fitting costs, the mistakes (buying online, buying for comfort in the shop, buying too big). | boot-fitting, custom-fitting, skiing |
+| queued | how-to-wax-snowboard-at-home | How to Wax a Snowboard at Home | The snowboard twin of the ski waxing guide: base check, tools, hot-wax sequence on a wider base, edge detuning vs sharpening, when a shop grind is the better call. | waxing, repairs, snowboarding |
+| queued | renting-ski-gear-in-japan | Renting Ski Gear in Japan: What's Different and What to Expect | Mondopoint sizing in cm, hire-shop culture, prices in yen ranges, English-speaking shops, boot availability for larger feet, powder-day gear swaps. | rentals, skiing, snowboarding |
+| queued | ski-theft-prevention-and-storage | Ski Theft at Resorts: How It Happens and How to Prevent It | Lunch-rack theft patterns, split-and-swap, locks and their limits, shop and locker storage, what insurance and damage waivers do and don't cover. | storage, rentals, skiing, snowboarding |
+| queued | avalanche-safety-gear-basics-rentals | Beacon, Probe, Shovel: Avalanche Safety Gear Basics and Where to Rent It | What each item does, why a course comes before a backcountry day, rental vs buy, airbag packs, the resort-boundary rule. | rentals, lessons, skiing, snowboarding |
 
 ## Published by the routine
 
