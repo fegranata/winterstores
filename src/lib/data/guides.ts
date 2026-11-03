@@ -1176,6 +1176,46 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+  {
+    slug: "ski-binding-din-settings-explained",
+    title: "Ski Binding DIN Settings Explained (and Why You Shouldn't Set Them Yourself)",
+    description:
+      "What a DIN setting is, how shops calculate it from your weight, height, age, boot, and ability, and why turning it up yourself is the classic route to injury.",
+    publishedAt: "2026-11-03",
+    topics: ["skiing", "rentals", "repairs"],
+    sections: [
+      {
+        heading: "What the DIN Number Actually Measures",
+        content:
+          "A ski binding has one job beyond holding your boot: letting go at the right moment. The DIN number, named after the German standards body Deutsches Institut für Normung and now defined by international ISO standards, is a scale for how much force the binding holds before it releases. Most bindings have two adjustment windows, one on the toe piece controlling sideways release in a twisting fall, and one on the heel controlling upward release in a forward fall. A higher number means more force is needed to release. Recreational adults typically land somewhere between the low single digits and about ten, while racers and heavy, aggressive skiers go higher. Many Alpine shops call the same figure the Z value; it is the same scale under a different name.",
+      },
+      {
+        heading: "The Five Inputs a Shop Uses to Calculate It",
+        content:
+          "Technicians in North America and Europe work from the same chart-based method, set out in the ISO 11088 standard. They start with your weight and height, each of which points to a skier code on the chart, and take the lower of the two. Boot sole length, the number in millimeters stamped on the side of your boot heel, then converts that code into a setting, because a longer sole acts as a longer lever on the binding. Skier type adjusts the result: Type 1 for cautious skiers who prefer easy runs at moderate speed, Type 2 for most intermediates, and Type 3 for fast, aggressive skiing on steep terrain. Finally, skiers aged 50 and over, and young children, move one step lower, because their bones tolerate less force.",
+      },
+      {
+        heading: "How Each Input Changes the Number",
+        content:
+          "Knowing what moves the setting explains why the form at the rental counter asks so many questions. Weight matters most: heavier skiers generate more force in normal skiing, so they need more retention to avoid releasing mid-turn. Height and weight together also stand in for the strength of the leg bones the binding is protecting. Sole length works the opposite way from what many people expect, with a longer boot giving a lower number for the same skier code, because the extra leverage reaches the same release force sooner. Skier type is the one input you choose, and each step up shifts the setting by a full row. Declaring yourself Type 3 to sound capable raises your release force in every fall, including the slow, awkward ones that newer skiers have most.",
+      },
+      {
+        heading: "Why Cranking It Up Is the Classic Injury Path",
+        content:
+          "The most common do-it-yourself adjustment is turning the screws higher after a pre-release, when a ski pops off unexpectedly mid-turn. The impulse is understandable, but the trade-off is hidden: a binding set too high stays on in exactly the falls where release protects you, particularly slow twisting falls in which the leg rotates while the ski stays put. Lower-leg fractures and knee ligament tears are the outcomes skiers fear most, and no binding prevents every knee injury even when set correctly. Pre-release usually has another cause worth checking first: incorrect forward pressure, worn or mismatched boot soles, snow or ice packed under the boot, or a habit of sitting back. Raising the number hides those problems while removing your margin of safety.",
+      },
+      {
+        heading: "What a Proper Shop Adjustment Includes",
+        content:
+          "A real binding service does much more than turn two screws. The technician checks that your boot soles are in good condition and compatible with the binding, since standard alpine, GripWalk, and touring soles are built to different norms and not every binding accepts all of them. They adjust the toe height where the binding allows it and set the forward pressure, the spring tension between boot and heel piece, which affects release as much as the number on the scale does. Then they set the toe and heel values and, at better shops, verify actual release with a calibrated testing device. Many shops, particularly in the US, will not adjust older bindings that manufacturers no longer support. Expect roughly $20-40 or €15-35 for a check and adjustment.",
+      },
+      {
+        heading: "Getting It Right at the Rental Counter and Beyond",
+        content:
+          "For renters, the job is mostly honesty. Give your real weight, choose the skier type that matches how you actually ski rather than how you hope to, and mention any previous knee or leg injury. Watch that the technician adjusts the bindings to your boots instead of handing over skis set for the previous customer, and ask what number they used so you can recognize a mistake later. If a ski releases repeatedly, or stays on in a fall that should have released it, go back to the shop rather than reaching for a screwdriver. Owners should have bindings checked at least once a season and whenever they change boots. To find a shop that offers binding work near home or your resort, WinterStores lists repair and rental services alongside reviews.",
+      },
+    ],
+  },
 ];
 
 export function getGuideBySlug(slug: string): Guide | undefined {

@@ -31,7 +31,7 @@ rows, add topics, or set a row to `hold`.
 | Status | Slug | Working title | Angle / what makes it worth ranking for | Topics |
 |---|---|---|---|---|
 | published | ski-length-sizing-guide | How Long Should Your Skis Be? A Sizing Guide That Isn't Just Your Height | Height is the starting point, not the answer: weight, ability, ski type, and rocker profile all move the number. Table-free explanation. | skiing, rentals |
-| queued | ski-binding-din-settings-explained | Ski Binding DIN Settings Explained (and Why You Shouldn't Set Them Yourself) | What DIN is, how shops calculate it, what each input changes, why "crank it up" is the classic injury path. | skiing, rentals, repairs |
+| published | ski-binding-din-settings-explained | Ski Binding DIN Settings Explained (and Why You Shouldn't Set Them Yourself) | What DIN is, how shops calculate it, what each input changes, why "crank it up" is the classic injury path. | skiing, rentals, repairs |
 | queued | pre-booking-ski-rentals-guide | Should You Pre-Book Ski Rentals Online? Discounts, Risks, and When to Walk In | Online discounts vs. fit quality; pickup-the-evening-before trick; cancellation terms. | rentals, skiing, snowboarding |
 | queued | ski-rental-damage-waiver-explained | Ski Rental Damage Waivers and Insurance: What You're Actually Paying For | What waivers cover, what they don't (theft, loss), when they're worth it (early/late season rocks), card and travel-insurance overlap. | rentals, skiing, snowboarding |
 | queued | first-snowboard-trip-guide | First Snowboard Trip Planning Guide | The snowboard twin of the first-ski-trip guide: resort choice for riders, lessons, protection, days one to three. | lessons, rentals, snowboarding |
@@ -60,3 +60,4 @@ rows, add topics, or set a row to `hold`.
 (The routine appends a line here for each guide it publishes: date — slug.)
 
 - 2026-11-01 — ski-length-sizing-guide
+- 2026-11-03 — ski-binding-din-settings-explained
