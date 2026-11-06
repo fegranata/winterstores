@@ -52,7 +52,8 @@ export default function ReportForm({ storeName, storeSlug }: ReportFormProps) {
     <div>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-600 transition-colors"
+        className="flex items-center gap-1.5 rounded-full text-sm font-medium text-slate-500 hover:text-ink-900 transition-colors"
+        aria-expanded={open}
       >
         <svg
           className="h-4 w-4"
@@ -71,7 +72,7 @@ export default function ReportForm({ storeName, storeSlug }: ReportFormProps) {
       </button>
 
       {open && (
-        <div className="mt-3 rounded-xl border border-slate-200 bg-white p-4 space-y-3">
+        <div className="mt-3 card p-5 space-y-3">
           <p className="text-sm font-medium text-slate-700">
             What&apos;s incorrect?
           </p>

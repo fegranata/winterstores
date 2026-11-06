@@ -4,7 +4,8 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { Store } from "@/types/store";
-import { SPORT_ICONS, SPORT_LABELS } from "@/types/store";
+import { SPORT_LABELS } from "@/types/store";
+import { ShoppingBagIcon, SportIcon, StarIcon } from "@/components/ui/Icons";
 import { useEffect, useMemo } from "react";
 
 // Fix default marker icons in Leaflet with webpack/next
@@ -76,7 +77,7 @@ export default function StoreMapInner({
     <MapContainer
       center={defaultCenter}
       zoom={zoom}
-      className={`rounded-xl z-0 ${className}`}
+      className={`z-0 ${className}`}
       style={{ height: "100%", width: "100%", minHeight: "400px" }}
       scrollWheelZoom={true}
     >
@@ -106,7 +107,7 @@ export default function StoreMapInner({
                 {store.city}, {store.country}
               </p>
               <div className="flex items-center gap-1 text-xs mb-1">
-                <span className="text-amber-500">{"★".repeat(Math.round(store.winterstoresScore))}</span>
+                <StarIcon className="h-3.5 w-3.5 text-amber-400" />
                 <span className="font-semibold text-slate-700">
                   {Number.isFinite(store.winterstoresScore)
                     ? store.winterstoresScore.toFixed(1)
@@ -120,19 +121,20 @@ export default function StoreMapInner({
                     key={sport}
                     className="inline-flex items-center gap-0.5 rounded bg-blue-50 px-1.5 py-0.5 text-xs text-blue-700"
                   >
-                    {SPORT_ICONS[sport]} {SPORT_LABELS[sport]}
+                    <SportIcon sport={sport} className="h-3 w-3" />
+                    {SPORT_LABELS[sport]}
                   </span>
                 ))}
               </div>
               <div className="flex items-center gap-2 text-xs text-slate-500">
                 <span className="font-semibold text-slate-700">{"$".repeat(store.priceLevel)}</span>
                 {store.hasOnlineShop && (
-                  <span className="text-green-600">🛒 Online Shop</span>
+                  <span className="inline-flex items-center gap-1 text-emerald-700"><ShoppingBagIcon className="h-3 w-3" />Online Shop</span>
                 )}
               </div>
               <a
                 href={`/store/${store.slug}`}
-                className="mt-2 block text-center rounded bg-blue-600 px-3 py-1.5 text-xs font-medium text-white no-underline hover:bg-blue-700"
+                className="mt-2 block text-center rounded-full bg-blue-600 px-3 py-1.5 text-xs font-semibold !text-white no-underline hover:bg-blue-700"
               >
                 View Details
               </a>

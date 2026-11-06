@@ -1,5 +1,7 @@
 "use client";
 
+import { StarIcon } from "@/components/ui/Icons";
+
 interface ReviewDistributionProps {
   reviews: { rating: number }[];
 }
@@ -12,12 +14,12 @@ export default function ReviewDistribution({ reviews }: ReviewDistributionProps)
   const maxCount = Math.max(...distribution.map((d) => d.count), 1);
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5">
+    <div className="card p-5">
       <div className="space-y-2">
         {distribution.map(({ star, count }) => (
           <div key={star} className="flex items-center gap-3 text-sm">
-            <span className="w-8 text-right text-slate-600 font-medium">
-              {star} <span className="text-amber-400">&#9733;</span>
+            <span className="flex w-8 items-center justify-end gap-0.5 text-slate-600 font-medium">
+              {star} <StarIcon className="h-3.5 w-3.5 text-amber-400" />
             </span>
             <div className="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
               <div

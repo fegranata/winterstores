@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, FormEvent, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { MapPinIcon, SearchIcon } from "@/components/ui/Icons";
 
 interface SearchBarProps {
   defaultValue?: string;
@@ -94,14 +95,22 @@ export default function SearchBar({
   }, []);
 
   const inputClass =
-    size === "lg" ? "h-14 text-lg px-5 pr-14" : "h-11 text-sm px-4 pr-12";
+    size === "lg"
+      ? "h-16 text-base sm:text-lg pl-14 pr-20 shadow-xl ring-1 ring-black/5"
+      : "h-12 text-sm pl-11 pr-14 shadow-sm";
 
   const buttonClass =
-    size === "lg" ? "h-10 w-10 right-2" : "h-8 w-8 right-1.5";
+    size === "lg" ? "h-12 w-12 right-2" : "h-9 w-9 right-1.5";
+
+  const iconClass =
+    size === "lg" ? "left-5 h-5 w-5" : "left-4 h-4 w-4";
 
   return (
     <div ref={wrapperRef} className="relative w-full">
-      <form onSubmit={handleSubmit} className="relative w-full">
+      <form onSubmit={handleSubmit} className="relative w-full" role="search">
+        <SearchIcon
+          className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-slate-400 ${iconClass}`}
+        />
         <input
           type="text"
           value={query}
@@ -111,7 +120,8 @@ export default function SearchBar({
             if (suggestions.length > 0) setShowDropdown(true);
           }}
           placeholder={placeholder}
-          className={`w-full rounded-full border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all ${inputClass}`}
+          aria-label={placeholder}
+          className={`w-full rounded-full border border-slate-200 bg-white text-ink-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 outline-none transition-all ${inputClass}`}
           autoComplete="off"
           role="combobox"
           aria-expanded={showDropdown}
@@ -119,22 +129,10 @@ export default function SearchBar({
         />
         <button
           type="submit"
-          className={`absolute top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors ${buttonClass}`}
+          className={`absolute top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-sm hover:bg-blue-700 transition-colors ${buttonClass}`}
           aria-label="Search"
         >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2.5}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
+          <SearchIcon className={size === "lg" ? "h-5 w-5" : "h-4 w-4"} strokeWidth={2.5} />
         </button>
       </form>
 
@@ -142,7 +140,7 @@ export default function SearchBar({
       {showDropdown && suggestions.length > 0 && (
         <ul
           role="listbox"
-          className="absolute z-50 mt-1 w-full rounded-xl border border-slate-200 bg-white py-1 shadow-lg"
+          className="absolute z-50 mt-2 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white py-1.5 text-left shadow-lg"
         >
           {suggestions.map((s, i) => (
             <li
@@ -159,24 +157,7 @@ export default function SearchBar({
                 setShowDropdown(false);
               }}
             >
-              <svg
-                className="h-4 w-4 shrink-0 text-slate-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                />
-              </svg>
+              <MapPinIcon className="h-4 w-4 shrink-0 text-slate-400" />
               <div className="min-w-0">
                 <p className="font-medium truncate">{s.name}</p>
                 <p className="text-xs text-slate-400 truncate">

@@ -26,7 +26,7 @@ export default function PlatformRatings({ ratings }: { ratings: RatingsData }) {
 
   if (availablePlatforms.length === 0) {
     return (
-      <div className="rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 p-6 text-center">
+      <div className="rounded-2xl border border-dashed border-slate-300 bg-white/60 p-6 text-center">
         <p className="text-sm text-slate-500">
           Platform ratings will appear here once available
         </p>
@@ -68,24 +68,24 @@ const PLATFORM_CONFIG: Record<
     name: "Google",
     logo: "/images/google-logo.svg",
     linkText: "View on Google Maps",
-    bgTint: "bg-blue-50/50",
-    borderTint: "border-blue-100",
-    linkColor: "text-blue-600 hover:text-blue-800",
+    bgTint: "bg-blue-50",
+    borderTint: "hover:border-blue-200",
+    linkColor: "text-blue-700 hover:text-blue-900",
   },
   facebook: {
     name: "Facebook",
     logo: "/images/facebook-logo.svg",
     linkText: "View on Facebook",
-    bgTint: "bg-[#1877F2]/5",
-    borderTint: "border-[#1877F2]/15",
+    bgTint: "bg-[#1877F2]/10",
+    borderTint: "hover:border-[#1877F2]/30",
     linkColor: "text-[#1877F2] hover:text-[#1565C0]",
   },
   foursquare: {
     name: "Foursquare",
     logo: "/images/foursquare-logo.svg",
     linkText: "View on Foursquare",
-    bgTint: "bg-[#E95B8B]/5",
-    borderTint: "border-[#E95B8B]/15",
+    bgTint: "bg-[#E95B8B]/10",
+    borderTint: "hover:border-[#E95B8B]/30",
     linkColor: "text-[#E95B8B] hover:text-[#D14476]",
   },
 };
@@ -104,8 +104,9 @@ function PlatformCard({
   const config = PLATFORM_CONFIG[platform];
 
   return (
-    <div className={`${config.bgTint} rounded-xl border ${config.borderTint} p-5 flex flex-col gap-2`}>
-      <div className="flex items-center gap-2">
+    <div className={`card ${config.borderTint} p-5 flex flex-col gap-2.5`}>
+      <div className="flex items-center gap-2.5">
+        <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${config.bgTint}`}>
         <Image
           src={config.logo}
           alt={`${config.name} logo`}
@@ -113,9 +114,10 @@ function PlatformCard({
           height={20}
           className="flex-shrink-0"
         />
-        <span className="font-semibold text-slate-800">{config.name}</span>
+        </span>
+        <span className="font-semibold text-ink-900">{config.name}</span>
       </div>
-      <RatingStars rating={rating} size="md" />
+      <RatingStars rating={rating} size="lg" />
       <p className="text-sm text-slate-500">
         {reviewCount.toLocaleString()} review{reviewCount !== 1 ? "s" : ""}
       </p>
@@ -124,7 +126,7 @@ function PlatformCard({
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`text-sm ${config.linkColor} hover:underline mt-1`}
+          className={`mt-auto pt-1 text-sm font-medium ${config.linkColor} hover:underline underline-offset-4`}
         >
           {config.linkText} &rarr;
         </a>

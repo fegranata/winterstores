@@ -4,6 +4,7 @@ import { useState } from "react";
 import StoreCard from "@/components/store/StoreCard";
 import StoreMap from "@/components/map/StoreMap";
 import type { Store } from "@/types/store";
+import { ListIcon, MapIcon, MountainIcon } from "@/components/ui/Icons";
 
 interface SearchResultsProps {
   stores: (Store & { distance?: number })[];
@@ -21,18 +22,20 @@ export default function SearchResults({ stores, userLat, userLng }: SearchResult
   return (
     <div>
       {/* View toggle (mobile) */}
-      <div className="flex items-center gap-1.5 mb-4 lg:hidden">
+      <div className="mb-4 flex items-center gap-1 rounded-full bg-slate-100 p-1 lg:hidden">
         {(["list", "map"] as const).map((v) => (
           <button
             key={v}
             onClick={() => setView(v)}
-            className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+            aria-pressed={view === v}
+            className={`flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold transition-colors ${
               view === v
-                ? "bg-blue-600 text-white"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                ? "bg-white text-ink-900 shadow-sm ring-1 ring-slate-200"
+                : "text-slate-500 hover:text-ink-900"
             }`}
           >
-            {v === "list" ? "📋 List" : "🗺️ Map"}
+            {v === "list" ? <ListIcon className="h-4 w-4" /> : <MapIcon className="h-4 w-4" />}
+            {v === "list" ? "List" : "Map"}
           </button>
         ))}
       </div>
@@ -58,8 +61,10 @@ export default function SearchResults({ stores, userLat, userLng }: SearchResult
               ))}
             </div>
           ) : (
-            <div className="rounded-xl border border-slate-200 bg-white px-8 py-16 text-center">
-              <p className="text-4xl">🏔️</p>
+            <div className="card px-8 py-16 text-center">
+              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">
+                <MountainIcon className="h-7 w-7" />
+              </span>
               <h3 className="mt-4 text-lg font-semibold text-slate-900">No stores found</h3>
               <p className="mt-2 text-sm text-slate-500">
                 Try adjusting your filters or search for a different location.
@@ -74,7 +79,7 @@ export default function SearchResults({ stores, userLat, userLng }: SearchResult
             view === "list" ? "hidden lg:block" : ""
           } ${view === "map" ? "w-full" : ""}`}
         >
-          <div className="sticky top-20 h-[calc(100vh-8rem)]">
+          <div className="sticky top-24 h-[calc(100vh-8rem)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
             <StoreMap
               stores={stores}
               center={mapCenter}

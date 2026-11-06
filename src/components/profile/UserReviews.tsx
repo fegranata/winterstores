@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { PenIcon, StarIcon } from "@/components/ui/Icons";
 
 interface UserReview {
   id: string;
@@ -56,7 +57,7 @@ export default function UserReviews() {
 
       {reviews.length === 0 ? (
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-8 text-center">
-          <p className="text-3xl mb-3">📝</p>
+          <span className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-700"><PenIcon className="h-6 w-6" /></span>
           <p className="font-medium text-slate-700">No reviews yet</p>
           <p className="mt-1 text-sm text-slate-500">
             Share your experience with winter sport stores.
@@ -89,16 +90,14 @@ export default function UserReviews() {
                 </div>
                 <div className="flex items-center gap-1 text-sm shrink-0">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <span
+                    <StarIcon
                       key={i}
-                      className={
+                      className={`h-4 w-4 ${
                         i < review.rating
                           ? "text-amber-400"
-                          : "text-slate-300"
-                      }
-                    >
-                      ★
-                    </span>
+                          : "text-slate-200"
+                      }`}
+                    />
                   ))}
                 </div>
               </div>

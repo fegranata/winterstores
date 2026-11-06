@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useToast } from "@/components/ui/Toast";
+import { CheckIcon, NavigationIcon } from "@/components/ui/Icons";
 
 export default function GeolocationButton() {
   const router = useRouter();
@@ -65,10 +66,11 @@ export default function GeolocationButton() {
       <button
         onClick={handleClick}
         disabled={loading}
-        className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium shadow-sm transition-colors ${
+        aria-pressed={isActive}
+        className={`inline-flex h-12 items-center gap-1.5 rounded-full border px-4 text-sm font-semibold shadow-sm transition-colors ${
           isActive
-            ? "border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100"
-            : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+            ? "border-blue-300 bg-blue-50 text-blue-800 hover:bg-blue-100"
+            : "border-slate-200 bg-white text-slate-700 hover:border-blue-300 hover:text-blue-700"
         } ${loading ? "opacity-60 cursor-wait" : ""}`}
       >
         {loading ? (
@@ -77,12 +79,10 @@ export default function GeolocationButton() {
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
         ) : (
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-          </svg>
+          <NavigationIcon className="h-4 w-4" />
         )}
-        {isActive ? "Near me ✓" : "Use my location"}
+        {isActive ? "Near me" : "Use my location"}
+        {isActive && <CheckIcon className="h-4 w-4" strokeWidth={2.5} />}
       </button>
       {error && <span className="text-xs text-red-500">{error}</span>}
     </div>

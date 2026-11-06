@@ -44,7 +44,7 @@ export default function ReviewSection({ storeId, storeSlug, initialReviews }: Re
 
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold text-slate-900">Reviews</h2>
+      <h2 className="heading-display text-2xl text-ink-900">Reviews</h2>
       {!loading && reviews.length > 0 && (
         <ReviewDistribution reviews={reviews} />
       )}

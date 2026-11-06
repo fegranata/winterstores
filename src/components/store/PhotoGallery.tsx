@@ -32,7 +32,7 @@ export default function PhotoGallery({ photos, storeName }: PhotoGalleryProps) {
 
   if (photos.length === 0) {
     return (
-      <div className="rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center py-12 px-6 text-center">
+      <div className="rounded-2xl border border-dashed border-slate-300 bg-white/60 flex flex-col items-center justify-center py-10 px-6 text-center">
         <svg
           className="h-12 w-12 text-slate-300 mb-3"
           fill="none"
@@ -60,7 +60,7 @@ export default function PhotoGallery({ photos, storeName }: PhotoGalleryProps) {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+    <div className="card overflow-hidden">
       {/* Main image */}
       <div className="relative aspect-[16/9] bg-slate-100 group">
         <Image
