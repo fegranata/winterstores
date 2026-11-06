@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Guide } from "@/lib/data/guides";
+import { BookIcon } from "@/components/ui/Icons";
 
 interface RelatedGuidesProps {
   guides: Guide[];
@@ -18,11 +19,11 @@ export default function RelatedGuides({ guides, storeName }: RelatedGuidesProps)
   if (guides.length === 0) return null;
 
   return (
-    <section className="mt-12 pt-12 border-t border-slate-200">
-      <h2 className="text-xl font-bold text-slate-900">
+    <section className="mt-16 pt-12 border-t border-slate-200">
+      <h2 className="heading-display text-2xl text-ink-900 sm:text-3xl">
         {storeName ? `Before you visit ${storeName}` : "Helpful guides"}
       </h2>
-      <p className="mt-1 text-sm text-slate-500">
+      <p className="mt-2 text-slate-500">
         Practical reading for choosing gear and getting the most out of your trip.
       </p>
 
@@ -31,15 +32,18 @@ export default function RelatedGuides({ guides, storeName }: RelatedGuidesProps)
           <Link
             key={guide.slug}
             href={`/guides/${guide.slug}`}
-            className="group flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:border-blue-200 hover:shadow-md"
+            className="group flex flex-col card card-hover p-6"
           >
-            <h3 className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
+            <span className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg bg-glow-50 text-glow-700">
+              <BookIcon className="h-5 w-5" />
+            </span>
+            <h3 className="font-display text-lg font-semibold leading-snug text-ink-900 group-hover:text-blue-700 transition-colors">
               {guide.title}
             </h3>
             <p className="mt-2 line-clamp-3 text-sm text-slate-500">
               {guide.description}
             </p>
-            <span className="mt-3 text-sm font-medium text-blue-600">
+            <span className="mt-auto pt-4 text-sm font-semibold text-blue-700">
               Read guide →
             </span>
           </Link>

@@ -34,7 +34,7 @@ export default function ReviewList({ reviews, loading }: ReviewListProps) {
 
   if (reviews.length === 0) {
     return (
-      <div className="rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-blue-50/50 p-8 text-center">
+      <div className="rounded-2xl border border-slate-200 bg-white bg-header-wash p-8 text-center">
         <svg
           className="mx-auto h-10 w-10 text-blue-300 mb-3"
           fill="none"
@@ -62,7 +62,7 @@ export default function ReviewList({ reviews, loading }: ReviewListProps) {
       {reviews.map((review) => (
         <div
           key={review.id}
-          className="rounded-xl border border-slate-200 bg-white p-5"
+          className="card p-5"
         >
           <div className="flex items-start justify-between gap-3 mb-2">
             <div>

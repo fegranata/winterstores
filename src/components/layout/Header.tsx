@@ -3,115 +3,102 @@
 import Link from "next/link";
 import { useState } from "react";
 import AuthStatus from "@/components/auth/AuthStatus";
+import Logo from "@/components/ui/Logo";
+import { HeartIcon, MenuIcon, SearchIcon, XIcon } from "@/components/ui/Icons";
+
+const NAV_LINKS = [
+  { href: "/search", label: "Find Stores" },
+  { href: "/search?sort=highest-rated", label: "Top Rated" },
+  { href: "/browse", label: "Browse" },
+  { href: "/resorts", label: "Resorts" },
+  { href: "/guides", label: "Guides" },
+];
+
+const MOBILE_LINKS = [
+  { href: "/search", label: "Find Stores" },
+  { href: "/search?sort=highest-rated", label: "Top Rated" },
+  { href: "/browse", label: "Browse by Country" },
+  { href: "/resorts", label: "Resorts" },
+  { href: "/best-ski-shops", label: "Best Ski Shops" },
+  { href: "/guides", label: "Guides" },
+  { href: "/favorites", label: "Favorites" },
+];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-xl text-slate-900">
-          <span className="text-2xl">🏔️</span>
-          <span>
-            Winter<span className="text-blue-600">Stores</span>
-          </span>
-        </Link>
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-snow/90 backdrop-blur-md supports-[backdrop-filter]:bg-snow/75">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <Logo />
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          <Link
-            href="/search"
-            className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-          >
-            Find Stores
-          </Link>
-          <Link
-            href="/search?sort=highest-rated"
-            className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-          >
-            Top Rated
-          </Link>
-          <Link
-            href="/browse"
-            className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-          >
-            Browse
-          </Link>
-          <Link
-            href="/resorts"
-            className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-          >
-            Resorts
-          </Link>
-          <Link
-            href="/guides"
-            className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-          >
-            Guides
-          </Link>
+        <nav className="hidden md:flex items-center gap-1" aria-label="Main">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-full px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-ink-900"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hidden md:flex items-center gap-2">
           <Link
             href="/favorites"
-            className="inline-flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-ink-900"
           >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-            </svg>
+            <HeartIcon className="h-4 w-4" />
             Favorites
           </Link>
           <Link
             href="/search"
-            className="inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-full bg-ink-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-600"
           >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-            </svg>
+            <SearchIcon className="h-4 w-4" strokeWidth={2.25} />
             Search
           </Link>
           <AuthStatus />
-        </nav>
+        </div>
 
-        {/* Mobile menu button */}
-        <button
-          className="md:hidden p-2 text-slate-600"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-            {menuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            )}
-          </svg>
-        </button>
+        {/* Mobile: quick search + menu */}
+        <div className="flex items-center gap-1 md:hidden">
+          <Link
+            href="/search"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink-900 text-white"
+            aria-label="Search"
+          >
+            <SearchIcon className="h-4.5 w-4.5" strokeWidth={2.25} />
+          </Link>
+          <button
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-slate-700 hover:bg-slate-100"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <XIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 py-3 space-y-2">
-          <Link href="/search" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
-            Find Stores
-          </Link>
-          <Link href="/search?sort=highest-rated" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
-            Top Rated
-          </Link>
-          <Link href="/browse" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
-            Browse by Country
-          </Link>
-          <Link href="/resorts" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
-            Resorts
-          </Link>
-          <Link href="/best-ski-shops" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
-            Best Ski Shops
-          </Link>
-          <Link href="/guides" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
-            Guides
-          </Link>
-          <Link href="/favorites" className="block py-2 text-sm font-medium text-slate-600" onClick={() => setMenuOpen(false)}>
-            Favorites
-          </Link>
-          <div className="border-t border-slate-200 pt-2 mt-2" onClick={() => setMenuOpen(false)}>
+        <div className="md:hidden border-t border-slate-200 bg-snow px-4 pb-4 pt-2">
+          <nav className="grid gap-0.5" aria-label="Mobile">
+            {MOBILE_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-slate-700 hover:bg-slate-100 hover:text-ink-900"
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="mt-2 border-t border-slate-200 px-3 pt-3" onClick={() => setMenuOpen(false)}>
             <AuthStatus />
           </div>
         </div>

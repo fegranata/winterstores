@@ -1,11 +1,19 @@
 import Link from "next/link";
 import SearchBar from "@/components/search/SearchBar";
-import { SPORT_ICONS, SPORT_LABELS } from "@/types/store";
+import { SPORT_LABELS } from "@/types/store";
 import type { SportType } from "@/types/store";
 import { getUniqueCountries, getStoreCount, getTotalReviewCount } from "@/lib/store-search";
 import AdSlot from "@/components/ui/AdSlot";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import type { Metadata } from "next";
+import {
+  ArrowRightIcon,
+  MountainIcon,
+  ScaleIcon,
+  SearchIcon,
+  SnowboardingIcon,
+  SportIcon,
+} from "@/components/ui/Icons";
 
 export const revalidate = 604800; // counts/country list change only on imports, which always end in a deploy
 
@@ -25,13 +33,73 @@ const FEATURED_SPORTS: SportType[] = [
 ];
 
 const POPULAR_REGIONS = [
-  { name: "Colorado", country: "USA", emoji: "🏔️", query: "q=Colorado" },
-  { name: "Swiss Alps", country: "Switzerland", emoji: "🇨🇭", query: "country=CH" },
-  { name: "Austrian Tyrol", country: "Austria", emoji: "🇦🇹", query: "country=AT" },
-  { name: "French Alps", country: "France", emoji: "🇫🇷", query: "country=FR" },
-  { name: "Hokkaido", country: "Japan", emoji: "🇯🇵", query: "q=Hokkaido" },
-  { name: "Scandinavia", country: "Norway & Sweden", emoji: "❄️", query: "q=Norway" },
+  { name: "Colorado", country: "USA", query: "q=Colorado" },
+  { name: "Swiss Alps", country: "Switzerland", query: "country=CH" },
+  { name: "Austrian Tyrol", country: "Austria", query: "country=AT" },
+  { name: "French Alps", country: "France", query: "country=FR" },
+  { name: "Hokkaido", country: "Japan", query: "q=Hokkaido" },
+  { name: "Scandinavia", country: "Norway & Sweden", query: "q=Norway" },
 ];
+
+const HOW_IT_WORKS = [
+  {
+    step: "1",
+    Icon: SearchIcon,
+    title: "Search",
+    desc: "Enter your location or browse by region to find winter sport stores nearby.",
+  },
+  {
+    step: "2",
+    Icon: ScaleIcon,
+    title: "Compare",
+    desc: "Filter by sport type, services, and ratings. See reviews from multiple sources in one view.",
+  },
+  {
+    step: "3",
+    Icon: SnowboardingIcon,
+    title: "Visit or Shop",
+    desc: "Find the perfect store — visit in person or shop online. Get geared up for winter!",
+  },
+];
+
+/** Layered ridgelines that fade the dark hero into the page ground. */
+function HeroRidges() {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full sm:h-32 lg:h-40"
+      viewBox="0 0 1440 160"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M0 110 L120 70 L210 96 L330 38 L450 92 L560 60 L690 104 L800 46 L930 88 L1040 30 L1170 90 L1290 58 L1440 96 V160 H0 Z"
+        fill="#ffffff"
+        opacity="0.05"
+      />
+      <path
+        d="M0 132 L150 98 L260 122 L390 84 L520 126 L640 100 L770 134 L900 92 L1030 124 L1160 88 L1300 122 L1440 104 V160 H0 Z"
+        fill="#ffffff"
+        opacity="0.08"
+      />
+      <path
+        d="M0 160 L0 146 L180 128 L340 148 L520 124 L700 150 L880 130 L1060 150 L1250 128 L1440 146 L1440 160 Z"
+        fill="#fbfaf7"
+      />
+    </svg>
+  );
+}
+
+function Stat({ value, label }: { value: React.ReactNode; label: string }) {
+  return (
+    <div className="px-2">
+      <p className="font-display text-2xl font-semibold tabular-nums text-white sm:text-3xl">
+        {value}
+      </p>
+      <p className="mt-1 text-xs text-white/65 sm:text-sm">{label}</p>
+    </div>
+  );
+}
 
 export default async function HomePage() {
   const countries = await getUniqueCountries();
@@ -42,117 +110,86 @@ export default async function HomePage() {
     <div>
       <WebSiteJsonLd />
 
-      {/* ── Hero Section ─────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800">
-        {/* Decorative snow dots */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-[10%] h-2 w-2 rounded-full bg-white" />
-          <div className="absolute top-20 left-[25%] h-1.5 w-1.5 rounded-full bg-white" />
-          <div className="absolute top-8 left-[50%] h-1 w-1 rounded-full bg-white" />
-          <div className="absolute top-32 left-[70%] h-2 w-2 rounded-full bg-white" />
-          <div className="absolute top-16 left-[85%] h-1.5 w-1.5 rounded-full bg-white" />
-          <div className="absolute top-40 left-[40%] h-1 w-1 rounded-full bg-white" />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
-          <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+      {/* ── Hero: typography-led, the search bar is the object ── */}
+      {/* no overflow-hidden: the search autocomplete must be able to drop below the hero */}
+      <section className="relative bg-ink-900 bg-contours">
+        <div className="relative mx-auto max-w-7xl px-4 pt-16 pb-36 sm:px-6 sm:pt-24 sm:pb-44 lg:px-8 lg:pt-28 lg:pb-52">
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="heading-display text-[2.6rem] text-white sm:text-6xl lg:text-7xl">
               Find the Best{" "}
-              <span className="text-blue-200">Winter Sport Stores</span>{" "}
+              <span className="font-medium italic text-blue-200">Winter Sport Stores</span>{" "}
               Near You
             </h1>
-            <p className="mt-4 text-lg text-blue-100 sm:text-xl">
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
               Find the best-rated winter sport stores with the WinterStores
               Score — 265,000+ reviews condensed into one comparable number.
               Filter by sport, distance, and services.
             </p>
-            <div className="mt-8 mx-auto max-w-lg">
+            <div className="mx-auto mt-10 max-w-2xl">
               <SearchBar size="lg" placeholder="Search by city, region, or store name…" />
+            </div>
+
+            {/* Stats */}
+            <div className="mx-auto mt-12 grid max-w-xl grid-cols-3 divide-x divide-white/10">
+              <Stat value={storeCount} label="Stores Listed" />
+              <Stat value={countries.length} label="Countries" />
+              <Stat value={totalReviews.toLocaleString()} label="Reviews Tracked" />
             </div>
           </div>
         </div>
+        <HeroRidges />
       </section>
 
-      {/* ── Sport Quick Filters ──────────────────────── */}
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+      {/* ── Sport entry points ───────────────────────── */}
+      <section className="relative z-10 -mt-20 sm:-mt-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-6">
             {FEATURED_SPORTS.map((sport) => (
               <Link
                 key={sport}
                 href={`/search?sport=${sport}`}
-                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 transition-all"
+                className="group flex flex-col items-center gap-2.5 card card-hover px-2 py-4 text-center sm:py-5"
               >
-                <span>{SPORT_ICONS[sport]}</span>
-                {SPORT_LABELS[sport]}
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-blue-700 transition-colors group-hover:bg-blue-600 group-hover:text-white sm:h-12 sm:w-12">
+                  <SportIcon sport={sport} className="h-7 w-7" strokeWidth={1.6} />
+                </span>
+                <span className="text-[13px] font-semibold leading-tight text-ink-900 sm:text-sm">
+                  {SPORT_LABELS[sport]}
+                </span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Stats Bar ────────────────────────────────── */}
-      <section className="bg-slate-50 border-b border-slate-200">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <p className="text-2xl font-bold text-slate-900 sm:text-3xl">
-                {storeCount}
-              </p>
-              <p className="mt-1 text-sm text-slate-500">Stores Listed</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-slate-900 sm:text-3xl">
-                {countries.length}
-              </p>
-              <p className="mt-1 text-sm text-slate-500">Countries</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-slate-900 sm:text-3xl">
-                {totalReviews.toLocaleString()}
-              </p>
-              <p className="mt-1 text-sm text-slate-500">Reviews Tracked</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── Popular Regions ──────────────────────────── */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
+      <section>
+        <div className="mx-auto max-w-7xl px-4 pt-20 pb-12 sm:px-6 lg:px-8 lg:pt-24 lg:pb-16">
+          <div className="max-w-2xl">
+            <h2 className="heading-display text-3xl text-ink-900 sm:text-4xl">
               Popular Winter Sport Regions
             </h2>
-            <p className="mt-2 text-slate-500">
+            <p className="mt-3 text-slate-500 sm:text-lg">
               Explore stores in the world&apos;s best winter destinations
             </p>
           </div>
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {POPULAR_REGIONS.map((region) => (
               <Link
                 key={region.name}
                 href={`/search?${region.query}`}
-                className="group flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:shadow-md hover:border-blue-200"
+                className="group flex items-center gap-4 card card-hover p-5"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-2xl group-hover:bg-blue-100 transition-colors">
-                  {region.emoji}
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-ink-800 to-blue-700 text-white shadow-sm">
+                  <MountainIcon className="h-6 w-6" />
                 </span>
-                <div>
-                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                <div className="min-w-0">
+                  <h3 className="font-display text-lg font-semibold text-ink-900 transition-colors group-hover:text-blue-700">
                     {region.name}
                   </h3>
                   <p className="text-sm text-slate-500">{region.country}</p>
                 </div>
-                <svg
-                  className="ml-auto h-5 w-5 text-slate-300 group-hover:text-blue-400 transition-colors"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
+                <ArrowRightIcon className="ml-auto h-5 w-5 shrink-0 text-slate-300 transition-all group-hover:translate-x-0.5 group-hover:text-blue-600" />
               </Link>
             ))}
           </div>
@@ -165,42 +202,27 @@ export default async function HomePage() {
       </div>
 
       {/* ── How It Works ─────────────────────────────── */}
-      <section className="bg-slate-50 border-t border-slate-200">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <section className="mt-10 border-y border-slate-200 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
+            <h2 className="heading-display text-3xl text-ink-900 sm:text-4xl">
               How It Works
             </h2>
           </div>
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {[
-              {
-                step: "1",
-                icon: "🔍",
-                title: "Search",
-                desc: "Enter your location or browse by region to find winter sport stores nearby.",
-              },
-              {
-                step: "2",
-                icon: "⚖️",
-                title: "Compare",
-                desc: "Filter by sport type, services, and ratings. See reviews from multiple sources in one view.",
-              },
-              {
-                step: "3",
-                icon: "🏂",
-                title: "Visit or Shop",
-                desc: "Find the perfect store — visit in person or shop online. Get geared up for winter!",
-              },
-            ].map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-3xl">
-                  {item.icon}
+          <div className="relative mt-12 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8">
+            <span
+              className="absolute top-8 left-[16.66%] right-[16.66%] hidden h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent sm:block"
+              aria-hidden="true"
+            />
+            {HOW_IT_WORKS.map(({ step, Icon, title, desc }) => (
+              <div key={step} className="relative text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ink-900 text-white shadow-md ring-8 ring-white">
+                  <Icon className="h-7 w-7" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-slate-900">
-                  {item.title}
+                <h3 className="mt-5 text-lg font-semibold text-ink-900">
+                  {title}
                 </h3>
-                <p className="mt-2 text-sm text-slate-500">{item.desc}</p>
+                <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-slate-500">{desc}</p>
               </div>
             ))}
           </div>
@@ -208,12 +230,14 @@ export default async function HomePage() {
       </section>
 
       {/* ── What is WinterStores ───────────────────── */}
-      <section className="bg-white border-t border-slate-200">
-        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-          <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl text-center">
-            What is WinterStores?
-          </h2>
-          <div className="mt-6 space-y-4 text-slate-600 leading-relaxed">
+      <section>
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-24">
+          <div className="lg:col-span-4">
+            <h2 className="heading-display text-3xl text-ink-900 sm:text-4xl lg:sticky lg:top-24">
+              What is WinterStores?
+            </h2>
+          </div>
+          <div className="prose-editorial lg:col-span-8 lg:border-l lg:border-slate-200 lg:pl-12">
             <p>
               WinterStores is a free, community-powered directory of winter sport
               stores from around the world. We condense hundreds of thousands of
@@ -231,7 +255,10 @@ export default async function HomePage() {
             <p>
               Our directory covers stores across {countries.length} countries and is
               growing every day thanks to community contributions. Anyone can{" "}
-              <Link href="/suggest" className="text-blue-600 hover:text-blue-800 underline">
+              <Link
+                href="/suggest"
+                className="font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 hover:decoration-blue-700"
+              >
                 suggest a store
               </Link>{" "}
               or leave a review to help fellow winter sport enthusiasts find the

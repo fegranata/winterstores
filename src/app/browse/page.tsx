@@ -3,6 +3,8 @@ import { getUniqueCountries } from "@/lib/store-search";
 import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
+import PageHeader from "@/components/ui/PageHeader";
+import { ArrowRightIcon, GlobeIcon } from "@/components/ui/Icons";
 
 // 7 days, matching /store/[slug]: the country list only changes when import
 // scripts run, and those are always followed by a deploy that rebuilds this.
@@ -18,53 +20,42 @@ export default async function BrowsePage() {
   const countries = await getUniqueCountries();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Browse", href: "/browse" }]} />
-      {/* Breadcrumbs */}
-      <nav className="mb-6 flex items-center gap-1.5 text-sm text-slate-400">
-        <Link href="/" className="hover:text-slate-600 transition-colors">Home</Link>
-        <span>/</span>
-        <span className="text-slate-700 font-medium">Browse</span>
-      </nav>
+      <PageHeader
+        crumbs={[{ label: "Home", href: "/" }, { label: "Browse" }]}
+        title="Browse by Country"
+        lede={<>Explore winter sport stores in {countries.length} countries around the world.</>}
+      />
 
-      <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-        Browse by Country
-      </h1>
-      <p className="mt-2 text-slate-500">
-        Explore winter sport stores in {countries.length} countries around the world.
-      </p>
-
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
         {countries.map((c) => (
           <Link
             key={c.countryCode}
             href={`/browse/${c.countryCode.toLowerCase()}`}
-            className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-md hover:border-blue-200"
+            className="group flex items-center justify-between gap-4 card card-hover p-5"
           >
-            <div>
-              <h2 className="text-lg font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-700 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+              <GlobeIcon className="h-5 w-5" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <h2 className="font-display text-lg font-semibold text-ink-900 group-hover:text-blue-700 transition-colors">
                 {c.country}
               </h2>
               <p className="mt-0.5 text-sm text-slate-500">
                 {c.count} store{c.count !== 1 ? "s" : ""}
               </p>
             </div>
-            <svg
-              className="h-5 w-5 text-slate-300 group-hover:text-blue-400 transition-colors"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
+            <ArrowRightIcon className="h-5 w-5 shrink-0 text-slate-300 transition-all group-hover:translate-x-0.5 group-hover:text-blue-600" />
           </Link>
         ))}
       </div>
 
       {/* Ad placement */}
-      <div className="mt-8">
+      <div className="mt-12">
         <AdSlot slot="browse-bottom" format="banner" />
+      </div>
       </div>
     </div>
   );

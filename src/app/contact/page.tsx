@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
+import PageHeader from "@/components/ui/PageHeader";
+import { CheckCircleIcon } from "@/components/ui/Icons";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
@@ -39,30 +40,27 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:px-8">
-      {/* Breadcrumbs */}
-      <nav className="mb-6 flex items-center gap-1.5 text-sm text-slate-400">
-        <Link href="/" className="hover:text-slate-600 transition-colors">
-          Home
-        </Link>
-        <span>/</span>
-        <span className="text-slate-700 font-medium">Contact</span>
-      </nav>
+    <div>
+      <PageHeader
+        width="2xl"
+        crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
+        title="Contact Us"
+        lede={
+          <>
+            Have a question, found incorrect store info, or want to partner with us?
+            We&apos;d love to hear from you.
+          </>
+        }
+      />
 
-      <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-        Contact Us
-      </h1>
-      <p className="mt-2 text-slate-500">
-        Have a question, found incorrect store info, or want to partner with us?
-        We&apos;d love to hear from you.
-      </p>
-
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:px-8">
       {submitted ? (
-        <div className="mt-8 rounded-xl border border-green-200 bg-green-50 p-8 text-center">
-          <p className="text-lg font-semibold text-green-800">
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center">
+          <CheckCircleIcon className="mx-auto mb-3 h-10 w-10 text-emerald-600" />
+          <p className="text-lg font-semibold text-emerald-900">
             Your email client should have opened.
           </p>
-          <p className="mt-2 text-sm text-green-600">
+          <p className="mt-2 text-sm text-emerald-800">
             If it didn&apos;t, you can email us directly at{" "}
             <a
               href="mailto:hello@winterstores.co"
@@ -73,13 +71,13 @@ export default function ContactPage() {
           </p>
           <button
             onClick={() => setSubmitted(false)}
-            className="mt-4 text-sm text-green-700 underline hover:text-green-900"
+            className="mt-4 text-sm font-medium text-emerald-800 underline hover:text-emerald-950"
           >
             Send another message
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+        <form onSubmit={handleSubmit} className="card space-y-5 p-6 sm:p-8">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <label
@@ -93,7 +91,7 @@ export default function ContactPage() {
                 id="name"
                 name="name"
                 required
-                className="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="mt-1.5 block w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15"
                 placeholder="Your name"
               />
             </div>
@@ -109,7 +107,7 @@ export default function ContactPage() {
                 id="email"
                 name="email"
                 required
-                className="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="mt-1.5 block w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15"
                 placeholder="you@example.com"
               />
             </div>
@@ -126,7 +124,7 @@ export default function ContactPage() {
               id="subject"
               name="subject"
               required
-              className="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              className="mt-1.5 block w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15"
             >
               <option value="">Select a subject...</option>
               {SUBJECTS.map((s) => (
@@ -149,7 +147,7 @@ export default function ContactPage() {
               name="message"
               required
               rows={5}
-              className="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              className="mt-1.5 block w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15"
               placeholder="How can we help?"
             />
           </div>
@@ -167,12 +165,13 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={!turnstileToken}
-            className="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Send Message
           </button>
         </form>
       )}
+      </div>
     </div>
   );
 }

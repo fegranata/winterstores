@@ -1,16 +1,19 @@
 import Link from "next/link";
+import { MountainIcon } from "@/components/ui/Icons";
 
 export default function NotFound() {
   return (
-    <div className="mx-auto max-w-xl px-4 py-20 text-center">
-      <p className="text-5xl">🏔️</p>
-      <h1 className="mt-4 text-2xl font-bold text-slate-900">Page not found</h1>
+    <div className="mx-auto max-w-xl px-4 py-24 text-center">
+      <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ink-900 text-white shadow-md">
+        <MountainIcon className="h-8 w-8" />
+      </span>
+      <h1 className="mt-6 heading-display text-4xl text-ink-900">Page not found</h1>
       <p className="mt-2 text-slate-500">
         The page you are looking for does not exist or has been moved.
       </p>
       <Link
         href="/"
-        className="mt-6 inline-block rounded-full bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+        className="mt-8 btn-primary"
       >
         Go home
       </Link>

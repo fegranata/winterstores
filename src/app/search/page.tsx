@@ -10,6 +10,7 @@ import { searchStores } from "@/lib/store-search";
 import type { SportType, ServiceType } from "@/types/store";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SlidersIcon } from "@/components/ui/Icons";
 
 interface SearchPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -77,10 +78,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const currentSort = typeof params.sort === "string" ? params.sort : "highest-rated";
 
   return (
-    <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6 lg:px-8">
-      {/* Search bar + geo + mobile filter */}
-      <div className="mb-6 flex items-center gap-3 flex-wrap">
-        <div className="flex-1 min-w-[200px] max-w-xl">
+    <div>
+      {/* Search band: query, location, results summary and sort */}
+      <div className="border-b border-slate-200 bg-white bg-header-wash">
+      <div className="mx-auto max-w-[1600px] px-4 pt-5 pb-4 sm:px-6 lg:px-8">
+      <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+        <div className="flex-1 min-w-[220px] max-w-2xl">
           <SearchBar
             defaultValue={typeof params.q === "string" ? params.q : ""}
             size="md"
@@ -94,11 +97,30 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </Suspense>
       </div>
 
+          {/* Results header */}
+          <div className="mt-4 flex items-center justify-between flex-wrap gap-3">
+            <p className="text-sm text-slate-500">
+              <span className="font-display text-xl font-semibold tabular-nums text-ink-900">{result.total}</span>{" "}
+              store{result.total !== 1 ? "s" : ""} found
+              {typeof params.q === "string" && params.q && (
+                <span>
+                  {" "}for &ldquo;<span className="font-medium text-ink-900">{params.q}</span>&rdquo;
+                </span>
+              )}
+            </p>
+
+            {/* Sort pills */}
+            <SortSelect current={currentSort} searchParams={params} />
+          </div>
+      </div>
+      </div>
+
+      <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6 lg:px-8">
       <div className="flex gap-6">
         {/* Filter sidebar — desktop only */}
         <aside className="hidden lg:block w-72 shrink-0">
-          <div className="sticky top-20 space-y-4">
-            <div className="max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl border border-slate-200 bg-white p-4">
+          <div className="sticky top-24 space-y-4">
+            <div className="max-h-[calc(100vh-7rem)] overflow-y-auto card p-5">
               <Suspense fallback={<div className="text-sm text-slate-400">Loading filters…</div>}>
                 <FilterPanel />
               </Suspense>
@@ -109,22 +131,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
         {/* Results + Map area */}
         <div className="flex-1 min-w-0">
-          {/* Results header */}
-          <div className="mb-4 flex items-center justify-between flex-wrap gap-2">
-            <p className="text-sm text-slate-500">
-              <span className="font-semibold text-slate-900">{result.total}</span>{" "}
-              store{result.total !== 1 ? "s" : ""} found
-              {typeof params.q === "string" && params.q && (
-                <span>
-                  {" "}for &ldquo;<span className="font-medium text-slate-700">{params.q}</span>&rdquo;
-                </span>
-              )}
-            </p>
-
-            {/* Sort pills */}
-            <SortSelect current={currentSort} searchParams={params} />
-          </div>
-
           {/* Store list + Map split view */}
           <SearchResults
             stores={result.stores}
@@ -157,6 +163,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           />
         </div>
       </div>
+      </div>
     </div>
   );
 }
@@ -178,8 +185,11 @@ function SortSelect({
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
-      <span className="text-xs text-slate-400">Sort by:</span>
-      <div className="flex gap-1">
+      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500">
+        <SlidersIcon className="h-3.5 w-3.5" />
+        Sort by:
+      </span>
+      <div className="flex flex-wrap gap-1 rounded-full bg-slate-100 p-1">
         {options.map((opt) => {
           const sortParams = new URLSearchParams();
           for (const [key, val] of Object.entries(searchParams)) {
@@ -195,10 +205,11 @@ function SortSelect({
             <Link
               key={opt.value}
               href={`/search?${sortParams.toString()}`}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+              aria-current={current === opt.value ? "true" : undefined}
+              className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
                 current === opt.value
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                  ? "bg-white text-ink-900 shadow-sm ring-1 ring-slate-200"
+                  : "text-slate-500 hover:text-ink-900"
               }`}
             >
               {opt.label}

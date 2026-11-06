@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import PageHeader from "@/components/ui/PageHeader";
+import { CheckIcon } from "@/components/ui/Icons";
 
 const FAQ_ITEMS = [
   {
@@ -38,7 +40,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+    <div>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "About", href: "/about" }]} />
       <script
         type="application/ld+json"
@@ -57,22 +59,16 @@ export default function AboutPage() {
           }),
         }}
       />
-      {/* Breadcrumbs */}
-      <nav className="mb-6 flex items-center gap-1.5 text-sm text-slate-400">
-        <Link href="/" className="hover:text-slate-600 transition-colors">
-          Home
-        </Link>
-        <span>/</span>
-        <span className="text-slate-700 font-medium">About</span>
-      </nav>
+      <PageHeader
+        width="3xl"
+        crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+        title="About WinterStores"
+      />
 
-      <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-        About WinterStores
-      </h1>
-
-      <div className="mt-8 space-y-8 text-slate-600 leading-relaxed">
+      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="space-y-12 text-[1.0625rem] text-slate-700 leading-relaxed">
         <section>
-          <h2 className="text-xl font-semibold text-slate-900 mb-3">
+          <h2 className="heading-display text-2xl text-ink-900 sm:text-3xl mb-4">
             Our Mission
           </h2>
           <p>
@@ -85,7 +81,7 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900 mb-3">
+          <h2 className="heading-display text-2xl text-ink-900 sm:text-3xl mb-4">
             The WinterStores Score
           </h2>
           <p>
@@ -98,27 +94,36 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900 mb-3">
+          <h2 className="heading-display text-2xl text-ink-900 sm:text-3xl mb-4">
             What You Can Do
           </h2>
-          <ul className="list-disc pl-5 space-y-2">
-            <li>Search and filter stores by sport type, services, and location</li>
-            <li>Compare review-volume-weighted scores across 1,300+ stores</li>
-            <li>Save your favorite stores for quick access</li>
-            <li>Leave your own reviews to help the community</li>
-            <li>Discover stores near popular ski resorts worldwide</li>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {[
+              "Search and filter stores by sport type, services, and location",
+              "Compare review-volume-weighted scores across 1,300+ stores",
+              "Save your favorite stores for quick access",
+              "Leave your own reviews to help the community",
+              "Discover stores near popular ski resorts worldwide",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3 card p-4 text-[0.9375rem]">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white">
+                  <CheckIcon className="h-3 w-3" strokeWidth={3} />
+                </span>
+                {item}
+              </li>
+            ))}
           </ul>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900 mb-3">
+          <h2 className="heading-display text-2xl text-ink-900 sm:text-3xl mb-4">
             Community Powered
           </h2>
           <p>
             WinterStores grows with the help of its users. You can{" "}
             <Link
               href="/suggest"
-              className="text-blue-600 hover:text-blue-800 underline"
+              className="font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 hover:decoration-blue-700"
             >
               suggest a store
             </Link>{" "}
@@ -129,34 +134,35 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900 mb-3">
+          <h2 className="heading-display text-2xl text-ink-900 sm:text-3xl mb-4">
             Frequently Asked Questions
           </h2>
-          <dl className="space-y-6">
+          <dl className="divide-y divide-slate-200 border-y border-slate-200">
             {FAQ_ITEMS.map((item) => (
-              <div key={item.question}>
-                <dt className="font-medium text-slate-900">{item.question}</dt>
-                <dd className="mt-1">{item.answer}</dd>
+              <div key={item.question} className="py-5">
+                <dt className="font-semibold text-ink-900">{item.question}</dt>
+                <dd className="mt-2 text-slate-600">{item.answer}</dd>
               </div>
             ))}
           </dl>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-slate-900 mb-3">
+          <h2 className="heading-display text-2xl text-ink-900 sm:text-3xl mb-4">
             Get in Touch
           </h2>
           <p>
             Have a question, feedback, or partnership inquiry? Visit our{" "}
             <Link
               href="/contact"
-              className="text-blue-600 hover:text-blue-800 underline"
+              className="font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 hover:decoration-blue-700"
             >
               contact page
             </Link>{" "}
             to reach out.
           </p>
         </section>
+      </div>
       </div>
     </div>
   );

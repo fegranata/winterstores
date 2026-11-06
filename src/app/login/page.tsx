@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { LogoMark } from "@/components/ui/Logo";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
@@ -16,19 +17,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+    <div className="min-h-[70vh] bg-header-wash flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-sm">
         {/* Card */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="card p-8 shadow-lg">
           {/* Logo */}
           <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center gap-2 font-bold text-2xl text-slate-900">
-              <span className="text-3xl">🏔️</span>
+            <Link href="/" className="inline-flex items-center gap-2.5 font-semibold tracking-tight text-2xl text-ink-900">
+              <LogoMark className="h-9 w-9" />
               <span>
                 Winter<span className="text-blue-600">Stores</span>
               </span>
             </Link>
-            <h1 className="mt-4 text-lg font-semibold text-slate-900">
+            <h1 className="mt-6 heading-display text-2xl text-ink-900">
               Sign in to continue
             </h1>
             <p className="mt-1 text-sm text-slate-500">
@@ -50,7 +51,7 @@ export default function LoginPage() {
           <div className="space-y-3">
             <button
               onClick={() => handleLogin("google")}
-              className="flex w-full items-center justify-center gap-3 rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-400 transition-colors cursor-pointer"
+              className="flex w-full items-center justify-center gap-3 rounded-full border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-xs hover:border-blue-300 hover:bg-blue-50/40 transition-colors cursor-pointer"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>

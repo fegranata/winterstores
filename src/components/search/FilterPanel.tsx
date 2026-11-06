@@ -2,7 +2,8 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import { SPORT_LABELS, SPORT_ICONS, SERVICE_LABELS } from "@/types/store";
+import { SPORT_LABELS, SERVICE_LABELS } from "@/types/store";
+import { ServiceIcon, ShoppingBagIcon, SportIcon, StarIcon } from "@/components/ui/Icons";
 import type { SportType, ServiceType } from "@/types/store";
 
 const SPORT_OPTIONS = Object.entries(SPORT_LABELS) as [SportType, string][];
@@ -61,14 +62,14 @@ export default function FilterPanel() {
     activePriceLevel !== null;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 [&>div+div]:border-t [&>div+div]:border-slate-100 [&>div+div]:pt-5">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-slate-900">Filters</h2>
+        <h2 className="font-display text-lg font-semibold text-ink-900">Filters</h2>
         {hasFilters && (
           <button
             onClick={clearAll}
-            className="text-xs text-blue-600 hover:text-blue-800 transition-colors"
+            className="text-xs font-semibold text-blue-700 hover:text-blue-900 transition-colors"
           >
             Clear all
           </button>
@@ -77,20 +78,21 @@ export default function FilterPanel() {
 
       {/* Sport Type */}
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+        <h3 className="eyebrow text-slate-500 mb-3">
           Sport Type
         </h3>
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {SPORT_OPTIONS.map(([key, label]) => (
             <label key={key} className="flex items-center gap-2 cursor-pointer group">
               <input
                 type="checkbox"
                 checked={activeSports.includes(key)}
                 onChange={() => updateParams("sport", key, true)}
-                className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                className="h-4 w-4 rounded border-slate-300 accent-blue-600"
               />
-              <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
-                {SPORT_ICONS[key]} {label}
+              <span className="inline-flex items-center gap-2 text-sm text-slate-700 group-hover:text-ink-900 transition-colors">
+                <SportIcon sport={key} className="h-4 w-4 text-slate-400" />
+                {label}
               </span>
             </label>
           ))}
@@ -99,7 +101,7 @@ export default function FilterPanel() {
 
       {/* Online Shop */}
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+        <h3 className="eyebrow text-slate-500 mb-3">
           Online Shop
         </h3>
         <label className="flex items-center gap-2 cursor-pointer group">
@@ -109,17 +111,18 @@ export default function FilterPanel() {
             onChange={() =>
               updateParams("hasOnlineShop", activeOnlineShop === "true" ? null : "true")
             }
-            className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+            className="h-4 w-4 rounded border-slate-300 accent-blue-600"
           />
-          <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
-            🛒 Has online shop
+          <span className="inline-flex items-center gap-2 text-sm text-slate-700 group-hover:text-ink-900 transition-colors">
+            <ShoppingBagIcon className="h-4 w-4 text-slate-400" />
+            Has online shop
           </span>
         </label>
       </div>
 
       {/* Min Rating */}
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+        <h3 className="eyebrow text-slate-500 mb-3">
           Minimum Rating
         </h3>
         <div className="flex gap-1.5">
@@ -129,13 +132,16 @@ export default function FilterPanel() {
               onClick={() =>
                 updateParams("minRating", activeMinRating === String(r) ? null : String(r))
               }
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+              aria-pressed={activeMinRating === String(r)}
+              aria-label={`${r}+ stars`}
+              className={`inline-flex items-center gap-0.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
                 activeMinRating === String(r)
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  ? "bg-ink-900 text-white"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
-              {r}+★
+              {r}+
+              <StarIcon className="h-3 w-3 text-amber-400" />
             </button>
           ))}
         </div>
@@ -143,7 +149,7 @@ export default function FilterPanel() {
 
       {/* Price Level */}
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+        <h3 className="eyebrow text-slate-500 mb-3">
           Price Level
         </h3>
         <div className="flex gap-1.5">
@@ -153,10 +159,11 @@ export default function FilterPanel() {
               onClick={() =>
                 updateParams("priceLevel", activePriceLevel === String(p) ? null : String(p))
               }
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+              aria-pressed={activePriceLevel === String(p)}
+              className={`rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wide transition-colors ${
                 activePriceLevel === String(p)
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  ? "bg-ink-900 text-white"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
               {"$".repeat(p)}
@@ -167,19 +174,20 @@ export default function FilterPanel() {
 
       {/* Services */}
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+        <h3 className="eyebrow text-slate-500 mb-3">
           Services
         </h3>
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {SERVICE_OPTIONS.map(([key, label]) => (
             <label key={key} className="flex items-center gap-2 cursor-pointer group">
               <input
                 type="checkbox"
                 checked={activeServices.includes(key)}
                 onChange={() => updateParams("service", key, true)}
-                className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                className="h-4 w-4 rounded border-slate-300 accent-blue-600"
               />
-              <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
+              <span className="inline-flex items-center gap-2 text-sm text-slate-700 group-hover:text-ink-900 transition-colors">
+                <ServiceIcon service={key} className="h-4 w-4 text-slate-400" />
                 {label}
               </span>
             </label>

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getStoreBySlug, getNearbyStores, getPlatformRatings, getStoreReviews } from "@/lib/store-search";
 import { getDb, schema } from "@/lib/db";
-import { SPORT_ICONS, SPORT_LABELS, SERVICE_LABELS } from "@/types/store";
+import { SPORT_LABELS, SERVICE_LABELS } from "@/types/store";
 import RatingStars from "@/components/store/RatingStars";
 import StoreCard from "@/components/store/StoreCard";
 import StoreJsonLd from "@/components/seo/StoreJsonLd";
@@ -13,6 +13,17 @@ import ReportForm from "@/components/store/ReportForm";
 import PlatformRatings from "@/components/store/PlatformRatings";
 import ReviewSection from "@/components/store/ReviewSection";
 import RelatedGuides from "@/components/store/RelatedGuides";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import {
+  GlobeIcon,
+  MapPinIcon,
+  PhoneIcon,
+  ServiceIcon,
+  ShoppingBagIcon,
+  SportIcon,
+  TagIcon,
+  VerifiedIcon,
+} from "@/components/ui/Icons";
 import { getGuidesForStore } from "@/lib/data/guides";
 import { getNearestResort } from "@/lib/data/resorts";
 import { resolveStoreDescription } from "@/lib/store-description";
@@ -142,227 +153,269 @@ export default async function StorePage({ params }: StorePageProps) {
       : null;
   }
 
+  const scoreValue = Number.isFinite(store.winterstoresScore)
+    ? store.winterstoresScore.toFixed(1)
+    : "—";
+  const scorePct = Number.isFinite(store.winterstoresScore)
+    ? Math.max(0, Math.min(100, (store.winterstoresScore / 5) * 100))
+    : 0;
+
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div>
       <StoreJsonLd store={store} />
       <RecentlyViewedTracker slug={store.slug} />
 
-      {/* Breadcrumbs */}
-      <nav className="mb-6 flex items-center gap-1.5 text-sm text-slate-400">
-        <Link href="/" className="hover:text-slate-600 transition-colors">Home</Link>
-        <span>/</span>
-        <Link href="/search" className="hover:text-slate-600 transition-colors">Search</Link>
-        <span>/</span>
-        <Link
-          href={`/search?country=${store.countryCode}`}
-          className="hover:text-slate-600 transition-colors"
-        >
-          {store.country}
-        </Link>
-        <span>/</span>
-        <span className="text-slate-700 font-medium truncate">{store.name}</span>
-      </nav>
+      {/* ── Header band: name, place, score ─────────────── */}
+      <section className="border-b border-slate-200 bg-white bg-header-wash">
+        <div className="mx-auto max-w-7xl px-4 pt-6 pb-8 sm:px-6 sm:pb-10 lg:px-8">
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Search", href: "/search" },
+              { label: store.country, href: `/search?country=${store.countryCode}` },
+              { label: store.name },
+            ]}
+          />
 
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-        {/* Main content */}
-        <div className="lg:col-span-2 space-y-8">
-          {/* Header */}
-          <div className="pb-6 border-b border-slate-200">
-            <div className="flex items-start justify-between gap-3">
-              <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-                {store.name}
-              </h1>
-              <div className="flex items-center gap-2 shrink-0">
-                <StoreActions slug={store.slug} name={store.name} />
-                {store.isVerified && (
-                  <span className="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-sm font-medium text-green-700">
-                    ✓ Verified
-                  </span>
-                )}
+          <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-10">
+            <div className="min-w-0">
+              <div className="flex items-start justify-between gap-3">
+                <h1 className="heading-display text-3xl text-ink-900 sm:text-4xl lg:text-5xl">
+                  {store.name}
+                </h1>
+                <div className="flex shrink-0 items-center gap-2 pt-1">
+                  <StoreActions slug={store.slug} name={store.name} />
+                </div>
               </div>
-            </div>
-            <p className="mt-1 text-slate-500">
-              {store.address}, {store.city}, {store.region}, {store.country}
-            </p>
-            {/* Compact WinterStores Score Bar */}
-            <div className="mt-3 flex items-center gap-3">
-              <span className="inline-flex items-center justify-center rounded-lg bg-blue-50 px-3 py-1.5">
-                <span className="text-xl font-bold text-blue-700">
-                  {Number.isFinite(store.winterstoresScore)
-                    ? store.winterstoresScore.toFixed(1)
-                    : "—"}
+              <p className="mt-3 flex items-start gap-1.5 text-slate-600">
+                <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
+                <span>
+                  {store.address}, {store.city}, {store.region}, {store.country}
                 </span>
-              </span>
-              <RatingStars rating={store.winterstoresScore} size="md" showValue={false} />
-              <span className="text-sm text-slate-500">
-                Based on <span className="font-semibold text-slate-700">{store.totalReviewCount}</span> reviews
-              </span>
-            </div>
-          </div>
-
-          {/* About — falls back to a composed summary when no copy was written */}
-          {description && (
-            <div className="rounded-xl border border-slate-200 bg-white p-6">
-              <h2 className="text-lg font-semibold text-slate-900 mb-3">About</h2>
-              <p className="text-slate-600 leading-relaxed">{description}</p>
-            </div>
-          )}
-
-          {/* Platform Ratings */}
-          <div>
-            <h2 className="text-lg font-semibold text-slate-900 mb-4">
-              Ratings Across Platforms
-            </h2>
-            <PlatformRatings ratings={ratingsData} />
-          </div>
-
-          {/* Photo Gallery */}
-          <PhotoGallery photos={store.photos} storeName={store.name} />
-
-          {/* Reviews */}
-          <ReviewSection storeId={store.id} storeSlug={store.slug} initialReviews={reviews} />
-
-          {/* Report incorrect info */}
-          <ReportForm storeName={store.name} storeSlug={store.slug} />
-
-          {/* Ad placement — store detail */}
-          <AdSlot slot="store-detail-content" format="banner" />
-        </div>
-
-        {/* Sidebar */}
-        <aside className="lg:sticky lg:top-8 lg:self-start space-y-6">
-          {/* Quick Info Card */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-slate-900">Details</h2>
-
-            {/* Price Level */}
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-slate-500">Price Level</span>
-              <span className="text-sm font-semibold text-slate-700">{priceDollars}</span>
+              </p>
+              {store.isVerified && (
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  {store.isVerified && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700 ring-1 ring-emerald-200">
+                      <VerifiedIcon className="h-4 w-4" />
+                      Verified
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
 
-            {/* Phone */}
-            {store.phone && (
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-slate-500">Phone</span>
-                <a
-                  href={`tel:${store.phone}`}
-                  className="text-sm font-medium text-blue-600 hover:text-blue-800"
-                >
-                  {store.phone}
-                </a>
+            {/* WinterStores Score block */}
+            <div className="flex items-center gap-5 rounded-2xl bg-ink-900 p-4 pr-6 text-white shadow-lg sm:p-5 sm:pr-8">
+              <div
+                className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full sm:h-24 sm:w-24"
+                style={{
+                  background: `conic-gradient(#3b82f6 ${scorePct}%, rgb(255 255 255 / 0.12) 0)`,
+                }}
+              >
+                <span className="absolute inset-[5px] rounded-full bg-ink-900" aria-hidden="true" />
+                <span className="relative font-display text-3xl font-semibold tabular-nums sm:text-4xl">
+                  {scoreValue}
+                </span>
               </div>
+              <div>
+                <RatingStars rating={store.winterstoresScore} size="lg" showValue={false} />
+                <span className="mt-2 block text-sm text-white/70">
+                  Based on <span className="font-semibold text-white">{store.totalReviewCount}</span> reviews
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+          {/* Main content */}
+          <div className="lg:col-span-2 space-y-10">
+            {/* About — falls back to a composed summary when no copy was written */}
+            {description && (
+              <section className="card p-6 sm:p-8">
+                <h2 className="heading-display text-2xl text-ink-900 mb-4">About</h2>
+                <div className="prose-editorial">
+                  <p>{description}</p>
+                </div>
+              </section>
             )}
 
-            {/* Website */}
-            {store.website && (
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm text-slate-500">Website</span>
+            {/* Services — the visual star alongside the score */}
+            {store.services.length > 0 && (
+              <section>
+                <h2 className="heading-display text-2xl text-ink-900 mb-4">Services</h2>
+                <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {store.services.map((service) => (
+                    <li
+                      key={service}
+                      className="flex items-center gap-3 card px-4 py-3.5"
+                    >
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm">
+                        <ServiceIcon service={service} className="h-5 w-5" />
+                      </span>
+                      <span className="text-sm font-semibold text-ink-900">
+                        {SERVICE_LABELS[service]}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Platform Ratings */}
+            <section>
+              <h2 className="heading-display text-2xl text-ink-900 mb-4">
+                Ratings Across Platforms
+              </h2>
+              <PlatformRatings ratings={ratingsData} />
+            </section>
+
+            {/* Photo Gallery */}
+            <PhotoGallery photos={store.photos} storeName={store.name} />
+
+            {/* Reviews */}
+            <ReviewSection storeId={store.id} storeSlug={store.slug} initialReviews={reviews} />
+
+            {/* Report incorrect info */}
+            <div className="border-t border-slate-200 pt-6">
+              <ReportForm storeName={store.name} storeSlug={store.slug} />
+            </div>
+
+            {/* Ad placement — store detail */}
+            <AdSlot slot="store-detail-content" format="banner" />
+          </div>
+
+          {/* Sidebar */}
+          <aside className="lg:sticky lg:top-24 lg:self-start space-y-5">
+            {/* Quick Info Card */}
+            <div className="card p-6">
+              <h2 className="eyebrow text-slate-500">Details</h2>
+              <dl className="mt-4 divide-y divide-slate-100">
+                {/* Price Level */}
+                <div className="flex items-center justify-between gap-3 py-3 first:pt-0">
+                  <dt className="flex items-center gap-2 text-sm text-slate-500">
+                    <TagIcon className="h-4 w-4 text-slate-400" />
+                    Price Level
+                  </dt>
+                  <dd className="text-sm font-semibold tracking-wide text-ink-900">{priceDollars}</dd>
+                </div>
+
+                {/* Phone */}
+                {store.phone && (
+                  <div className="flex items-center justify-between gap-3 py-3">
+                    <dt className="flex items-center gap-2 text-sm text-slate-500">
+                      <PhoneIcon className="h-4 w-4 text-slate-400" />
+                      Phone
+                    </dt>
+                    <dd>
+                      <a
+                        href={`tel:${store.phone}`}
+                        className="text-sm font-medium text-blue-700 hover:text-blue-900"
+                      >
+                        {store.phone}
+                      </a>
+                    </dd>
+                  </div>
+                )}
+
+                {/* Website */}
+                {store.website && (
+                  <div className="flex items-center justify-between gap-3 py-3">
+                    <dt className="flex shrink-0 items-center gap-2 text-sm text-slate-500">
+                      <GlobeIcon className="h-4 w-4 text-slate-400" />
+                      Website
+                    </dt>
+                    <dd className="min-w-0">
+                      <a
+                        href={store.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block truncate text-sm font-medium text-blue-700 hover:text-blue-900 max-w-[200px]"
+                      >
+                        {store.website.replace(/^https?:\/\/(www\.)?/, "")}
+                      </a>
+                    </dd>
+                  </div>
+                )}
+              </dl>
+
+              {/* Online Shop */}
+              {store.hasOnlineShop && store.onlineShopUrl && (
                 <a
-                  href={store.website}
+                  href={store.onlineShopUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-medium text-blue-600 hover:text-blue-800 truncate max-w-[200px]"
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 transition-colors"
                 >
-                  {store.website.replace(/^https?:\/\/(www\.)?/, "")}
+                  <ShoppingBagIcon className="h-4 w-4" />
+                  Visit Online Shop
                 </a>
-              </div>
-            )}
+              )}
+            </div>
 
-            {/* Online Shop */}
-            {store.hasOnlineShop && store.onlineShopUrl && (
+            {/* Location Card */}
+            <div className="card p-6">
+              <h2 className="eyebrow text-slate-500 mb-3">Location</h2>
+              <p className="text-sm leading-relaxed text-slate-700">
+                {store.address}<br />
+                {store.city}, {store.region}<br />
+                {store.country} {store.postalCode}
+              </p>
               <a
-                href={store.onlineShopUrl}
+                href={googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-green-700 transition-colors"
+                className="mt-4 btn-secondary w-full"
               >
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                </svg>
-                Visit Online Shop
+                <MapPinIcon className="h-4 w-4" />
+                Open in Google Maps
               </a>
+            </div>
+
+            {/* Sports */}
+            {store.sportTypes.length > 0 && (
+              <div className="card p-6">
+                <h2 className="eyebrow text-slate-500 mb-3">Sports</h2>
+                <div className="flex flex-wrap gap-2">
+                  {store.sportTypes.map((sport) => (
+                    <Link
+                      key={sport}
+                      href={`/search?sport=${sport}`}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-800 hover:bg-blue-100 transition-colors"
+                    >
+                      <SportIcon sport={sport} className="h-4 w-4" />
+                      {SPORT_LABELS[sport]}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             )}
-          </div>
 
-          {/* Location Card */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <h2 className="text-lg font-semibold text-slate-900 mb-3">Location</h2>
-            <p className="text-sm text-slate-600">
-              {store.address}<br />
-              {store.city}, {store.region}<br />
-              {store.country} {store.postalCode}
-            </p>
-            <a
-              href={googleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-              </svg>
-              Open in Google Maps
-            </a>
-          </div>
+            {/* Ad placement — sidebar */}
+            <AdSlot slot="store-detail-sidebar" format="rectangle" />
+          </aside>
+        </div>
 
-          {/* Sports */}
-          {store.sportTypes.length > 0 && (
-            <div className="rounded-xl border border-slate-200 bg-white p-6">
-              <h2 className="text-lg font-semibold text-slate-900 mb-3">Sports</h2>
-              <div className="flex flex-wrap gap-2">
-                {store.sportTypes.map((sport) => (
-                  <Link
-                    key={sport}
-                    href={`/search?sport=${sport}`}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-100 transition-colors"
-                  >
-                    {SPORT_ICONS[sport]} {SPORT_LABELS[sport]}
-                  </Link>
-                ))}
-              </div>
+        {/* Nearby Stores */}
+        {nearby.length > 0 && (
+          <section className="mt-16 border-t border-slate-200 pt-12">
+            <h2 className="heading-display text-2xl text-ink-900 sm:text-3xl mb-6">Nearby Stores</h2>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {nearby.map((ns) => (
+                <StoreCard key={ns.id} store={ns} />
+              ))}
             </div>
-          )}
+          </section>
+        )}
 
-          {/* Services */}
-          {store.services.length > 0 && (
-            <div className="rounded-xl border border-slate-200 bg-white p-6">
-              <h2 className="text-lg font-semibold text-slate-900 mb-3">Services</h2>
-              <div className="flex flex-wrap gap-2">
-                {store.services.map((service) => (
-                  <span
-                    key={service}
-                    className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600"
-                  >
-                    {SERVICE_LABELS[service]}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Ad placement — sidebar */}
-          <AdSlot slot="store-detail-sidebar" format="rectangle" />
-        </aside>
+        <RelatedGuides
+          guides={getGuidesForStore(store)}
+          storeName={store.name}
+        />
       </div>
-
-      {/* Nearby Stores */}
-      {nearby.length > 0 && (
-        <section className="mt-12 pt-12 border-t border-slate-200">
-          <h2 className="text-xl font-bold text-slate-900 mb-6">Nearby Stores</h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {nearby.map((ns) => (
-              <StoreCard key={ns.id} store={ns} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      <RelatedGuides
-        guides={getGuidesForStore(store)}
-        storeName={store.name}
-      />
     </div>
   );
 }

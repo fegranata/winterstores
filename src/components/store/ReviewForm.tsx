@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { StarIcon } from "@/components/ui/Icons";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
@@ -98,7 +99,7 @@ export default function ReviewForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-xl border border-slate-200 bg-white p-6 space-y-4">
+    <form onSubmit={handleSubmit} className="card p-6 space-y-4">
       <h3 className="font-semibold text-slate-900">Write a Review</h3>
 
       {/* Star Rating Picker */}
@@ -109,20 +110,19 @@ export default function ReviewForm({
             <button
               key={star}
               type="button"
-              className="text-2xl transition-colors"
+              className="rounded-md p-0.5 transition-colors"
+              aria-label={`${star} star${star > 1 ? "s" : ""}`}
               onMouseEnter={() => setHoverRating(star)}
               onMouseLeave={() => setHoverRating(0)}
               onClick={() => setRating(star)}
             >
-              <span
-                className={
+              <StarIcon
+                className={`h-7 w-7 ${
                   star <= (hoverRating || rating)
                     ? "text-amber-400"
-                    : "text-slate-300"
-                }
-              >
-                ★
-              </span>
+                    : "text-slate-200"
+                }`}
+              />
             </button>
           ))}
         </div>
