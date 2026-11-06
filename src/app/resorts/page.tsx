@@ -41,7 +41,7 @@ export default function ResortsPage() {
       <div className="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-8">
       {regions.map(([region, resorts]) => (
         <section key={region} className="mt-12">
-          <h2 className="flex items-baseline gap-3 heading-display text-2xl text-ink-900 sm:text-3xl">
+          <h2 className="flex items-center gap-4 heading-display text-2xl text-ink-900 sm:text-3xl">
             {region}
             <span className="h-px flex-1 bg-slate-200" aria-hidden="true" />
           </h2>

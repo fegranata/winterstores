@@ -151,7 +151,7 @@ export default async function HomePage() {
                 className="group flex flex-col items-center gap-2.5 card card-hover px-2 py-4 text-center sm:py-5"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-blue-700 transition-colors group-hover:bg-blue-600 group-hover:text-white sm:h-12 sm:w-12">
-                  <SportIcon sport={sport} className="h-6 w-6" />
+                  <SportIcon sport={sport} className="h-7 w-7" strokeWidth={1.6} />
                 </span>
                 <span className="text-[13px] font-semibold leading-tight text-ink-900 sm:text-sm">
                   {SPORT_LABELS[sport]}
