@@ -443,8 +443,13 @@ Decisions pending (Fernando):
   | Head (US) | 27978 | 2.9% | 86% | $0.77 | skis, boots, bindings — good match for gear guides |
   | Burton Snowboards US | 19106 | 2.2% | 95% | $0.48 | snowboard guides; 97-day payment |
   | Outdoor Master (US) | 26401 | 5.0% | 100% | $0.90 | goggles/helmets; 122-day validation |
-  Also European but worth adding later: **NetSki** (UK, 20965, Ski Company
-  group, 12.5% conv., £0.29 EPC, 127-day payment). Not applied yet.
+  Also European: **NetSki** (UK, 20965, Ski Company group, 12.5% conv.,
+  £0.29 EPC, 127-day payment).
+- [x] 2026-11-06: applied to NetSki, Head (US), Burton Snowboards US and
+      Outdoor Master (US) via the Awin UI, each with a tailored content-site
+      pitch (rental CTAs for NetSki; guide-embedded gear recommendations for
+      the US three; no brand bidding, no coupon/cashback). MCP
+       now lists all eight programmes.
   For US rental a direct deal (or AvantLink/Impact account) would be a
   separate, later effort; for now US pages keep the Adsterra slots.
 - [ ] On first approval: affiliate config mirroring `ad-config.ts` + a
