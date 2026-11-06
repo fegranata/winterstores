@@ -5,6 +5,7 @@ import StoreCard from "@/components/store/StoreCard";
 import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
+import PageHeader from "@/components/ui/PageHeader";
 
 export const revalidate = 604800; // store data changes only on imports, which always end in a deploy
 
@@ -62,7 +63,7 @@ export default async function BestSkiShopsCountryPage({ params }: Props) {
   const remaining = stores.length - ranked.length;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div>
       <BreadcrumbJsonLd
         items={[
           { name: "Home", href: "/" },
@@ -74,57 +75,41 @@ export default async function BestSkiShopsCountryPage({ params }: Props) {
         ]}
       />
 
-      <nav className="mb-6 flex items-center gap-1.5 text-sm text-slate-400">
-        <Link href="/" className="hover:text-slate-600 transition-colors">
-          Home
-        </Link>
-        <span>/</span>
-        <Link
-          href="/best-ski-shops"
-          className="hover:text-slate-600 transition-colors"
-        >
-          Best Ski Shops
-        </Link>
-        <span>/</span>
-        <span className="text-slate-700 font-medium">
-          {countryInfo.country}
-        </span>
-      </nav>
+      <PageHeader
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Best Ski Shops", href: "/best-ski-shops" },
+          { label: countryInfo.country },
+        ]}
+        title={<>Best Ski Shops in {countryInfo.country}</>}
+        lede={
+          remaining > 0
+            ? `The top ${ranked.length} of ${stores.length} winter sport stores, ranked by WinterStores Score`
+            : `${ranked.length} winter sport store${ranked.length !== 1 ? "s" : ""} ranked by WinterStores Score`
+        }
+      />
 
-      <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-        Best Ski Shops in {countryInfo.country}
-      </h1>
-      <p className="mt-2 text-slate-500">
-        {remaining > 0
-          ? `The top ${ranked.length} of ${stores.length} winter sport stores, ranked by WinterStores Score`
-          : `${ranked.length} winter sport store${ranked.length !== 1 ? "s" : ""} ranked by WinterStores Score`}
-      </p>
-
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Top 3 highlight */}
       {ranked.length >= 3 && (
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 rounded-3xl bg-gradient-to-b from-glow-50 to-transparent p-2 sm:grid-cols-3 sm:p-3">
           {ranked.slice(0, 3).map((store, i) => (
-            <div key={store.id} className="relative">
-              <StoreCard store={store} />
-              <span className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-yellow-400 text-xs font-bold text-yellow-900 shadow">
-                #{i + 1}
-              </span>
-            </div>
+            <StoreCard key={store.id} store={store} rank={i + 1} />
           ))}
         </div>
       )}
 
-      <div className="mt-8">
+      <div className="mt-10">
         <AdSlot slot="browse-country-mid" format="banner" />
       </div>
 
       {/* Remaining stores */}
       {ranked.length > 3 && (
         <>
-          <h2 className="mt-10 text-xl font-semibold text-slate-800">
+          <h2 className="mt-14 heading-display text-2xl text-ink-900 sm:text-3xl">
             Ranked #4–#{ranked.length}
           </h2>
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {ranked.slice(3).map((store) => (
               <StoreCard key={store.id} store={store} />
             ))}
@@ -133,7 +118,7 @@ export default async function BestSkiShopsCountryPage({ params }: Props) {
       )}
 
       {/* Cross-links */}
-      <div className="mt-10 text-center">
+      <div className="mt-14 text-center">
         {remaining > 0 && (
           <p className="mb-4 text-sm text-slate-500">
             {remaining} more store{remaining !== 1 ? "s" : ""} in{" "}
@@ -142,14 +127,15 @@ export default async function BestSkiShopsCountryPage({ params }: Props) {
         )}
         <Link
           href={`/browse/${slug.toLowerCase()}`}
-          className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+          className="btn-primary"
         >
           Browse all {stores.length} stores in {countryInfo.country}
         </Link>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-10">
         <AdSlot slot="browse-bottom" format="banner" />
+      </div>
       </div>
     </div>
   );
