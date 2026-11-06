@@ -1,3 +1,5 @@
+import { StarIcon } from "@/components/ui/Icons";
+
 interface RatingStarsProps {
   rating: number;
   maxRating?: number;
@@ -11,10 +13,10 @@ export default function RatingStars({
   size = "md",
   showValue = true,
 }: RatingStarsProps) {
-  const sizeClass = {
-    sm: "text-sm",
-    md: "text-base",
-    lg: "text-lg",
+  const starClass = {
+    sm: "h-3.5 w-3.5",
+    md: "h-4 w-4",
+    lg: "h-5 w-5",
   }[size];
 
   const valueSizeClass = {
@@ -34,18 +36,29 @@ export default function RatingStars({
   const emptyStars = maxRating - adjustedFull - (hasHalf ? 1 : 0);
 
   return (
-    <div className="flex items-center gap-1">
-      <div className={`flex ${sizeClass}`}>
-        {Array.from({ length: adjustedFull }).map((_, i) => (
-          <span key={`full-${i}`} className="text-amber-400">★</span>
+    <div className="flex items-center gap-1.5">
+      <div
+        className="flex items-center gap-px"
+        role="img"
+        aria-label={`Rated ${safeRating.toFixed(1)} out of ${maxRating}`}
+      >
+        {Array.from({ length: Math.max(0, adjustedFull) }).map((_, i) => (
+          <StarIcon key={`full-${i}`} className={`${starClass} text-amber-400`} />
         ))}
-        {hasHalf && <span className="text-amber-400">★</span>}
+        {hasHalf && (
+          <span className={`relative inline-block ${starClass}`}>
+            <StarIcon className={`absolute inset-0 ${starClass} text-slate-200`} />
+            <span className="absolute inset-0 w-1/2 overflow-hidden">
+              <StarIcon className={`${starClass} text-amber-400`} />
+            </span>
+          </span>
+        )}
         {Array.from({ length: Math.max(0, emptyStars) }).map((_, i) => (
-          <span key={`empty-${i}`} className="text-slate-300">★</span>
+          <StarIcon key={`empty-${i}`} className={`${starClass} text-slate-200`} />
         ))}
       </div>
       {showValue && (
-        <span className={`font-semibold text-slate-700 ${valueSizeClass}`}>
+        <span className={`font-semibold tabular-nums text-slate-800 ${valueSizeClass}`}>
           {safeRating.toFixed(1)}
         </span>
       )}
