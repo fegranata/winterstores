@@ -414,18 +414,21 @@ Decisions pending (Fernando):
 
 - Account live (ID 3141407). The PersonalHour invite (US Pilates equipment,
   5%) is an auto-invite with no relevance — leave the programme.
-- The account's **Promotional Region is "United States (Primary)"**; the
-  ski programmes are European and only appear with the Europe filter.
-  Fernando: Profile → Promotional Regions → add Europe (primary) before
-  applying, or applications may be declined as off-region.
-- Shortlist found in the directory (Europe filter), by fit:
-  | Programme | Conv. rate | Approval | EPC | Note |
-  |---|---|---|---|---|
-  | **Snow Rental** (UK) | 13.1% | 84% | £0.34 | best stats; Skiset group |
-  | **SPORT2000 FR – Location de skis** | 5.5% | 66% | €0.89 | Sport 2000 rental network — many listed shops are Sport 2000 |
-  | **Skiset DE** | 3.0% | 82% | €0.69 | 96-day payment |
-  | Skiset (UK) | 0.9% | 68% | £0.02 | weak; apply anyway, same group |
-  | Intersport CH / DE, Gigasport CH, Bergfreunde DE | — | — | — | Tier 2 gear retail, later |
+- Promotional regions: US was the only one; Fernando added the European
+  winter-sports countries on 2026-11-06 (done).
+- **Awin MCP connector** attached (read-only KPIs + link creation). It has
+  no name search and no commission rates for programmes we have not
+  joined, so advertiser IDs come from the directory UI (Europe filter):
+  | Programme | Awin ID | Conv. rate | Approval | EPC | Cookie / validation | Note |
+  |---|---|---|---|---|---|---|
+  | **Snow Rental** (UK, GBP) | 5152 | 13.1% | 84% | £0.34 | 30 d / 46 d | Ski Company group (Skiset, Netski, Skimium): 1,000 shops, 400 resorts. Deep links on. Payment "Exposure Level 2" (slow payer). |
+  | **SPORT2000 FR – Location de skis** (EUR) | 12056 | 4.2% | 63% | €0.49 | 30 d / 21 d | Season Nov–Apr, avg basket €126 ex-VAT. **Deep links OFF** (homepage links only). No brand bidding. Payment "Exposure Level 4" (worst). |
+  | **Skiset DE** (EUR) | 44529 | 3.0% | 82% | €0.69 | — / 47 d | Deep links on. |
+  | Skiset (UK, GBP) | 3779 | 0.2% | 33% | £0.02 | — / 1 d | Weak; apply anyway, same group. |
+  | Intersport CH / DE, Gigasport CH, Bergfreunde DE | — | — | — | — | — | Tier 2 gear retail, later |
+  Commission percentages are only visible after joining (Commission
+  Manager). Snow Rental is the one to build the CTA around first: best
+  conversion, deep links, English-language booking site.
 - [ ] Apply to the four rental programmes (Join → accept terms). Each
       approves separately.
 - [ ] On first approval: affiliate config mirroring `ad-config.ts` + a
