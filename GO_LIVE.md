@@ -409,3 +409,24 @@ Decisions pending (Fernando):
 - **Then in Gmail (free):** Settings → Accounts and Import → Send mail as →
   Add → hello@winterstores.co, SMTP smtp.gmail.com:587 with an app
   password from myaccount.google.com → Security → App passwords.
+
+## 9 — Awin programmes (2026-11-06)
+
+- Account live (ID 3141407). The PersonalHour invite (US Pilates equipment,
+  5%) is an auto-invite with no relevance — leave the programme.
+- The account's **Promotional Region is "United States (Primary)"**; the
+  ski programmes are European and only appear with the Europe filter.
+  Fernando: Profile → Promotional Regions → add Europe (primary) before
+  applying, or applications may be declined as off-region.
+- Shortlist found in the directory (Europe filter), by fit:
+  | Programme | Conv. rate | Approval | EPC | Note |
+  |---|---|---|---|---|
+  | **Snow Rental** (UK) | 13.1% | 84% | £0.34 | best stats; Skiset group |
+  | **SPORT2000 FR – Location de skis** | 5.5% | 66% | €0.89 | Sport 2000 rental network — many listed shops are Sport 2000 |
+  | **Skiset DE** | 3.0% | 82% | €0.69 | 96-day payment |
+  | Skiset (UK) | 0.9% | 68% | £0.02 | weak; apply anyway, same group |
+  | Intersport CH / DE, Gigasport CH, Bergfreunde DE | — | — | — | Tier 2 gear retail, later |
+- [ ] Apply to the four rental programmes (Join → accept terms). Each
+      approves separately.
+- [ ] On first approval: affiliate config mirroring `ad-config.ts` + a
+      "Book rental gear" CTA on store and resort pages (~half a day).
