@@ -48,6 +48,28 @@ Found via the Vercel dashboards while investigating "traffic from Singapore":
       lift the 402 today. Sign-in is broken until one of those happens.
 - [ ] After reset: confirm egress/day drops to single-digit MB.
 
+## 0c — Deployment Storage alert 2026-11-06 (75% of the Hobby 10 GB)
+
+- **Cause:** not traffic. Deployment Storage is the build output Vercel keeps
+  for every production deployment, ~300 MB each (≈1,500 prerendered pages +
+  RSC payloads + function bundles), retained forever by default. 1 Nov alone
+  pushed 19 deployments, most of them docs-only commits (GO_LIVE notes).
+  28 retained deployments = 8.66 GB. Bots, Supabase egress and ISR writes
+  are separate meters and were already fixed.
+- [x] 2026-11-06: `vercel remove winterstores --safe --yes` deleted the 27
+      non-aliased deployments; the live one (all five aliases) was kept.
+      Storage back to ~0.3 GB. Old builds are reproducible from git.
+- [x] 2026-11-06: `vercel.json` `ignoreCommand` skips the build when a
+      commit touches only `*.md`, `content/`, `outreach/`, `sql/`,
+      `.github/` or `.claude/`. Tested against recent commits: docs-only
+      → skip, code/merge → build. Guide publishing still deploys because it
+      edits `src/lib/data/guides.ts`.
+- [ ] **Monthly:** run the `vercel remove … --safe --yes` line above (the
+      Vercel CLI is logged in on this machine as fegranata). Hobby has no
+      retention-policy setting; to automate it in the GitHub Actions
+      maintenance workflow a `VERCEL_TOKEN` secret would have to be added
+      by Fernando. Watch the Deployment Storage chart under Team Usage.
+
 ## 0 — Stabilise (this week, blocks everything)
 
 - [ ] **Push and deploy the ISR write fix** (`29bde11`). Listing routes went
