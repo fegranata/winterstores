@@ -429,7 +429,23 @@ Decisions pending (Fernando):
   Commission percentages are only visible after joining (Commission
   Manager). Snow Rental is the one to build the CTA around first: best
   conversion, deep links, English-language booking site.
-- [ ] Apply to the four rental programmes (Join → accept terms). Each
-      approves separately.
+- [x] 2026-11-06: applied to all four (Snow Rental, SPORT2000 FR, Skiset DE,
+      Skiset UK) via the Awin UI with a short content-site pitch; MCP
+      `awin_list_programmes relationship=pending` lists all four. Joining
+      cannot be done through the MCP (read-only + link creation); approvals
+      come by email from each advertiser, typically days to weeks.
+- **North America (checked 2026-11-06):** Awin has no US/Canadian ski
+  rental programme. Christy Sports, Ski Butlers, Black Tie, Epic/Ikon are
+  not on Awin (they use Impact/AvantLink or run in-house). What Awin does
+  have in the US, all gear retail rather than rental:
+  | Programme | Awin ID | Conv. | Approval | EPC | Fit |
+  |---|---|---|---|---|---|
+  | Head (US) | 27978 | 2.9% | 86% | $0.77 | skis, boots, bindings — good match for gear guides |
+  | Burton Snowboards US | 19106 | 2.2% | 95% | $0.48 | snowboard guides; 97-day payment |
+  | Outdoor Master (US) | 26401 | 5.0% | 100% | $0.90 | goggles/helmets; 122-day validation |
+  Also European but worth adding later: **NetSki** (UK, 20965, Ski Company
+  group, 12.5% conv., £0.29 EPC, 127-day payment). Not applied yet.
+  For US rental a direct deal (or AvantLink/Impact account) would be a
+  separate, later effort; for now US pages keep the Adsterra slots.
 - [ ] On first approval: affiliate config mirroring `ad-config.ts` + a
       "Book rental gear" CTA on store and resort pages (~half a day).
