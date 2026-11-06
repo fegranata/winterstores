@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { CheckCircleIcon } from "@/components/ui/Icons";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
@@ -74,12 +75,12 @@ export default function SuggestStoreForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-lg border border-green-200 bg-green-50 p-8 text-center">
-        <div className="text-3xl mb-3">✅</div>
-        <h2 className="text-xl font-semibold text-green-800 mb-2">
+      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center">
+        <CheckCircleIcon className="mx-auto mb-3 h-10 w-10 text-emerald-600" />
+        <h2 className="heading-display text-2xl text-emerald-900 mb-2">
           Thank you!
         </h2>
-        <p className="text-green-700">
+        <p className="text-emerald-800">
           Your store suggestion has been submitted. We&apos;ll review it and add
           it to our directory if it meets our criteria.
         </p>
@@ -95,7 +96,7 @@ export default function SuggestStoreForm() {
             setSubmitterEmail("");
             setTurnstileToken(TURNSTILE_SITE_KEY ? null : "skip");
           }}
-          className="mt-4 text-sm text-green-700 underline hover:text-green-900"
+          className="mt-4 text-sm font-medium text-emerald-800 underline hover:text-emerald-950"
         >
           Submit another store
         </button>
@@ -117,7 +118,7 @@ export default function SuggestStoreForm() {
           value={storeName}
           onChange={(e) => setStoreName(e.target.value)}
           placeholder="e.g. Alpine Ski Shop"
-          className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+          className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15"
         />
       </div>
 
@@ -134,7 +135,7 @@ export default function SuggestStoreForm() {
             value={city}
             onChange={(e) => setCity(e.target.value)}
             placeholder="e.g. Innsbruck"
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+            className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15"
           />
         </div>
         <div>
@@ -146,7 +147,7 @@ export default function SuggestStoreForm() {
             required
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+            className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15"
           >
             <option value="">Select a country</option>
             {COUNTRIES.map((c) => (
@@ -167,7 +168,7 @@ export default function SuggestStoreForm() {
           value={website}
           onChange={(e) => setWebsite(e.target.value)}
           placeholder="https://example.com"
-          className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+          className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15"
         />
       </div>
 
@@ -184,8 +185,8 @@ export default function SuggestStoreForm() {
               onClick={() => toggleSport(sport)}
               className={`rounded-full px-3 py-1.5 text-sm border transition-colors ${
                 sportTypes.includes(sport)
-                  ? "bg-blue-600 text-white border-blue-600"
-                  : "bg-white text-slate-600 border-slate-300 hover:border-blue-400"
+                  ? "bg-ink-900 text-white border-ink-900"
+                  : "bg-white text-slate-700 border-slate-300 hover:border-blue-400 hover:text-blue-700"
               }`}
             >
               {sport}
@@ -205,7 +206,7 @@ export default function SuggestStoreForm() {
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Anything else we should know about this store?"
-          className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none resize-y"
+          className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15 resize-y"
         />
       </div>
 
@@ -220,7 +221,7 @@ export default function SuggestStoreForm() {
           value={submitterEmail}
           onChange={(e) => setSubmitterEmail(e.target.value)}
           placeholder="you@example.com"
-          className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+          className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 shadow-xs outline-none transition-shadow focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15"
         />
       </div>
 
@@ -245,7 +246,7 @@ export default function SuggestStoreForm() {
       <button
         type="submit"
         disabled={status === "loading" || !turnstileToken}
-        className="w-full rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === "loading" ? "Submitting..." : "Submit Store Suggestion"}
       </button>
