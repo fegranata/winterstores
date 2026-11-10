@@ -67,6 +67,9 @@ Found via the Vercel dashboards while investigating "traffic from Singapore":
   followed by a docs commit in one push would have been skipped; it now
   compares against `$VERCEL_GIT_PREVIOUS_SHA` (the last deployed commit)
   and builds when that is empty or unreachable.
+  The logic now lives in `scripts/vercel-ignore.sh`: vercel.json rejects an
+  `ignoreCommand` over 256 characters, and an over-long one fails the
+  deployment in seconds with no log (that cost one failed deploy today).
 - [x] 2026-11-06: `vercel.json` `ignoreCommand` skips the build when a
       commit touches only `*.md`, `content/`, `outreach/`, `sql/`,
       `.github/` or `.claude/`. Tested against recent commits: docs-only
