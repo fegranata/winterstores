@@ -434,6 +434,20 @@ Decisions pending (Fernando):
   outreach emails (784 contacts, templates ready) are the one lever that
   moves this, and they are still unsent.
 
+- **Content plan check 2026-11-10.** Publishing is on schedule: the weekly
+  routine fired Tue 11-03 and Tue 11-10 at 07:07 UTC, each guide committed,
+  built and live (32 guides; next run 11-17, damage-waiver guide; 21
+  queued ≈ through early April). **Results: none yet.** GSC's indexed-page
+  list (295 URLs) contains exactly one guide, `best-ski-resorts-beginners`
+  (crawled Aug 16), plus `/guides` itself (last crawled Sep 11). The 15
+  guides from 7 Sep and the 3 from November are not indexed; guides had
+  3 search impressions in 28 days. Guides are in the sitemap and linked
+  from store and resort pages, so this is crawl demand again, not a bug.
+  Evidence the manual lever works: every resort page submitted through
+  URL Inspection on 1 Nov was crawled that day and is indexed. Next: use
+  the ~10/day Request Indexing quota on guides, newest and most
+  rental-intent first.
+
 ## 8 — Email for the project (2026-11-01)
 
 - **Bug fixed:** the contact page and the store Report form pointed at
