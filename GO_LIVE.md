@@ -396,6 +396,44 @@ Decisions pending (Fernando):
   next session, then continue down the resort list by store count
   (St. Anton, Saalbach, …), ~10 per day.
 
+## 7b — Check 2026-11-10 (Awin, GSC, traffic)
+
+| Metric | 2026-11-01 | 2026-11-10 (GSC data to 11/6) |
+|---|---|---|
+| Indexed pages | 418 | **295** |
+| Crawled – currently not indexed | 557 | 680 |
+| Discovered – currently not indexed | 562 | 325 |
+| Excluded by noindex | – | 12 |
+| External links | 0 | **0** |
+| Clicks / impressions (28 d vs prev 28 d) | – | 5 / 364 vs 1 / 671 |
+| Average position (28 d) | – | 46 |
+| Sitemap | – | read 2026-11-09, Success, 856 URLs |
+
+- **Crawl stats (90 d):** 1.01K requests total, only 28% HTML (~3 pages a
+  day), purpose "Refresh" 100% — Google is doing no discovery crawling at
+  all. Only 12 of the ~760 noindexed store pages have been recrawled, so
+  the noindex rule has not taken effect yet; the indexed count is still
+  the old decay, not the new rule. Nothing to change in code: the
+  constraint is crawl demand, and crawl demand comes from links.
+- **Queries:** 241 in 28 d, almost all "[service] [resort]" intent ("ski
+  rentals winter park", "banff snowboard shops", "ski repair breckenridge",
+  "ski butlers mammoth alternative") at positions 60–90. One real click
+  at position 1 for "ski service innsbruck".
+- **Traffic (Vercel Analytics):** 30 d shows 1,488 visitors, but 72%
+  Singapore / 95% Windows desktop / `/search` = the bot farm before the
+  1 Nov firewall rules. Last 7 d, post-firewall: **63 visitors, 66 page
+  views**, 24 of them on `/search`, 3 from search engines. Real human
+  traffic is roughly 5–9 visitors a day.
+- **Firewall (24 h):** 1.9k allowed, 681 denied, 810 challenged; the
+  Tencent rule now catches 13 a day (was 22k). The farm has gone.
+- **Awin:** all eight applications still pending after 4 days (Snow Rental,
+  SPORT2000 FR, Skiset DE, Skiset UK, NetSki, Head US, Burton US, Outdoor
+  Master US). Only joined programme is PersonalHour (96347), not relevant.
+- **Reading:** everything technical is healthy; the site has no authority.
+  Zero external links → no crawl demand → indexing shrinks. The shop
+  outreach emails (784 contacts, templates ready) are the one lever that
+  moves this, and they are still unsent.
+
 ## 8 — Email for the project (2026-11-01)
 
 - **Bug fixed:** the contact page and the store Report form pointed at
