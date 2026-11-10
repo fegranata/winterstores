@@ -59,6 +59,14 @@ Found via the Vercel dashboards while investigating "traffic from Singapore":
 - [x] 2026-11-06: `vercel remove winterstores --safe --yes` deleted the 27
       non-aliased deployments; the live one (all five aliases) was kept.
       Storage back to ~0.3 GB. Old builds are reproducible from git.
+- **Corrected 2026-11-10 (two holes in the rule below):** (1) the monthly
+  maintenance commit touches only `content/maintenance-log.md`, and that
+  commit is what deploys newly discovered stores, so the rule would have
+  silently stopped them going live on 1 Dec; a change to that file now
+  always builds. (2) The rule compared only `HEAD^..HEAD`, so a code commit
+  followed by a docs commit in one push would have been skipped; it now
+  compares against `$VERCEL_GIT_PREVIOUS_SHA` (the last deployed commit)
+  and builds when that is empty or unreachable.
 - [x] 2026-11-06: `vercel.json` `ignoreCommand` skips the build when a
       commit touches only `*.md`, `content/`, `outreach/`, `sql/`,
       `.github/` or `.claude/`. Tested against recent commits: docs-only
@@ -523,8 +531,72 @@ Decisions pending (Fernando):
       Outdoor Master (US) via the Awin UI, each with a tailored content-site
       pitch (rental CTAs for NetSki; guide-embedded gear recommendations for
       the US three; no brand bidding, no coupon/cashback). MCP
-       now lists all eight programmes.
+      `relationship=pending` now lists all eight programmes.
   For US rental a direct deal (or AvantLink/Impact account) would be a
   separate, later effort; for now US pages keep the Adsterra slots.
 - [ ] On first approval: affiliate config mirroring `ad-config.ts` + a
       "Book rental gear" CTA on store and resort pages (~half a day).
+
+## 10 — Reports: data-led link assets (2026-11-10)
+
+Why: the guides are on schedule but not indexed (1 of 32), and nobody links
+to the tenth-best explanation of DIN settings. The one thing this site has
+that others do not is 273k reviews across 1,439 shops. `/reports` turns that
+into something a blogger, journalist or tourism office can cite.
+
+- [x] **`/reports/ski-shop-ratings-by-resort`** — 63 of 82 resorts ranked on
+      187,742 reviews of 970 shops; key findings, full table, by area and
+      country, method, limitations, CSV download
+      (`/data/ski-shop-ratings-by-resort.csv`), Dataset JSON-LD, and a
+      "use this data, credit with a link" block.
+- [x] **`/reports/best-resorts-for-ski-shops`** — the top 10 as a readable
+      piece (shops behind each score, services, best resort per area),
+      Article + ItemList JSON-LD. Plus `/reports` as the index.
+- [x] Linked from the footer ("Resort Rankings", sitewide), a banner on
+      `/resorts`, and a rank line on each of the 63 ranked resort pages
+      ("The shops closest to X average 4.86, 2nd of 63 resorts…"). All three
+      are in the sitemap.
+- **Method** (`src/lib/resort-ratings.ts`, unit-tested): each shop counts
+  once, for the nearest resort within 25 km; needs ≥20 reviews; listings
+  whose name is only a ski school are excluded (12); resort score =
+  review-weighted mean with each shop's weight capped at 500; a resort needs
+  ≥5 rated shops and ≥500 reviews to be ranked. 19 resorts are published as
+  "not enough data" with no score — including Courchevel, Méribel, La
+  Plagne, Megève, St. Moritz and Wengen, which is the coverage-fill list in
+  another form.
+- **No render-time cost.** Pages read a frozen snapshot
+  (`src/lib/data/resort-ratings.json`); nothing queries the DB per page.
+  Rebuild deliberately with `npx tsx scripts/build-resort-ratings.ts
+  --commit` (runbook in HANDOVER.md) — before the season and at most once
+  mid-season. A cited ranking should not move under the people citing it,
+  so it is not in the monthly workflow.
+- **Decisions left open for Fernando:** the data is offered under a plain
+  "quote and republish with a link" line, not a formal CC BY licence
+  (a licence cannot be taken back; say the word and it is one line plus a
+  `license` field in the JSON-LD). No ad slots on the three report pages:
+  credibility with the people we want links from matters more there.
+- **Headline results:** 1 Crested Butte 4.87, 2 Bansko 4.86, 3 Fernie 4.85,
+  4 Revelstoke 4.83, 5 Lech 4.83 … 63 Bariloche 4.38. Chamonix 41st,
+  Zermatt 48th, Aspen 39th, Whistler 34th. Eastern Europe 4.78 leads
+  by area; Scandinavia 4.41 trails.
+- [x] **Indexing requested 2026-11-10** (URL Inspection, each confirmed
+      "Indexing requested"): guides `pre-booking-ski-rentals-guide`,
+      `ski-length-sizing-guide`, `ski-binding-din-settings-explained`,
+      `questions-to-ask-before-renting-skis`, `how-to-choose-ski-rental-shop`,
+      `renting-vs-buying-ski-equipment`, `boot-fitting-guide`,
+      `first-ski-trip-guide`, then the two report pages after deploy.
+      Inspection showed the newest guide as "URL is unknown to Google".
+      Next days, ~10 per day: the remaining 22 guides, starting with
+      `ski-trip-budget-guide`, `kids-ski-gear-rent-or-buy`,
+      `flying-with-ski-gear-vs-renting`, `snowboard-gear-guide-beginners`.
+- [ ] **Use the report as the outreach hook** (this replaces the weak
+      "you are listed" pitch): (a) tourism offices of the top-10 and
+      area-best resorts — "your resort ranked Nth of 63 for ski shop
+      ratings"; (b) the ~30 shops named as top-rated on the top-10 page —
+      "you are one of the three top-rated shops in X"; (c) ski blogs and
+      regional press for Bansko / Poiana Brașov / Fernie / Revelstoke, where
+      beating Zermatt and Chamonix is a local story. Sending is Fernando's.
+- [ ] Next data pieces on the same snapshot pattern: best-rated shops for
+      boot fitting by resort; ratings by country with year-on-year change
+      once a second season exists.
+

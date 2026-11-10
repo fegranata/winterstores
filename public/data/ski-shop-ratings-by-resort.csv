@@ -1,0 +1,83 @@
+rank,resort,country,area,score,rated_shops,reviews,share_of_shops_rated_4_5_or_higher,top_rated_shop,resort_page
+1,Crested Butte,United States,North America,4.87,6,754,1.00,Christy Sports CB Treasury Center,https://winterstores.co/resorts/crested-butte
+2,Bansko,Bulgaria,Eastern Europe,4.86,24,7546,0.79,Mega Ski Center - Bansko ski hire & rent,https://winterstores.co/resorts/bansko
+3,Fernie,Canada,North America,4.85,9,977,1.00,GearHub Sports,https://winterstores.co/resorts/fernie
+4,Revelstoke,Canada,North America,4.83,9,788,1.00,Society Snow & Skate,https://winterstores.co/resorts/revelstoke
+5,Lech,Austria,The Alps,4.83,8,625,0.88,INTERSPORT Arlberg,https://winterstores.co/resorts/lech
+6,Furano,Japan,Japan,4.80,7,636,0.86,Rhythm Furano,https://winterstores.co/resorts/furano
+7,Tignes,France,The Alps,4.77,15,3231,0.93,Yab Sports - Location ski Tignes Val Claret,https://winterstores.co/resorts/tignes
+8,Verbier,Switzerland,The Alps,4.75,6,555,0.67,"Sommet et Neige - Retail and Rental Shop, Ski school",https://winterstores.co/resorts/verbier
+9,Poiana Brașov,Romania,Eastern Europe,4.75,20,4106,0.80,Interski - Închirieri + Școală ski & snowboard Poiana Brașov | RENTAL & SCHOOL,https://winterstores.co/resorts/poiana-brasov
+10,Crans-Montana,Switzerland,The Alps,4.74,20,3163,0.95,Crazy Corner Sport - INTERSPORT Rent,https://winterstores.co/resorts/crans-montana
+11,Kitzbühel,Austria,The Alps,4.74,6,1094,0.83,Moreboards Wörgl,https://winterstores.co/resorts/kitzbuhel
+12,Alta / Snowbird,United States,North America,4.71,17,15961,0.88,AJ Motion Sports – Little Cottonwood Center,https://winterstores.co/resorts/alta-snowbird
+13,Cortina d'Ampezzo,Italy,The Alps,4.71,19,3444,0.84,Snow Service bike rental,https://winterstores.co/resorts/cortina-dampezzo
+14,Mont Tremblant,Canada,North America,4.70,15,1934,0.73,Black Tie Ski Rentals of Mont-Tremblant,https://winterstores.co/resorts/mont-tremblant
+15,Val Gardena,Italy,The Alps,4.70,14,2250,0.71,Ski Olga,https://winterstores.co/resorts/val-gardena
+16,Saalbach,Austria,The Alps,4.69,25,6221,0.96,LA RESISTANCE,https://winterstores.co/resorts/saalbach
+17,Mayrhofen,Austria,The Alps,4.69,8,2589,0.88,Moreboards Mayrhofen,https://winterstores.co/resorts/mayrhofen
+18,Davos,Switzerland,The Alps,4.68,6,808,0.83,ANDRIST Sport & Fashion,https://winterstores.co/resorts/davos
+19,Steamboat Springs,United States,North America,4.68,6,1268,1.00,One Stop Ski & Cycle - Steamboat Springs,https://winterstores.co/resorts/steamboat-springs
+20,Vail,United States,North America,4.68,15,2329,0.80,Ski Town All-Stars,https://winterstores.co/resorts/vail
+21,Val d'Isère,France,The Alps,4.68,8,962,0.50,Skimium - AB SKISHOP Val d'Isère,https://winterstores.co/resorts/val-disere
+22,Killington,United States,North America,4.67,19,2572,0.79,Forerunner Ski Shop,https://winterstores.co/resorts/killington
+23,Sun Valley,United States,North America,4.67,14,940,0.79,Black Tie Ski and Bike Rental Delivery of Sun Valley,https://winterstores.co/resorts/sun-valley
+24,Winter Park,United States,North America,4.66,11,2185,0.82,Powder Tools Winter Park,https://winterstores.co/resorts/winter-park
+25,Avoriaz,France,The Alps,4.66,11,1660,0.91,Ski Shop Avoriaz,https://winterstores.co/resorts/avoriaz
+26,Stowe,United States,North America,4.66,15,2012,0.73,KIT LENDER,https://winterstores.co/resorts/stowe
+27,Grandvalira,Andorra,Pyrenees & Iberia,4.65,21,5270,0.71,Helly Hansen Andorra,https://winterstores.co/resorts/grandvalira
+28,Banff,Canada,North America,4.65,23,4388,0.78,Sports Garage,https://winterstores.co/resorts/banff
+29,Baqueira-Beret,Spain,Pyrenees & Iberia,4.64,13,1834,0.77,Landing Snowboard | Clases Snowboard Baqueira,https://winterstores.co/resorts/baqueira-beret
+30,St. Anton,Austria,The Alps,4.63,8,1436,0.63,INTERSPORT Arlberg,https://winterstores.co/resorts/st-anton
+31,Zakopane,Poland,Eastern Europe,4.63,10,3026,0.50,Ski Rent & Bike Zakopane – Wypożyczalnia Nart i Rowerów,https://winterstores.co/resorts/zakopane
+32,Sierra Nevada,Spain,Pyrenees & Iberia,4.63,20,4413,0.55,Carving Ski Rental /Alquiler ski sierra nevada,https://winterstores.co/resorts/sierra-nevada
+33,Morzine,France,The Alps,4.63,14,1611,0.79,Gravier Ski Shop,https://winterstores.co/resorts/morzine
+34,Whistler,Canada,North America,4.62,24,3525,0.88,Helly Hansen Whistler,https://winterstores.co/resorts/whistler
+35,Park City,United States,North America,4.62,13,2022,0.69,Legacy Sports,https://winterstores.co/resorts/park-city
+36,Big Sky,United States,North America,4.62,9,1352,0.67,Black Tie Ski & Bike Rental Delivery of Big Sky,https://winterstores.co/resorts/big-sky
+37,Telluride,United States,North America,4.61,16,1291,0.81,Ski Butlers Telluride,https://winterstores.co/resorts/telluride
+38,Breckenridge,United States,North America,4.61,24,5155,0.79,Main Street Sports,https://winterstores.co/resorts/breckenridge
+39,Aspen,United States,North America,4.60,17,1424,0.71,Ski Butlers Aspen/Snowmass,https://winterstores.co/resorts/aspen
+40,Garmisch-Partenkirchen,Germany,The Alps,4.60,12,1742,0.58,Bergsport WN alpin,https://winterstores.co/resorts/garmisch-partenkirchen
+41,Chamonix,France,The Alps,4.59,22,5855,0.73,SPORT 2000 O74 - Location ski Chamonix,https://winterstores.co/resorts/chamonix
+42,Mammoth Mountain,United States,North America,4.58,16,2477,0.75,Black Tie Ski & Bike Rental Delivery of Mammoth,https://winterstores.co/resorts/mammoth-mountain
+43,Queenstown,New Zealand,Southern Hemisphere,4.57,23,2889,0.61,Browns Ski Rental,https://winterstores.co/resorts/queenstown
+44,Aviemore,United Kingdom,Scotland,4.55,10,1031,0.60,Ski Norwest Ltd,https://winterstores.co/resorts/aviemore
+45,Lake Tahoe,United States,North America,4.55,25,3493,0.64,Rock House Discount Ski & Snowboard Rentals,https://winterstores.co/resorts/lake-tahoe
+46,Oberstdorf,Germany,The Alps,4.54,19,9557,0.84,Skiverleih Michael Jipp,https://winterstores.co/resorts/oberstdorf
+47,Livigno,Italy,The Alps,4.53,20,3193,0.80,sport ZONE,https://winterstores.co/resorts/livigno
+48,Zermatt,Switzerland,The Alps,4.52,16,2623,0.75,OCHSNER SPORT,https://winterstores.co/resorts/zermatt
+49,Les 2 Alpes,France,The Alps,4.52,21,3292,0.67,SKILEAD - ALTITUDE SPORTS Les Bergers -Location ski Alpe d'Huez,https://winterstores.co/resorts/les-2-alpes
+50,Ischgl,Austria,The Alps,4.51,13,2412,0.62,Skiverleih Mietski com,https://winterstores.co/resorts/ischgl
+51,Jackson Hole,United States,North America,4.51,17,2330,0.47,Teton Backcountry Rentals and Bear Aware,https://winterstores.co/resorts/jackson-hole
+52,Laax,Switzerland,The Alps,4.50,10,1132,0.60,Chopp Snowboardshop,https://winterstores.co/resorts/laax
+53,Innsbruck,Austria,The Alps,4.49,13,3488,0.69,Moreboards Innsbruck,https://winterstores.co/resorts/innsbruck
+54,Niseko,Japan,Japan,4.48,14,2105,0.50,Rhythm Hirafu,https://winterstores.co/resorts/niseko
+55,Les Gets,France,The Alps,4.48,7,1023,0.71,Michaud Sports,https://winterstores.co/resorts/les-gets
+56,Hakuba,Japan,Japan,4.45,15,1006,0.47,Hakuba Mountain Lounge Iwatake – Ski & Snowboard Rental （白馬マウンテンラウンジ 岩岳 スキー・スノーボードレンタル）,https://winterstores.co/resorts/hakuba
+57,Kranjska Gora,Slovenia,The Alps,4.43,15,3589,0.53,Lussari Sport Tarvisio,https://winterstores.co/resorts/kranjska-gora
+58,Grindelwald,Switzerland,The Alps,4.43,9,1015,0.56,Buri Sport,https://winterstores.co/resorts/grindelwald
+59,Sölden,Austria,The Alps,4.42,19,2753,0.47,MOREBOARDS,https://winterstores.co/resorts/solden
+60,Levi,Finland,Scandinavia,4.41,13,6136,0.54,Colorblind Store,https://winterstores.co/resorts/levi
+61,Myoko,Japan,Japan,4.40,8,1461,0.25,JapSnow 湯澤雪具店 - JapSnow Yuzawa Rental,https://winterstores.co/resorts/myoko
+62,Åre,Sweden,Scandinavia,4.40,21,3355,0.48,INLANDET,https://winterstores.co/resorts/are
+63,Bariloche,Argentina,Southern Hemisphere,4.38,18,5910,0.44,Bariloche Outdoor -Rental del cruce,https://winterstores.co/resorts/bariloche
+,Courchevel,France,The Alps,4.17,2,218,0.50,Endless Winter - Snowboard,https://winterstores.co/resorts/courchevel
+,Courmayeur,Italy,The Alps,4.29,5,206,0.40,Ulisse Sport,https://winterstores.co/resorts/courmayeur
+,Hemsedal,Norway,Scandinavia,4.57,5,391,0.80,MOH Sports,https://winterstores.co/resorts/hemsedal
+,La Clusaz,France,The Alps,,0,0,,,https://winterstores.co/resorts/la-clusaz
+,La Plagne,France,The Alps,4.80,1,96,1.00,Alps2alps Ski Shop,https://winterstores.co/resorts/la-plagne
+,Madonna di Campiglio,Italy,The Alps,4.52,2,91,0.50,Snowboardmania Shop,https://winterstores.co/resorts/madonna-di-campiglio
+,Megève,France,The Alps,4.48,3,1746,0.67,Freeglisse Shop Sallanches,https://winterstores.co/resorts/megeve
+,Méribel,France,The Alps,4.85,2,315,1.00,Zenith Ski Shop,https://winterstores.co/resorts/meribel
+,Nozawa Onsen,Japan,Japan,4.43,3,191,0.67,Nozawa Ski Rental,https://winterstores.co/resorts/nozawa-onsen
+,Portillo,Chile,Southern Hemisphere,,0,0,,,https://winterstores.co/resorts/portillo
+,Ruka,Finland,Scandinavia,4.03,2,276,0.00,Intersport Ruka,https://winterstores.co/resorts/ruka
+,Rusutsu,Japan,Japan,,0,0,,,https://winterstores.co/resorts/rusutsu
+,St. Moritz,Switzerland,The Alps,4.41,4,470,0.25,Go Vertical,https://winterstores.co/resorts/st-moritz
+,Sunday River,United States,North America,4.40,3,293,0.33,True North Adventureware,https://winterstores.co/resorts/sunday-river
+,Thredbo,Australia,Southern Hemisphere,4.15,4,177,0.25,Gravity Thredbo,https://winterstores.co/resorts/thredbo
+,Trysil,Norway,Scandinavia,4.60,5,324,1.00,Sportlodge'n,https://winterstores.co/resorts/trysil
+,Valle Nevado,Chile,Southern Hemisphere,,0,0,,,https://winterstores.co/resorts/valle-nevado
+,Wengen,Switzerland,The Alps,4.72,5,308,1.00,Molitor Sport,https://winterstores.co/resorts/wengen
+,Yongpyong,South Korea,South Korea,4.41,3,1416,0.33,용평리조트렌탈샵 겨울이야기,https://winterstores.co/resorts/yongpyong

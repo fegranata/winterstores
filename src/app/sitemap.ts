@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { RESORTS } from "@/lib/data/resorts";
 import { GUIDES } from "@/lib/data/guides";
+import { REPORT_PATHS, RESORT_RATINGS } from "@/lib/data/resort-ratings";
 import { isGhostStore, isIndexableStore } from "@/lib/store-quality";
 import { COUNTRY_PAGE_SIZE } from "@/components/browse/CountryBrowse";
 
@@ -21,6 +22,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/resorts`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/best-ski-shops`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
+    // Reports change only when the ratings snapshot is rebuilt, so they carry
+    // its date rather than "now".
+    ...[REPORT_PATHS.index, REPORT_PATHS.ratings, REPORT_PATHS.topResorts].map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: new Date(RESORT_RATINGS.generatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
   ];
 
   const resortPages: MetadataRoute.Sitemap = RESORTS.map((r) => ({

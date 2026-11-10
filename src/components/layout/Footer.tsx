@@ -17,6 +17,7 @@ const COLUMNS = [
     links: [
       { label: "Ski Resorts", href: "/resorts" },
       { label: "Best Ski Shops", href: "/best-ski-shops" },
+      { label: "Resort Rankings", href: "/reports" },
       { label: "Guides & Tips", href: "/guides" },
       { label: "Browse by Country", href: "/browse" },
     ],

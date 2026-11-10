@@ -106,6 +106,26 @@ npx tsx scripts/verify-stores.ts                                        # REQUIR
 Per-resort diagnostics print raw/kept/gate-failures/out-of-radius. A resort
 yielding zero should say why; if it goes silent again, that is a regression.
 
+### Rebuild the resort ratings snapshot (per season, not per month)
+
+`/reports/*` and the rank line on resort pages read a frozen file,
+`src/lib/data/resort-ratings.json`. Nothing computes it at render time.
+
+```bash
+npx tsx scripts/build-resort-ratings.ts            # dry run, prints the table
+npx tsx scripts/build-resort-ratings.ts --commit   # writes the JSON + public CSV
+```
+
+One slim select, no API calls. Commit both written files; the push deploys.
+Run it before the season and, at most, once mid-season after a big ratings
+refresh — a ranking people cite should not shift under them. Pass
+`--season 2027/28` when the season changes. The method and its thresholds
+live in `src/lib/resort-ratings.ts`; change them there, not in the pages,
+and the page text follows. The one hand-written part is `RESORT_CONTEXT` in
+`src/app/reports/best-resorts-for-ski-shops/page.tsx`: one evergreen sentence
+per resort, optional, so a resort entering the top ten without one still
+renders.
+
 ### Refresh platform ratings (monthly)
 
 ```bash

@@ -14,6 +14,13 @@ import {
 } from "@/lib/resort-description";
 import type { Metadata } from "next";
 import { MapPinIcon, MountainIcon, SearchIcon } from "@/components/ui/Icons";
+import {
+  RANKED_RESORTS,
+  REPORT_PATHS,
+  RESORT_RATINGS,
+  getResortRating,
+  ordinal,
+} from "@/lib/data/resort-ratings";
 
 interface ResortPageProps {
   params: Promise<{ slug: string }>;
@@ -60,6 +67,10 @@ export default async function ResortPage({ params }: ResortPageProps) {
     resort.lat,
     resort.lng
   );
+
+  // Position in the frozen ratings snapshot (static JSON, no query). Only
+  // ranked resorts get the line; thin-data resorts show nothing.
+  const rating = getResortRating(resort.slug);
 
   // Get nearby resorts in the same region for cross-linking
   const relatedResorts = RESORTS.filter(
@@ -134,6 +145,20 @@ export default async function ResortPage({ params }: ResortPageProps) {
                       Try searching
                     </Link>{" "}
                     for stores in {resort.country}.
+                  </p>
+                )}
+                {rating?.rank != null && rating.score != null && (
+                  <p className="mt-4 border-t border-white/10 pt-4 leading-relaxed">
+                    The shops closest to {resort.name} average{" "}
+                    <strong className="font-semibold text-white">{rating.score.toFixed(2)}</strong>,{" "}
+                    {ordinal(rating.rank)} of {RANKED_RESORTS.length} resorts in our{" "}
+                    <Link
+                      href={`${REPORT_PATHS.ratings}#${resort.slug}`}
+                      className="font-semibold text-white underline underline-offset-4 hover:text-blue-200"
+                    >
+                      {RESORT_RATINGS.season} ski shop ratings
+                    </Link>
+                    .
                   </p>
                 )}
               </div>

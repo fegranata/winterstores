@@ -1,0 +1,3938 @@
+{
+  "generatedAt": "2026-11-10",
+  "season": "2026/27",
+  "method": {
+    "radiusKm": 25,
+    "minShopReviews": 20,
+    "reviewWeightCap": 500,
+    "minShops": 5,
+    "minResortReviews": 500,
+    "topShopPriorReviews": 50
+  },
+  "totals": {
+    "stores": 1439,
+    "storesAssigned": 1125,
+    "storesRated": 970,
+    "schoolsExcluded": 12,
+    "reviews": 187742,
+    "resorts": 82,
+    "resortsRanked": 63,
+    "meanScore": 4.61
+  },
+  "resorts": [
+    {
+      "slug": "crested-butte",
+      "name": "Crested Butte",
+      "region": "Colorado",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 1,
+      "score": 4.87,
+      "shops": 6,
+      "shopsListed": 10,
+      "reviews": 754,
+      "shareHigh": 1,
+      "services": {
+        "rentals": 6,
+        "boot-fitting": 3,
+        "waxing": 3,
+        "repairs": 3,
+        "custom-fitting": 3,
+        "used-gear": 2
+      },
+      "topShops": [
+        {
+          "slug": "christy-sports-cb-treasury-center-crested-butte",
+          "name": "Christy Sports CB Treasury Center",
+          "city": "Crested Butte",
+          "score": 4.9,
+          "reviews": 212,
+          "distanceKm": 3.8
+        },
+        {
+          "slug": "romp-skis-crested-butte",
+          "name": "Romp Skis",
+          "city": "Crested Butte",
+          "score": 5,
+          "reviews": 72,
+          "distanceKm": 0.5
+        },
+        {
+          "slug": "black-tie-ski-rental-delivery-of-crested-butte-crested-butte",
+          "name": "Black Tie Ski Rental Delivery of Crested Butte",
+          "city": "Crested Butte",
+          "score": 4.9,
+          "reviews": 164,
+          "distanceKm": 0.5
+        }
+      ]
+    },
+    {
+      "slug": "bansko",
+      "name": "Bansko",
+      "region": "Eastern Europe",
+      "country": "Bulgaria",
+      "countryCode": "BG",
+      "area": "Eastern Europe",
+      "rank": 2,
+      "score": 4.86,
+      "shops": 24,
+      "shopsListed": 27,
+      "reviews": 7546,
+      "shareHigh": 0.79,
+      "services": {
+        "rentals": 24,
+        "repairs": 4,
+        "lessons": 10,
+        "storage": 5,
+        "boot-fitting": 1,
+        "waxing": 1
+      },
+      "topShops": [
+        {
+          "slug": "mega-ski-center-bansko-ski-hire-rent-bansko",
+          "name": "Mega Ski Center - Bansko ski hire & rent",
+          "city": "Bansko",
+          "score": 5,
+          "reviews": 832,
+          "distanceKm": 1.6
+        },
+        {
+          "slug": "george-ski-snowboard-bansko-school-rent-shop-bansko",
+          "name": "George Ski & Snowboard Bansko - School, Rent, Shop",
+          "city": "Bansko",
+          "score": 5,
+          "reviews": 545,
+          "distanceKm": 1.4
+        },
+        {
+          "slug": "360-ski-bansko-bansko",
+          "name": "360 Ski Bansko",
+          "city": "Bansko",
+          "score": 5,
+          "reviews": 313,
+          "distanceKm": 1.4
+        }
+      ]
+    },
+    {
+      "slug": "fernie",
+      "name": "Fernie",
+      "region": "BC / Alberta",
+      "country": "Canada",
+      "countryCode": "CA",
+      "area": "North America",
+      "rank": 3,
+      "score": 4.85,
+      "shops": 9,
+      "shopsListed": 12,
+      "reviews": 977,
+      "shareHigh": 1,
+      "services": {
+        "rentals": 9,
+        "repairs": 4,
+        "boot-fitting": 1,
+        "waxing": 4
+      },
+      "topShops": [
+        {
+          "slug": "gearhub-sports-fernie",
+          "name": "GearHub Sports",
+          "city": "Fernie",
+          "score": 4.9,
+          "reviews": 384,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "edge-of-the-world-fernie",
+          "name": "Edge of the World",
+          "city": "Fernie",
+          "score": 4.9,
+          "reviews": 118,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "gearhub-adventure-rentals-fernie",
+          "name": "GearHub Adventure Rentals",
+          "city": "Fernie",
+          "score": 4.9,
+          "reviews": 107,
+          "distanceKm": 1.1
+        }
+      ]
+    },
+    {
+      "slug": "revelstoke",
+      "name": "Revelstoke",
+      "region": "BC / Alberta",
+      "country": "Canada",
+      "countryCode": "CA",
+      "area": "North America",
+      "rank": 4,
+      "score": 4.83,
+      "shops": 9,
+      "shopsListed": 14,
+      "reviews": 788,
+      "shareHigh": 1,
+      "services": {
+        "rentals": 9,
+        "repairs": 2,
+        "boot-fitting": 3,
+        "waxing": 1
+      },
+      "topShops": [
+        {
+          "slug": "society-snow-skate-revelstoke",
+          "name": "Society Snow & Skate",
+          "city": "Revelstoke",
+          "score": 5,
+          "reviews": 107,
+          "distanceKm": 0.1
+        },
+        {
+          "slug": "the-wax-bench-revelstoke-snow-bike-revelstoke",
+          "name": "The Wax Bench Revelstoke Snow & Bike",
+          "city": "Revelstoke",
+          "score": 4.9,
+          "reviews": 119,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "cycle-logic-revelstoke-revelstoke",
+          "name": "Cycle Logic - Revelstoke",
+          "city": "Revelstoke",
+          "score": 4.9,
+          "reviews": 97,
+          "distanceKm": 0.7
+        }
+      ]
+    },
+    {
+      "slug": "lech",
+      "name": "Lech",
+      "region": "Austrian Alps",
+      "country": "Austria",
+      "countryCode": "AT",
+      "area": "The Alps",
+      "rank": 5,
+      "score": 4.83,
+      "shops": 8,
+      "shopsListed": 9,
+      "reviews": 625,
+      "shareHigh": 0.88,
+      "services": {
+        "rentals": 8,
+        "repairs": 4,
+        "boot-fitting": 3,
+        "storage": 4,
+        "lessons": 1
+      },
+      "topShops": [
+        {
+          "slug": "intersport-arlberg-lech",
+          "name": "INTERSPORT Arlberg",
+          "city": "Lech",
+          "score": 4.9,
+          "reviews": 248,
+          "distanceKm": 0.1
+        },
+        {
+          "slug": "sporttraum-skiverleih-sportshop-skiservice-tourenausr-stung-e-bike-verleih-schr-cken",
+          "name": "SPORTTRAUM Skiverleih - Sportshop -Skiservice -Tourenausrüstung - E-Bike Verleih",
+          "city": "Schröcken",
+          "score": 5,
+          "reviews": 64,
+          "distanceKm": 6.7
+        },
+        {
+          "slug": "skibex-rental-service-depot-shop-lech",
+          "name": "SKIBEX RENTAL • SERVICE • DEPOT • SHOP",
+          "city": "Lech",
+          "score": 4.9,
+          "reviews": 65,
+          "distanceKm": 0.3
+        }
+      ]
+    },
+    {
+      "slug": "furano",
+      "name": "Furano",
+      "region": "Japan",
+      "country": "Japan",
+      "countryCode": "JP",
+      "area": "Japan",
+      "rank": 6,
+      "score": 4.8,
+      "shops": 7,
+      "shopsListed": 10,
+      "reviews": 636,
+      "shareHigh": 0.86,
+      "services": {
+        "rentals": 7,
+        "boot-fitting": 2,
+        "lessons": 1
+      },
+      "topShops": [
+        {
+          "slug": "rhythm-furano-furano",
+          "name": "Rhythm Furano",
+          "city": "Furano",
+          "score": 4.9,
+          "reviews": 249,
+          "distanceKm": 1.7
+        },
+        {
+          "slug": "furano-snow-force-furano",
+          "name": "Furano Snow Force 富良野中文雪具出租",
+          "city": "Furano",
+          "score": 5,
+          "reviews": 50,
+          "distanceKm": 0.8
+        },
+        {
+          "slug": "waves-furano",
+          "name": "WAVES スキー&スノーボードレンタル",
+          "city": "Furano",
+          "score": 4.9,
+          "reviews": 43,
+          "distanceKm": 1
+        }
+      ]
+    },
+    {
+      "slug": "tignes",
+      "name": "Tignes",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": 7,
+      "score": 4.77,
+      "shops": 15,
+      "shopsListed": 16,
+      "reviews": 3231,
+      "shareHigh": 0.93,
+      "services": {
+        "rentals": 15,
+        "repairs": 9,
+        "waxing": 3,
+        "storage": 5,
+        "lessons": 1,
+        "boot-fitting": 2
+      },
+      "topShops": [
+        {
+          "slug": "yab-sports-location-ski-tignes-val-claret-tignes",
+          "name": "Yab Sports - Location ski Tignes Val Claret",
+          "city": "Tignes",
+          "score": 5,
+          "reviews": 171,
+          "distanceKm": 1.7
+        },
+        {
+          "slug": "mayhew-snowboarding-tignes",
+          "name": "Mayhew Snowboarding",
+          "city": "Tignes",
+          "score": 5,
+          "reviews": 113,
+          "distanceKm": 0.7
+        },
+        {
+          "slug": "blackcats-tignes",
+          "name": "BlackCats",
+          "city": "Tignes",
+          "score": 4.9,
+          "reviews": 160,
+          "distanceKm": 1.4
+        }
+      ]
+    },
+    {
+      "slug": "verbier",
+      "name": "Verbier",
+      "region": "Swiss Alps",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "area": "The Alps",
+      "rank": 8,
+      "score": 4.75,
+      "shops": 6,
+      "shopsListed": 6,
+      "reviews": 555,
+      "shareHigh": 0.67,
+      "services": {
+        "rentals": 6,
+        "repairs": 4,
+        "boot-fitting": 3,
+        "storage": 1,
+        "lessons": 1
+      },
+      "topShops": [
+        {
+          "slug": "sommet-et-neige-retail-and-rental-shop-ski-school-nendaz",
+          "name": "Sommet et Neige - Retail and Rental Shop, Ski school",
+          "city": "Nendaz",
+          "score": 4.9,
+          "reviews": 171,
+          "distanceKm": 10.6
+        },
+        {
+          "slug": "theytaz-sports-swisspeak-h-r-mence",
+          "name": "Theytaz Sports @Swisspeak",
+          "city": "Hérémence",
+          "score": 4.9,
+          "reviews": 59,
+          "distanceKm": 15.4
+        },
+        {
+          "slug": "genolet-sports-intersport-les-collons-1850-les-collons",
+          "name": "Genolet Sports Intersport - Les Collons 1850",
+          "city": "Les Collons",
+          "score": 4.8,
+          "reviews": 131,
+          "distanceKm": 15.2
+        }
+      ]
+    },
+    {
+      "slug": "poiana-brasov",
+      "name": "Poiana Brașov",
+      "region": "Eastern Europe",
+      "country": "Romania",
+      "countryCode": "RO",
+      "area": "Eastern Europe",
+      "rank": 9,
+      "score": 4.75,
+      "shops": 20,
+      "shopsListed": 24,
+      "reviews": 4106,
+      "shareHigh": 0.8,
+      "services": {
+        "rentals": 20,
+        "repairs": 4,
+        "used-gear": 3,
+        "lessons": 2,
+        "boot-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "interski-nchirieri-coal-ski-snowboard-poiana-bra-ov-rental-school-bra-ov",
+          "name": "Interski - Închirieri + Școală ski & snowboard Poiana Brașov | RENTAL & SCHOOL",
+          "city": "Brașov",
+          "score": 4.9,
+          "reviews": 1460,
+          "distanceKm": 0.7
+        },
+        {
+          "slug": "r-j-ski-school-bootfitting-poiana-brasov-scoala-ski-bra-ov",
+          "name": "R&J Ski School - Bootfitting Poiana Brasov | Scoala Ski",
+          "city": "Brașov",
+          "score": 4.9,
+          "reviews": 732,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "avalanche-sports-magazin-schiuri-bra-ov-ghimbav",
+          "name": "Avalanche Sports - Magazin Schiuri Brașov",
+          "city": "Ghimbav",
+          "score": 5,
+          "reviews": 98,
+          "distanceKm": 7.8
+        }
+      ]
+    },
+    {
+      "slug": "crans-montana",
+      "name": "Crans-Montana",
+      "region": "Swiss Alps",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "area": "The Alps",
+      "rank": 10,
+      "score": 4.74,
+      "shops": 20,
+      "shopsListed": 22,
+      "reviews": 3163,
+      "shareHigh": 0.95,
+      "services": {
+        "rentals": 20,
+        "repairs": 7,
+        "boot-fitting": 7,
+        "waxing": 2,
+        "storage": 1,
+        "custom-fitting": 2
+      },
+      "topShops": [
+        {
+          "slug": "crazy-corner-sport-intersport-rent-ayent",
+          "name": "Crazy Corner Sport - INTERSPORT Rent",
+          "city": "Ayent",
+          "score": 4.9,
+          "reviews": 191,
+          "distanceKm": 6.7
+        },
+        {
+          "slug": "adrelyx-ride-shop-sion",
+          "name": "Adrelyx ride shop",
+          "city": "Sion",
+          "score": 4.9,
+          "reviews": 129,
+          "distanceKm": 13.5
+        },
+        {
+          "slug": "nordlys-sport-gmbh-leukerbad",
+          "name": "Nordlys Sport GmbH",
+          "city": "Leukerbad",
+          "score": 4.9,
+          "reviews": 103,
+          "distanceKm": 13.9
+        }
+      ]
+    },
+    {
+      "slug": "kitzbuhel",
+      "name": "Kitzbühel",
+      "region": "Austrian Alps",
+      "country": "Austria",
+      "countryCode": "AT",
+      "area": "The Alps",
+      "rank": 11,
+      "score": 4.74,
+      "shops": 6,
+      "shopsListed": 7,
+      "reviews": 1094,
+      "shareHigh": 0.83,
+      "services": {
+        "rentals": 6,
+        "repairs": 3,
+        "boot-fitting": 2,
+        "custom-fitting": 1,
+        "waxing": 1,
+        "lessons": 1,
+        "storage": 1
+      },
+      "topShops": [
+        {
+          "slug": "moreboards-w-rgl-w-rgl",
+          "name": "Moreboards Wörgl",
+          "city": "Wörgl",
+          "score": 4.9,
+          "reviews": 102,
+          "distanceKm": 24.9
+        },
+        {
+          "slug": "hansi-s-skiverleih-sportgesch-ft-scheffau-scheffau-am-wilden-kaiser",
+          "name": "Hansi´s Skiverleih & Sportgeschäft Scheffau",
+          "city": "Scheffau am Wilden Kaiser",
+          "score": 4.8,
+          "reviews": 401,
+          "distanceKm": 12.9
+        },
+        {
+          "slug": "element3-sportshop-skiverleih-kitzb-hel-20-bei-onlinebuchung-kitzb-hel",
+          "name": "Element3 Sportshop - Skiverleih Kitzbühel -20% bei Onlinebuchung",
+          "city": "Kitzbühel",
+          "score": 4.8,
+          "reviews": 173,
+          "distanceKm": 1.3
+        }
+      ]
+    },
+    {
+      "slug": "alta-snowbird",
+      "name": "Alta / Snowbird",
+      "region": "Utah",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 12,
+      "score": 4.71,
+      "shops": 17,
+      "shopsListed": 17,
+      "reviews": 15961,
+      "shareHigh": 0.88,
+      "services": {
+        "rentals": 17,
+        "repairs": 8,
+        "boot-fitting": 3,
+        "waxing": 12,
+        "storage": 4,
+        "used-gear": 4,
+        "custom-fitting": 2
+      },
+      "topShops": [
+        {
+          "slug": "aj-motion-sports-little-cottonwood-center-sandy",
+          "name": "AJ Motion Sports – Little Cottonwood Center",
+          "city": "Sandy",
+          "score": 4.9,
+          "reviews": 1884,
+          "distanceKm": 16.7
+        },
+        {
+          "slug": "sports-den-salt-lake-city",
+          "name": "Sports Den",
+          "city": "Salt Lake City",
+          "score": 4.9,
+          "reviews": 1371,
+          "distanceKm": 23.2
+        },
+        {
+          "slug": "aj-motion-sports-union-square-sandy",
+          "name": "AJ Motion Sports – Union Square",
+          "city": "Sandy",
+          "score": 4.9,
+          "reviews": 1289,
+          "distanceKm": 19.9
+        }
+      ]
+    },
+    {
+      "slug": "cortina-dampezzo",
+      "name": "Cortina d'Ampezzo",
+      "region": "Italian Dolomites",
+      "country": "Italy",
+      "countryCode": "IT",
+      "area": "The Alps",
+      "rank": 13,
+      "score": 4.71,
+      "shops": 19,
+      "shopsListed": 21,
+      "reviews": 3444,
+      "shareHigh": 0.84,
+      "services": {
+        "rentals": 19,
+        "waxing": 1,
+        "repairs": 3,
+        "storage": 1,
+        "lessons": 2
+      },
+      "topShops": [
+        {
+          "slug": "snow-service-bike-rental-cortina-d-ampezzo",
+          "name": "Snow Service bike rental",
+          "city": "Cortina d'Ampezzo",
+          "score": 4.9,
+          "reviews": 955,
+          "distanceKm": 0.3
+        },
+        {
+          "slug": "snow-service-2-cortina-d-ampezzo",
+          "name": "Snow Service 2",
+          "city": "Cortina d'Ampezzo",
+          "score": 4.9,
+          "reviews": 430,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "snow-service-3-cortina-d-ampezzo",
+          "name": "Snow Service 3",
+          "city": "Cortina d'Ampezzo",
+          "score": 4.9,
+          "reviews": 368,
+          "distanceKm": 0.4
+        }
+      ]
+    },
+    {
+      "slug": "mont-tremblant",
+      "name": "Mont Tremblant",
+      "region": "BC / Alberta",
+      "country": "Canada",
+      "countryCode": "CA",
+      "area": "North America",
+      "rank": 14,
+      "score": 4.7,
+      "shops": 15,
+      "shopsListed": 18,
+      "reviews": 1934,
+      "shareHigh": 0.73,
+      "services": {
+        "rentals": 15,
+        "repairs": 8,
+        "boot-fitting": 2,
+        "waxing": 1,
+        "custom-fitting": 2
+      },
+      "topShops": [
+        {
+          "slug": "black-tie-ski-rentals-of-mont-tremblant-mont-tremblant",
+          "name": "Black Tie Ski Rentals of Mont-Tremblant",
+          "city": "Mont-Tremblant",
+          "score": 5,
+          "reviews": 122,
+          "distanceKm": 2.9
+        },
+        {
+          "slug": "ski-bike-lab-tremblant-mont-tremblant",
+          "name": "Ski & Bike LAB Tremblant",
+          "city": "Mont-Tremblant",
+          "score": 4.9,
+          "reviews": 380,
+          "distanceKm": 3.9
+        },
+        {
+          "slug": "below-zero-ski-rentals-mont-tremblant",
+          "name": "Below Zero Ski Rentals",
+          "city": "Mont-Tremblant",
+          "score": 4.9,
+          "reviews": 367,
+          "distanceKm": 3.9
+        }
+      ]
+    },
+    {
+      "slug": "val-gardena",
+      "name": "Val Gardena",
+      "region": "Italian Dolomites",
+      "country": "Italy",
+      "countryCode": "IT",
+      "area": "The Alps",
+      "rank": 15,
+      "score": 4.7,
+      "shops": 14,
+      "shopsListed": 19,
+      "reviews": 2250,
+      "shareHigh": 0.71,
+      "services": {
+        "rentals": 14,
+        "repairs": 7,
+        "boot-fitting": 4,
+        "waxing": 2,
+        "used-gear": 1,
+        "storage": 3
+      },
+      "topShops": [
+        {
+          "slug": "ski-olga-selva-di-val-gardena",
+          "name": "Ski Olga",
+          "city": "Selva di Val Gardena",
+          "score": 5,
+          "reviews": 136,
+          "distanceKm": 2.3
+        },
+        {
+          "slug": "intersport-nives-rent-ski-bike-snowboard-shop-selva-di-val-gardena",
+          "name": "Intersport Nives Rent Ski & Bike - Snowboard Shop",
+          "city": "Selva di Val Gardena",
+          "score": 4.9,
+          "reviews": 377,
+          "distanceKm": 2
+        },
+        {
+          "slug": "sport-gardena-noleggio-sci-ski-rental-skiverleih-ortisei",
+          "name": "Sport Gardena Noleggio Sci - Ski Rental - Skiverleih",
+          "city": "Ortisei",
+          "score": 4.8,
+          "reviews": 272,
+          "distanceKm": 4.7
+        }
+      ]
+    },
+    {
+      "slug": "saalbach",
+      "name": "Saalbach",
+      "region": "Austrian Alps",
+      "country": "Austria",
+      "countryCode": "AT",
+      "area": "The Alps",
+      "rank": 16,
+      "score": 4.69,
+      "shops": 25,
+      "shopsListed": 26,
+      "reviews": 6221,
+      "shareHigh": 0.96,
+      "services": {
+        "rentals": 25,
+        "repairs": 16,
+        "storage": 5,
+        "lessons": 5,
+        "boot-fitting": 5,
+        "waxing": 1
+      },
+      "topShops": [
+        {
+          "slug": "la-resistance-zell-am-see",
+          "name": "LA RESISTANCE",
+          "city": "Zell am See",
+          "score": 5,
+          "reviews": 123,
+          "distanceKm": 14.4
+        },
+        {
+          "slug": "hansis-best-price-skiverleih-saalbach",
+          "name": "Hansis Best Price Skiverleih",
+          "city": "Saalbach",
+          "score": 4.9,
+          "reviews": 302,
+          "distanceKm": 0.1
+        },
+        {
+          "slug": "bigtime-sport-skivermietung-maishofen",
+          "name": "Bigtime Sport Skivermietung",
+          "city": "Maishofen",
+          "score": 4.9,
+          "reviews": 195,
+          "distanceKm": 13.1
+        }
+      ]
+    },
+    {
+      "slug": "mayrhofen",
+      "name": "Mayrhofen",
+      "region": "Austrian Alps",
+      "country": "Austria",
+      "countryCode": "AT",
+      "area": "The Alps",
+      "rank": 17,
+      "score": 4.69,
+      "shops": 8,
+      "shopsListed": 8,
+      "reviews": 2589,
+      "shareHigh": 0.88,
+      "services": {
+        "rentals": 8,
+        "repairs": 7,
+        "boot-fitting": 2,
+        "lessons": 1,
+        "waxing": 1,
+        "storage": 2
+      },
+      "topShops": [
+        {
+          "slug": "moreboards-mayrhofen-mayrhofen",
+          "name": "Moreboards Mayrhofen",
+          "city": "Mayrhofen",
+          "score": 4.9,
+          "reviews": 337,
+          "distanceKm": 0.6
+        },
+        {
+          "slug": "skischule-skiverleih-snowsports-mayrhofen-mayrhofen",
+          "name": "Skischule & Skiverleih Snowsports Mayrhofen",
+          "city": "Mayrhofen",
+          "score": 4.9,
+          "reviews": 304,
+          "distanceKm": 0.4
+        },
+        {
+          "slug": "skiverleih-mayrhofen-sportgesch-ft-skidepot-sport-wegscheider-sport2000rent-mayrhofen",
+          "name": "Skiverleih Mayrhofen & Sportgeschäft & Skidepot - Sport Wegscheider sport2000rent",
+          "city": "Mayrhofen",
+          "score": 4.9,
+          "reviews": 236,
+          "distanceKm": 0.5
+        }
+      ]
+    },
+    {
+      "slug": "davos",
+      "name": "Davos",
+      "region": "Swiss Alps",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "area": "The Alps",
+      "rank": 18,
+      "score": 4.68,
+      "shops": 6,
+      "shopsListed": 7,
+      "reviews": 808,
+      "shareHigh": 0.83,
+      "services": {
+        "rentals": 6,
+        "repairs": 2,
+        "boot-fitting": 2,
+        "storage": 2,
+        "custom-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "andrist-sport-fashion-klosters-serneus",
+          "name": "ANDRIST Sport & Fashion",
+          "city": "Klosters-Serneus",
+          "score": 4.9,
+          "reviews": 193,
+          "distanceKm": 8.2
+        },
+        {
+          "slug": "angerer-sport-mode-davos",
+          "name": "Angerer Sport & Mode",
+          "city": "Davos",
+          "score": 4.8,
+          "reviews": 105,
+          "distanceKm": 1.3
+        },
+        {
+          "slug": "carmenna-sport-arosa",
+          "name": "Carmenna Sport",
+          "city": "Arosa",
+          "score": 4.6,
+          "reviews": 75,
+          "distanceKm": 12.1
+        }
+      ]
+    },
+    {
+      "slug": "steamboat-springs",
+      "name": "Steamboat Springs",
+      "region": "Colorado",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 19,
+      "score": 4.68,
+      "shops": 6,
+      "shopsListed": 8,
+      "reviews": 1268,
+      "shareHigh": 1,
+      "services": {
+        "rentals": 6,
+        "repairs": 2,
+        "boot-fitting": 3,
+        "waxing": 1,
+        "used-gear": 1,
+        "custom-fitting": 2
+      },
+      "topShops": [
+        {
+          "slug": "one-stop-ski-cycle-steamboat-springs-steamboat-springs",
+          "name": "One Stop Ski & Cycle - Steamboat Springs",
+          "city": "Steamboat Springs",
+          "score": 4.8,
+          "reviews": 241,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "surefoot-steamboat-springs",
+          "name": "Surefoot",
+          "city": "Steamboat Springs",
+          "score": 4.8,
+          "reviews": 128,
+          "distanceKm": 3.8
+        },
+        {
+          "slug": "steamboat-ski-rental",
+          "name": "Steamboat Ski & Bike Kare",
+          "city": "Steamboat Springs",
+          "score": 4.7,
+          "reviews": 289,
+          "distanceKm": 3.9
+        }
+      ]
+    },
+    {
+      "slug": "vail",
+      "name": "Vail",
+      "region": "Colorado",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 20,
+      "score": 4.68,
+      "shops": 15,
+      "shopsListed": 17,
+      "reviews": 2329,
+      "shareHigh": 0.8,
+      "services": {
+        "rentals": 15,
+        "repairs": 6,
+        "boot-fitting": 5,
+        "waxing": 9,
+        "used-gear": 6,
+        "storage": 5,
+        "custom-fitting": 3
+      },
+      "topShops": [
+        {
+          "slug": "ski-town-all-stars-avon",
+          "name": "Ski Town All-Stars",
+          "city": "Avon",
+          "score": 5,
+          "reviews": 370,
+          "distanceKm": 8.7
+        },
+        {
+          "slug": "venture-sports-grand-hyatt-vail-vail",
+          "name": "Venture Sports Grand Hyatt Vail",
+          "city": "Vail",
+          "score": 4.9,
+          "reviews": 259,
+          "distanceKm": 2.4
+        },
+        {
+          "slug": "buzz-s-boards-vail",
+          "name": "Buzz's Boards",
+          "city": "Vail",
+          "score": 4.9,
+          "reviews": 147,
+          "distanceKm": 0.1
+        }
+      ]
+    },
+    {
+      "slug": "val-disere",
+      "name": "Val d'Isère",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": 21,
+      "score": 4.68,
+      "shops": 8,
+      "shopsListed": 8,
+      "reviews": 962,
+      "shareHigh": 0.5,
+      "services": {
+        "rentals": 8,
+        "storage": 3,
+        "repairs": 3,
+        "boot-fitting": 2,
+        "waxing": 1
+      },
+      "topShops": [
+        {
+          "slug": "skimium-ab-skishop-val-d-isere-val-d-isere",
+          "name": "Skimium - AB SKISHOP Val d'Isère",
+          "city": "Val-d'Isère",
+          "score": 4.9,
+          "reviews": 242,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "intersport-val-d-isere-val-d-isere",
+          "name": "INTERSPORT - VAL D'ISERE",
+          "city": "Val-d'Isère",
+          "score": 4.8,
+          "reviews": 369,
+          "distanceKm": 0.1
+        },
+        {
+          "slug": "mountain-pro-shop-val-d-isere",
+          "name": "Mountain Pro Shop",
+          "city": "Val-d'Isère",
+          "score": 4.7,
+          "reviews": 83,
+          "distanceKm": 0.4
+        }
+      ]
+    },
+    {
+      "slug": "killington",
+      "name": "Killington",
+      "region": "US East",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 22,
+      "score": 4.67,
+      "shops": 19,
+      "shopsListed": 24,
+      "reviews": 2572,
+      "shareHigh": 0.79,
+      "services": {
+        "rentals": 19,
+        "waxing": 10,
+        "repairs": 5,
+        "boot-fitting": 8,
+        "used-gear": 5,
+        "custom-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "forerunner-ski-shop-killington",
+          "name": "Forerunner Ski Shop",
+          "city": "Killington",
+          "score": 4.9,
+          "reviews": 133,
+          "distanceKm": 4
+        },
+        {
+          "slug": "boarderline-insanity-clarendon",
+          "name": "Boarderline Insanity",
+          "city": "Clarendon",
+          "score": 5,
+          "reviews": 38,
+          "distanceKm": 14.5
+        },
+        {
+          "slug": "first-stop-board-barn-ski-bike-snowboard-paddle-shop-killington",
+          "name": "First Stop Board Barn - Ski, Bike, Snowboard & Paddle Shop",
+          "city": "Killington",
+          "score": 4.8,
+          "reviews": 198,
+          "distanceKm": 3.7
+        }
+      ]
+    },
+    {
+      "slug": "sun-valley",
+      "name": "Sun Valley",
+      "region": "US West",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 23,
+      "score": 4.67,
+      "shops": 14,
+      "shopsListed": 19,
+      "reviews": 940,
+      "shareHigh": 0.79,
+      "services": {
+        "rentals": 14,
+        "repairs": 3,
+        "waxing": 2,
+        "custom-fitting": 2,
+        "boot-fitting": 2,
+        "storage": 2
+      },
+      "topShops": [
+        {
+          "slug": "black-tie-ski-and-bike-rental-delivery-of-sun-valley-ketchum",
+          "name": "Black Tie Ski and Bike Rental Delivery of Sun Valley",
+          "city": "Ketchum",
+          "score": 5,
+          "reviews": 212,
+          "distanceKm": 2
+        },
+        {
+          "slug": "ski-butlers-sun-valley-ketchum",
+          "name": "Ski Butlers Sun Valley",
+          "city": "Ketchum",
+          "score": 5,
+          "reviews": 58,
+          "distanceKm": 2.5
+        },
+        {
+          "slug": "surefoot-ketchum",
+          "name": "Surefoot",
+          "city": "Ketchum",
+          "score": 5,
+          "reviews": 20,
+          "distanceKm": 2
+        }
+      ]
+    },
+    {
+      "slug": "winter-park",
+      "name": "Winter Park",
+      "region": "Colorado",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 24,
+      "score": 4.66,
+      "shops": 11,
+      "shopsListed": 15,
+      "reviews": 2185,
+      "shareHigh": 0.82,
+      "services": {
+        "rentals": 11,
+        "repairs": 5,
+        "boot-fitting": 4,
+        "used-gear": 5,
+        "waxing": 5,
+        "custom-fitting": 2
+      },
+      "topShops": [
+        {
+          "slug": "powder-tools-winter-park-winter-park",
+          "name": "Powder Tools Winter Park",
+          "city": "Winter Park",
+          "score": 4.9,
+          "reviews": 151,
+          "distanceKm": 4.2
+        },
+        {
+          "slug": "le-feet-lab-winter-park",
+          "name": "Le Feet Lab",
+          "city": "Winter Park",
+          "score": 4.9,
+          "reviews": 98,
+          "distanceKm": 4.3
+        },
+        {
+          "slug": "beavers-sports-shop-winter-park",
+          "name": "Beavers Sports Shop",
+          "city": "Winter Park",
+          "score": 4.7,
+          "reviews": 461,
+          "distanceKm": 4.6
+        }
+      ]
+    },
+    {
+      "slug": "avoriaz",
+      "name": "Avoriaz",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": 25,
+      "score": 4.66,
+      "shops": 11,
+      "shopsListed": 13,
+      "reviews": 1660,
+      "shareHigh": 0.91,
+      "services": {
+        "rentals": 11,
+        "repairs": 6,
+        "boot-fitting": 3,
+        "storage": 2,
+        "waxing": 1,
+        "used-gear": 1,
+        "lessons": 1
+      },
+      "topShops": [
+        {
+          "slug": "ski-shop-avoriaz-morzine",
+          "name": "Ski Shop Avoriaz",
+          "city": "Morzine",
+          "score": 4.9,
+          "reviews": 294,
+          "distanceKm": 0.3
+        },
+        {
+          "slug": "sport-2000-seven-twenty-snowshop-location-de-ski-avoriaz-morzine",
+          "name": "Sport 2000 Seven Twenty Snowshop - Location de ski Avoriaz",
+          "city": "Morzine",
+          "score": 4.8,
+          "reviews": 135,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "borgeat-sports-champ-ry",
+          "name": "Borgeat Sports",
+          "city": "Champéry",
+          "score": 4.7,
+          "reviews": 256,
+          "distanceKm": 7.6
+        }
+      ]
+    },
+    {
+      "slug": "stowe",
+      "name": "Stowe",
+      "region": "US East",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 26,
+      "score": 4.66,
+      "shops": 15,
+      "shopsListed": 16,
+      "reviews": 2012,
+      "shareHigh": 0.73,
+      "services": {
+        "rentals": 15,
+        "boot-fitting": 5,
+        "waxing": 5,
+        "repairs": 3,
+        "custom-fitting": 1,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "kit-lender-morristown",
+          "name": "KIT LENDER",
+          "city": "Morristown",
+          "score": 4.9,
+          "reviews": 355,
+          "distanceKm": 13.7
+        },
+        {
+          "slug": "triple-diamond-ski-shop-cambridge",
+          "name": "Triple Diamond Ski Shop",
+          "city": "Cambridge",
+          "score": 4.9,
+          "reviews": 82,
+          "distanceKm": 16.1
+        },
+        {
+          "slug": "umiak-outdoor-outfitters-stowe",
+          "name": "Umiak Outdoor Outfitters",
+          "city": "Stowe",
+          "score": 4.8,
+          "reviews": 289,
+          "distanceKm": 1.3
+        }
+      ]
+    },
+    {
+      "slug": "grandvalira",
+      "name": "Grandvalira",
+      "region": "Iberia",
+      "country": "Andorra",
+      "countryCode": "AD",
+      "area": "Pyrenees & Iberia",
+      "rank": 27,
+      "score": 4.65,
+      "shops": 21,
+      "shopsListed": 21,
+      "reviews": 5270,
+      "shareHigh": 0.71,
+      "services": {
+        "rentals": 21,
+        "repairs": 5,
+        "lessons": 2,
+        "storage": 3,
+        "custom-fitting": 2,
+        "boot-fitting": 4,
+        "waxing": 1,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "helly-hansen-andorra-escaldes-engordany",
+          "name": "Helly Hansen Andorra",
+          "city": "Escaldes-Engordany",
+          "score": 5,
+          "reviews": 206,
+          "distanceKm": 1.1
+        },
+        {
+          "slug": "skiset-pioners-pas-de-la-casa",
+          "name": "SKISET Pioners",
+          "city": "Pas de la Casa",
+          "score": 4.9,
+          "reviews": 723,
+          "distanceKm": 17.8
+        },
+        {
+          "slug": "netski-surfevasio-pas-de-la-casa",
+          "name": "Netski.Surfevasió",
+          "city": "Pas de la Casa",
+          "score": 4.9,
+          "reviews": 394,
+          "distanceKm": 17.7
+        }
+      ]
+    },
+    {
+      "slug": "banff",
+      "name": "Banff",
+      "region": "BC / Alberta",
+      "country": "Canada",
+      "countryCode": "CA",
+      "area": "North America",
+      "rank": 28,
+      "score": 4.65,
+      "shops": 23,
+      "shopsListed": 25,
+      "reviews": 4388,
+      "shareHigh": 0.78,
+      "services": {
+        "rentals": 23,
+        "repairs": 9,
+        "boot-fitting": 3,
+        "custom-fitting": 1,
+        "waxing": 4,
+        "used-gear": 3
+      },
+      "topShops": [
+        {
+          "slug": "sports-garage-canmore",
+          "name": "Sports Garage",
+          "city": "Canmore",
+          "score": 5,
+          "reviews": 110,
+          "distanceKm": 17.2
+        },
+        {
+          "slug": "helly-hansen-banff-banff",
+          "name": "Helly Hansen Banff",
+          "city": "Banff",
+          "score": 4.9,
+          "reviews": 335,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "bear-street-outfitters-banff",
+          "name": "Bear Street Outfitters",
+          "city": "Banff",
+          "score": 4.9,
+          "reviews": 294,
+          "distanceKm": 0.2
+        }
+      ]
+    },
+    {
+      "slug": "baqueira-beret",
+      "name": "Baqueira-Beret",
+      "region": "Iberia",
+      "country": "Spain",
+      "countryCode": "ES",
+      "area": "Pyrenees & Iberia",
+      "rank": 29,
+      "score": 4.64,
+      "shops": 13,
+      "shopsListed": 15,
+      "reviews": 1834,
+      "shareHigh": 0.77,
+      "services": {
+        "rentals": 13,
+        "repairs": 1,
+        "lessons": 3
+      },
+      "topShops": [
+        {
+          "slug": "landing-snowboard-clases-snowboard-baqueira-baqueira",
+          "name": "Landing Snowboard | Clases Snowboard Baqueira",
+          "city": "Baqueira",
+          "score": 5,
+          "reviews": 175,
+          "distanceKm": 0.9
+        },
+        {
+          "slug": "cota1700-alquiler-escuela-y-tienda-de-esqui-en-baqueira-baqueira",
+          "name": "COTA1700 - Alquiler, Escuela y Tienda de esquí en Baqueira",
+          "city": "Baqueira",
+          "score": 4.9,
+          "reviews": 383,
+          "distanceKm": 1
+        },
+        {
+          "slug": "larider-snow-baqueira-escuela-alquiler-y-taller-de-snowboard-en-baqueira-baqueira",
+          "name": "LARIDER SNOW Baqueira | Escuela, alquiler y taller de Snowboard en Baqueira",
+          "city": "Baqueira",
+          "score": 5,
+          "reviews": 91,
+          "distanceKm": 0.9
+        }
+      ]
+    },
+    {
+      "slug": "st-anton",
+      "name": "St. Anton",
+      "region": "Austrian Alps",
+      "country": "Austria",
+      "countryCode": "AT",
+      "area": "The Alps",
+      "rank": 30,
+      "score": 4.63,
+      "shops": 8,
+      "shopsListed": 8,
+      "reviews": 1436,
+      "shareHigh": 0.63,
+      "services": {
+        "rentals": 8,
+        "repairs": 6,
+        "boot-fitting": 5,
+        "waxing": 1,
+        "storage": 5
+      },
+      "topShops": [
+        {
+          "slug": "intersport-arlberg-sankt-anton-am-arlberg",
+          "name": "INTERSPORT Arlberg",
+          "city": "Sankt Anton am Arlberg",
+          "score": 4.9,
+          "reviews": 529,
+          "distanceKm": 0.9
+        },
+        {
+          "slug": "moreboards-landeck-landeck",
+          "name": "Moreboards Landeck",
+          "city": "Landeck",
+          "score": 5,
+          "reviews": 58,
+          "distanceKm": 22.6
+        },
+        {
+          "slug": "the-north-face-store-sankt-anton-am-arlberg",
+          "name": "The North Face Store",
+          "city": "Sankt Anton am Arlberg",
+          "score": 4.9,
+          "reviews": 125,
+          "distanceKm": 0.2
+        }
+      ]
+    },
+    {
+      "slug": "zakopane",
+      "name": "Zakopane",
+      "region": "Eastern Europe",
+      "country": "Poland",
+      "countryCode": "PL",
+      "area": "Eastern Europe",
+      "rank": 31,
+      "score": 4.63,
+      "shops": 10,
+      "shopsListed": 12,
+      "reviews": 3026,
+      "shareHigh": 0.5,
+      "services": {
+        "rentals": 10,
+        "lessons": 3,
+        "repairs": 2,
+        "waxing": 1
+      },
+      "topShops": [
+        {
+          "slug": "ski-rent-bike-zakopane-wypo-yczalnia-nart-i-rower-w-zakopane",
+          "name": "Ski Rent & Bike Zakopane – Wypożyczalnia Nart i Rowerów",
+          "city": "Zakopane",
+          "score": 4.9,
+          "reviews": 221,
+          "distanceKm": 0.1
+        },
+        {
+          "slug": "ski-sport-podhale-tanie-narty-nowy-targ",
+          "name": "Ski Sport Podhale Tanie Narty",
+          "city": "Nowy Targ",
+          "score": 5,
+          "reviews": 65,
+          "distanceKm": 21.6
+        },
+        {
+          "slug": "go-ski-zakopane-zakopane",
+          "name": "GO!Ski Zakopane",
+          "city": "Zakopane",
+          "score": 4.8,
+          "reviews": 1387,
+          "distanceKm": 0.1
+        }
+      ]
+    },
+    {
+      "slug": "sierra-nevada",
+      "name": "Sierra Nevada",
+      "region": "Iberia",
+      "country": "Spain",
+      "countryCode": "ES",
+      "area": "Pyrenees & Iberia",
+      "rank": 32,
+      "score": 4.63,
+      "shops": 20,
+      "shopsListed": 23,
+      "reviews": 4413,
+      "shareHigh": 0.55,
+      "services": {
+        "rentals": 20,
+        "lessons": 3,
+        "repairs": 3,
+        "boot-fitting": 2
+      },
+      "topShops": [
+        {
+          "slug": "carving-ski-rental-alquiler-ski-sierra-nevada-sierra-nevada",
+          "name": "Carving Ski Rental /Alquiler ski sierra nevada",
+          "city": "Sierra Nevada",
+          "score": 5,
+          "reviews": 554,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "snow-fun-sierra-nevada-sl-sierra-nevada",
+          "name": "SNOW FUN SIERRA NEVADA SL",
+          "city": "Sierra Nevada",
+          "score": 5,
+          "reviews": 107,
+          "distanceKm": 0.3
+        },
+        {
+          "slug": "bigfootski-monachil",
+          "name": "Bigfootski",
+          "city": "Monachil",
+          "score": 4.9,
+          "reviews": 133,
+          "distanceKm": 0.4
+        }
+      ]
+    },
+    {
+      "slug": "morzine",
+      "name": "Morzine",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": 33,
+      "score": 4.63,
+      "shops": 14,
+      "shopsListed": 14,
+      "reviews": 1611,
+      "shareHigh": 0.79,
+      "services": {
+        "rentals": 14,
+        "waxing": 3,
+        "storage": 7,
+        "boot-fitting": 3,
+        "repairs": 5,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "gravier-ski-shop-morzine",
+          "name": "Gravier Ski Shop",
+          "city": "Morzine",
+          "score": 5,
+          "reviews": 104,
+          "distanceKm": 0.5
+        },
+        {
+          "slug": "mint-snowboarding-morzine",
+          "name": "MINT Snowboarding",
+          "city": "Morzine",
+          "score": 5,
+          "reviews": 102,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "taberlet-sports-morzine-morzine",
+          "name": "TABERLET SPORTS MORZINE",
+          "city": "Morzine",
+          "score": 5,
+          "reviews": 67,
+          "distanceKm": 0.5
+        }
+      ]
+    },
+    {
+      "slug": "whistler",
+      "name": "Whistler",
+      "region": "BC / Alberta",
+      "country": "Canada",
+      "countryCode": "CA",
+      "area": "North America",
+      "rank": 34,
+      "score": 4.62,
+      "shops": 24,
+      "shopsListed": 25,
+      "reviews": 3525,
+      "shareHigh": 0.88,
+      "services": {
+        "rentals": 24,
+        "repairs": 7,
+        "boot-fitting": 3,
+        "waxing": 8,
+        "storage": 1,
+        "used-gear": 5,
+        "custom-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "helly-hansen-whistler-whistler",
+          "name": "Helly Hansen Whistler",
+          "city": "Whistler",
+          "score": 5,
+          "reviews": 188,
+          "distanceKm": 0.5
+        },
+        {
+          "slug": "surefoot-whistler",
+          "name": "Surefoot",
+          "city": "Whistler",
+          "score": 4.9,
+          "reviews": 397,
+          "distanceKm": 0.3
+        },
+        {
+          "slug": "tmc-freeriderz-whistler",
+          "name": "TMC Freeriderz",
+          "city": "Whistler",
+          "score": 4.9,
+          "reviews": 61,
+          "distanceKm": 0.2
+        }
+      ]
+    },
+    {
+      "slug": "park-city",
+      "name": "Park City",
+      "region": "Utah",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 35,
+      "score": 4.62,
+      "shops": 13,
+      "shopsListed": 13,
+      "reviews": 2022,
+      "shareHigh": 0.69,
+      "services": {
+        "rentals": 13,
+        "repairs": 5,
+        "boot-fitting": 6,
+        "waxing": 7,
+        "custom-fitting": 3,
+        "storage": 2,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "legacy-sports-park-city",
+          "name": "Legacy Sports",
+          "city": "Park City",
+          "score": 4.9,
+          "reviews": 91,
+          "distanceKm": 1
+        },
+        {
+          "slug": "jackson-s-base-camp-park-city",
+          "name": "Jackson's Base Camp",
+          "city": "Park City",
+          "score": 4.8,
+          "reviews": 344,
+          "distanceKm": 1.1
+        },
+        {
+          "slug": "switchback-sports-park-city",
+          "name": "Switchback Sports",
+          "city": "Park City",
+          "score": 4.8,
+          "reviews": 202,
+          "distanceKm": 1.3
+        }
+      ]
+    },
+    {
+      "slug": "big-sky",
+      "name": "Big Sky",
+      "region": "US West",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 36,
+      "score": 4.62,
+      "shops": 9,
+      "shopsListed": 11,
+      "reviews": 1352,
+      "shareHigh": 0.67,
+      "services": {
+        "rentals": 9,
+        "repairs": 5,
+        "boot-fitting": 6,
+        "waxing": 5,
+        "storage": 1,
+        "used-gear": 2,
+        "custom-fitting": 4
+      },
+      "topShops": [
+        {
+          "slug": "black-tie-ski-bike-rental-delivery-of-big-sky-big-sky",
+          "name": "Black Tie Ski & Bike Rental Delivery of Big Sky",
+          "city": "Big Sky",
+          "score": 4.9,
+          "reviews": 309,
+          "distanceKm": 8.9
+        },
+        {
+          "slug": "east-slope-outdoors-big-sky",
+          "name": "East Slope Outdoors",
+          "city": "Big Sky",
+          "score": 4.8,
+          "reviews": 193,
+          "distanceKm": 7.7
+        },
+        {
+          "slug": "gallatin-alpine-sports-llc-big-sky",
+          "name": "Gallatin Alpine Sports LLC",
+          "city": "Big Sky",
+          "score": 4.8,
+          "reviews": 135,
+          "distanceKm": 7.4
+        }
+      ]
+    },
+    {
+      "slug": "telluride",
+      "name": "Telluride",
+      "region": "Colorado",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 37,
+      "score": 4.61,
+      "shops": 16,
+      "shopsListed": 18,
+      "reviews": 1291,
+      "shareHigh": 0.81,
+      "services": {
+        "rentals": 16,
+        "repairs": 7,
+        "waxing": 7,
+        "custom-fitting": 3,
+        "boot-fitting": 10,
+        "used-gear": 7
+      },
+      "topShops": [
+        {
+          "slug": "ski-butlers-telluride-telluride",
+          "name": "Ski Butlers Telluride",
+          "city": "Telluride",
+          "score": 5,
+          "reviews": 115,
+          "distanceKm": 4.3
+        },
+        {
+          "slug": "wagner-custom-skis-telluride",
+          "name": "Wagner Custom Skis",
+          "city": "Telluride",
+          "score": 5,
+          "reviews": 58,
+          "distanceKm": 3
+        },
+        {
+          "slug": "christy-sports-telluride-inn-at-lost-creek-telluride",
+          "name": "Christy Sports Telluride Inn at Lost Creek",
+          "city": "Telluride",
+          "score": 4.9,
+          "reviews": 120,
+          "distanceKm": 3
+        }
+      ]
+    },
+    {
+      "slug": "breckenridge",
+      "name": "Breckenridge",
+      "region": "Colorado",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 38,
+      "score": 4.61,
+      "shops": 24,
+      "shopsListed": 25,
+      "reviews": 5155,
+      "shareHigh": 0.79,
+      "services": {
+        "rentals": 24,
+        "waxing": 12,
+        "storage": 2,
+        "repairs": 8,
+        "boot-fitting": 6,
+        "custom-fitting": 3,
+        "used-gear": 5
+      },
+      "topShops": [
+        {
+          "slug": "main-street-sports-breckenridge",
+          "name": "Main Street Sports",
+          "city": "Breckenridge",
+          "score": 4.9,
+          "reviews": 293,
+          "distanceKm": 0.7
+        },
+        {
+          "slug": "blue-river-sports-ski-snowboard-rental-breckenridge",
+          "name": "Blue River Sports Ski & Snowboard Rental",
+          "city": "Breckenridge",
+          "score": 4.8,
+          "reviews": 362,
+          "distanceKm": 0.8
+        },
+        {
+          "slug": "sun-ski-sports-dillon",
+          "name": "Sun & Ski Sports",
+          "city": "Dillon",
+          "score": 4.8,
+          "reviews": 324,
+          "distanceKm": 16.3
+        }
+      ]
+    },
+    {
+      "slug": "aspen",
+      "name": "Aspen",
+      "region": "Colorado",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 39,
+      "score": 4.6,
+      "shops": 17,
+      "shopsListed": 22,
+      "reviews": 1424,
+      "shareHigh": 0.71,
+      "services": {
+        "rentals": 17,
+        "repairs": 7,
+        "waxing": 5,
+        "storage": 2,
+        "custom-fitting": 2,
+        "boot-fitting": 5,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "ski-butlers-aspen-snowmass-aspen",
+          "name": "Ski Butlers Aspen/Snowmass",
+          "city": "Aspen",
+          "score": 4.9,
+          "reviews": 161,
+          "distanceKm": 4.7
+        },
+        {
+          "slug": "snowmass-sports-snowmass-village",
+          "name": "Snowmass Sports",
+          "city": "Snowmass Village",
+          "score": 5,
+          "reviews": 66,
+          "distanceKm": 11.8
+        },
+        {
+          "slug": "gene-taylor-s-sports-snowmass-village",
+          "name": "Gene Taylor’s Sports",
+          "city": "Snowmass Village",
+          "score": 4.9,
+          "reviews": 137,
+          "distanceKm": 11.9
+        }
+      ]
+    },
+    {
+      "slug": "garmisch-partenkirchen",
+      "name": "Garmisch-Partenkirchen",
+      "region": "Germany",
+      "country": "Germany",
+      "countryCode": "DE",
+      "area": "The Alps",
+      "rank": 40,
+      "score": 4.6,
+      "shops": 12,
+      "shopsListed": 12,
+      "reviews": 1742,
+      "shareHigh": 0.58,
+      "services": {
+        "rentals": 12,
+        "repairs": 5,
+        "boot-fitting": 2,
+        "waxing": 3,
+        "storage": 1,
+        "lessons": 2,
+        "custom-fitting": 1,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "bergsport-wn-alpin-garmisch-partenkirchen",
+          "name": "Bergsport WN alpin",
+          "city": "Garmisch-Partenkirchen",
+          "score": 4.9,
+          "reviews": 232,
+          "distanceKm": 1
+        },
+        {
+          "slug": "alpinsport-basis-gmbh-bergsport-und-klettergesch-ft-garmisch-partenkirchen",
+          "name": "Alpinsport Basis GmbH - Bergsport- und Klettergeschäft",
+          "city": "Garmisch-Partenkirchen",
+          "score": 4.9,
+          "reviews": 131,
+          "distanceKm": 1.9
+        },
+        {
+          "slug": "edge-2-edge-gmbh-skate-snowboardshop-garmisch-partenkirchen-garmisch-partenkirchen",
+          "name": "Edge 2 Edge GmbH Skate & Snowboardshop Garmisch-Partenkirchen",
+          "city": "Garmisch-Partenkirchen",
+          "score": 4.9,
+          "reviews": 116,
+          "distanceKm": 2.2
+        }
+      ]
+    },
+    {
+      "slug": "chamonix",
+      "name": "Chamonix",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": 41,
+      "score": 4.59,
+      "shops": 22,
+      "shopsListed": 24,
+      "reviews": 5855,
+      "shareHigh": 0.73,
+      "services": {
+        "rentals": 22,
+        "repairs": 7,
+        "boot-fitting": 4,
+        "waxing": 4,
+        "custom-fitting": 1,
+        "storage": 1
+      },
+      "topShops": [
+        {
+          "slug": "sport-2000-o74-location-ski-chamonix-chamonix-mont-blanc",
+          "name": "SPORT 2000 O74 - Location ski Chamonix",
+          "city": "Chamonix-Mont-Blanc",
+          "score": 5,
+          "reviews": 549,
+          "distanceKm": 0.6
+        },
+        {
+          "slug": "ekosport-rent-o-shop-location-ski-chamonix-chamonix-mont-blanc",
+          "name": "Ekosport-Rent O'Shop - Location ski Chamonix",
+          "city": "Chamonix-Mont-Blanc",
+          "score": 4.9,
+          "reviews": 365,
+          "distanceKm": 0.5
+        },
+        {
+          "slug": "after-ski-chamonix-mont-blanc",
+          "name": "After Ski",
+          "city": "Chamonix-Mont-Blanc",
+          "score": 4.9,
+          "reviews": 297,
+          "distanceKm": 0.1
+        }
+      ]
+    },
+    {
+      "slug": "mammoth-mountain",
+      "name": "Mammoth Mountain",
+      "region": "US West",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 42,
+      "score": 4.58,
+      "shops": 16,
+      "shopsListed": 19,
+      "reviews": 2477,
+      "shareHigh": 0.75,
+      "services": {
+        "rentals": 16,
+        "repairs": 7,
+        "boot-fitting": 6,
+        "waxing": 5,
+        "used-gear": 2,
+        "custom-fitting": 4
+      },
+      "topShops": [
+        {
+          "slug": "black-tie-ski-bike-rental-delivery-of-mammoth-mammoth-lakes",
+          "name": "Black Tie Ski & Bike Rental Delivery of Mammoth",
+          "city": "Mammoth Lakes",
+          "score": 4.9,
+          "reviews": 271,
+          "distanceKm": 5.9
+        },
+        {
+          "slug": "mammoth-mountaineering-supply-mammoth-lakes",
+          "name": "Mammoth Mountaineering Supply",
+          "city": "Mammoth Lakes",
+          "score": 4.8,
+          "reviews": 282,
+          "distanceKm": 6
+        },
+        {
+          "slug": "green-room-snowboard-ski-rentals-repair-mammoth-store-mammoth-lakes",
+          "name": "Green Room Snowboard & Ski Rentals & Repair | Mammoth Store",
+          "city": "Mammoth Lakes",
+          "score": 4.8,
+          "reviews": 112,
+          "distanceKm": 5.7
+        }
+      ]
+    },
+    {
+      "slug": "queenstown",
+      "name": "Queenstown",
+      "region": "Oceania",
+      "country": "New Zealand",
+      "countryCode": "NZ",
+      "area": "Southern Hemisphere",
+      "rank": 43,
+      "score": 4.57,
+      "shops": 23,
+      "shopsListed": 25,
+      "reviews": 2889,
+      "shareHigh": 0.61,
+      "services": {
+        "rentals": 23,
+        "repairs": 5,
+        "waxing": 6,
+        "boot-fitting": 6,
+        "storage": 1,
+        "custom-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "browns-ski-rental-queenstown",
+          "name": "Browns Ski Rental",
+          "city": "Queenstown",
+          "score": 4.9,
+          "reviews": 563,
+          "distanceKm": 0.3
+        },
+        {
+          "slug": "nz-shred-snowboard-surf-shop-queenstown",
+          "name": "NZ Shred Snowboard & Surf Shop",
+          "city": "Queenstown",
+          "score": 5,
+          "reviews": 83,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "ski-hire-nz-queenstown",
+          "name": "Ski Hire NZ",
+          "city": "Queenstown",
+          "score": 4.9,
+          "reviews": 187,
+          "distanceKm": 5.6
+        }
+      ]
+    },
+    {
+      "slug": "aviemore",
+      "name": "Aviemore",
+      "region": "Scotland",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "area": "Scotland",
+      "rank": 44,
+      "score": 4.55,
+      "shops": 10,
+      "shopsListed": 14,
+      "reviews": 1031,
+      "shareHigh": 0.6,
+      "services": {
+        "rentals": 10,
+        "repairs": 5,
+        "boot-fitting": 2,
+        "waxing": 1,
+        "used-gear": 1,
+        "lessons": 1,
+        "storage": 1
+      },
+      "topShops": [
+        {
+          "slug": "ski-norwest-ltd-granish",
+          "name": "Ski Norwest Ltd",
+          "city": "Granish",
+          "score": 4.9,
+          "reviews": 83,
+          "distanceKm": 1.7
+        },
+        {
+          "slug": "ellis-brigham-aviemore-aviemore",
+          "name": "Ellis Brigham - Aviemore",
+          "city": "Aviemore",
+          "score": 4.8,
+          "reviews": 191,
+          "distanceKm": 0.7
+        },
+        {
+          "slug": "nevisport-aviemore",
+          "name": "Nevisport",
+          "city": "Aviemore",
+          "score": 4.7,
+          "reviews": 44,
+          "distanceKm": 0.4
+        }
+      ]
+    },
+    {
+      "slug": "lake-tahoe",
+      "name": "Lake Tahoe",
+      "region": "US West",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 45,
+      "score": 4.55,
+      "shops": 25,
+      "shopsListed": 27,
+      "reviews": 3493,
+      "shareHigh": 0.64,
+      "services": {
+        "rentals": 25,
+        "repairs": 13,
+        "boot-fitting": 6,
+        "waxing": 10,
+        "used-gear": 7,
+        "storage": 1,
+        "custom-fitting": 2
+      },
+      "topShops": [
+        {
+          "slug": "rock-house-discount-ski-snowboard-rentals-south-lake-tahoe",
+          "name": "Rock House Discount Ski & Snowboard Rentals",
+          "city": "South Lake Tahoe",
+          "score": 4.9,
+          "reviews": 452,
+          "distanceKm": 18.1
+        },
+        {
+          "slug": "shoreline-of-tahoe-stateline",
+          "name": "Shoreline of Tahoe",
+          "city": "Stateline",
+          "score": 4.9,
+          "reviews": 135,
+          "distanceKm": 16.8
+        },
+        {
+          "slug": "winter-wonderland-ski-shop-south-lake-tahoe",
+          "name": "Winter Wonderland Ski Shop",
+          "city": "South Lake Tahoe",
+          "score": 4.8,
+          "reviews": 174,
+          "distanceKm": 19.1
+        }
+      ]
+    },
+    {
+      "slug": "oberstdorf",
+      "name": "Oberstdorf",
+      "region": "Germany",
+      "country": "Germany",
+      "countryCode": "DE",
+      "area": "The Alps",
+      "rank": 46,
+      "score": 4.54,
+      "shops": 19,
+      "shopsListed": 20,
+      "reviews": 9557,
+      "shareHigh": 0.84,
+      "services": {
+        "rentals": 19,
+        "repairs": 9,
+        "boot-fitting": 4,
+        "waxing": 3,
+        "storage": 3,
+        "lessons": 3,
+        "custom-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "skiverleih-michael-jipp-burgberg-im-allg-u",
+          "name": "Skiverleih Michael Jipp",
+          "city": "Burgberg im Allgäu",
+          "score": 5,
+          "reviews": 243,
+          "distanceKm": 13
+        },
+        {
+          "slug": "ridersheaven-store-sonthofen",
+          "name": "Ridersheaven Store",
+          "city": "Sonthofen",
+          "score": 4.9,
+          "reviews": 340,
+          "distanceKm": 11.5
+        },
+        {
+          "slug": "skiverleih-allg-u-k-k-sportequipment-fischen-im-allg-u",
+          "name": "Skiverleih Allgäu K+K Sportequipment",
+          "city": "Fischen im Allgäu",
+          "score": 4.9,
+          "reviews": 186,
+          "distanceKm": 6.1
+        }
+      ]
+    },
+    {
+      "slug": "livigno",
+      "name": "Livigno",
+      "region": "Italian Dolomites",
+      "country": "Italy",
+      "countryCode": "IT",
+      "area": "The Alps",
+      "rank": 47,
+      "score": 4.53,
+      "shops": 20,
+      "shopsListed": 21,
+      "reviews": 3193,
+      "shareHigh": 0.8,
+      "services": {
+        "rentals": 20,
+        "boot-fitting": 1,
+        "repairs": 3,
+        "lessons": 1,
+        "storage": 1
+      },
+      "topShops": [
+        {
+          "slug": "sport-zone-livigno",
+          "name": "sport ZONE",
+          "city": "Livigno",
+          "score": 5,
+          "reviews": 53,
+          "distanceKm": 0.6
+        },
+        {
+          "slug": "the-peak-livigno-livigno",
+          "name": "The Peak Livigno",
+          "city": "Livigno",
+          "score": 4.9,
+          "reviews": 52,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "ski-trab-ski-mountaineering-equipment-cepina",
+          "name": "SKI TRAB - ski mountaineering equipment",
+          "city": "Cepina",
+          "score": 4.8,
+          "reviews": 146,
+          "distanceKm": 20.1
+        }
+      ]
+    },
+    {
+      "slug": "zermatt",
+      "name": "Zermatt",
+      "region": "Swiss Alps",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "area": "The Alps",
+      "rank": 48,
+      "score": 4.52,
+      "shops": 16,
+      "shopsListed": 18,
+      "reviews": 2623,
+      "shareHigh": 0.75,
+      "services": {
+        "rentals": 16,
+        "repairs": 8,
+        "boot-fitting": 5,
+        "custom-fitting": 2,
+        "waxing": 2,
+        "storage": 3
+      },
+      "topShops": [
+        {
+          "slug": "ochsner-sport-zermatt",
+          "name": "OCHSNER SPORT",
+          "city": "Zermatt",
+          "score": 5,
+          "reviews": 89,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "mountain-shop-zermatt-zermatt",
+          "name": "Mountain Shop Zermatt",
+          "city": "Zermatt",
+          "score": 4.8,
+          "reviews": 104,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "matterhorn-sport-zermatt",
+          "name": "Matterhorn Sport",
+          "city": "Zermatt",
+          "score": 4.7,
+          "reviews": 324,
+          "distanceKm": 0
+        }
+      ]
+    },
+    {
+      "slug": "les-2-alpes",
+      "name": "Les 2 Alpes",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": 49,
+      "score": 4.52,
+      "shops": 21,
+      "shopsListed": 22,
+      "reviews": 3292,
+      "shareHigh": 0.67,
+      "services": {
+        "rentals": 21,
+        "repairs": 8,
+        "boot-fitting": 4,
+        "storage": 7,
+        "lessons": 2,
+        "used-gear": 2
+      },
+      "topShops": [
+        {
+          "slug": "skilead-altitude-sports-les-bergers-location-ski-alpe-d-huez-huez",
+          "name": "SKILEAD - ALTITUDE SPORTS Les Bergers -Location ski Alpe d'Huez",
+          "city": "Huez",
+          "score": 5,
+          "reviews": 64,
+          "distanceKm": 9.9
+        },
+        {
+          "slug": "atelier-du-snowboard-les-deux-alpes",
+          "name": "Atelier du snowboard",
+          "city": "Les Deux Alpes",
+          "score": 4.9,
+          "reviews": 141,
+          "distanceKm": 0.5
+        },
+        {
+          "slug": "superwhitestore-les-deux-alpes",
+          "name": "Superwhitestore",
+          "city": "Les Deux Alpes",
+          "score": 4.8,
+          "reviews": 145,
+          "distanceKm": 0.3
+        }
+      ]
+    },
+    {
+      "slug": "ischgl",
+      "name": "Ischgl",
+      "region": "Austrian Alps",
+      "country": "Austria",
+      "countryCode": "AT",
+      "area": "The Alps",
+      "rank": 50,
+      "score": 4.51,
+      "shops": 13,
+      "shopsListed": 13,
+      "reviews": 2412,
+      "shareHigh": 0.62,
+      "services": {
+        "rentals": 13,
+        "repairs": 8,
+        "storage": 10,
+        "boot-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "skiverleih-mietski-com-ischgl",
+          "name": "Skiverleih Mietski com",
+          "city": "Ischgl",
+          "score": 4.8,
+          "reviews": 665,
+          "distanceKm": 0.4
+        },
+        {
+          "slug": "element-store-scuol",
+          "name": "Element Store",
+          "city": "Scuol",
+          "score": 4.9,
+          "reviews": 64,
+          "distanceKm": 24.1
+        },
+        {
+          "slug": "ski2rent-ischgl",
+          "name": "Ski2Rent",
+          "city": "Ischgl",
+          "score": 4.8,
+          "reviews": 225,
+          "distanceKm": 0.2
+        }
+      ]
+    },
+    {
+      "slug": "jackson-hole",
+      "name": "Jackson Hole",
+      "region": "US West",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": 51,
+      "score": 4.51,
+      "shops": 17,
+      "shopsListed": 19,
+      "reviews": 2330,
+      "shareHigh": 0.47,
+      "services": {
+        "rentals": 17,
+        "repairs": 5,
+        "boot-fitting": 4,
+        "custom-fitting": 1,
+        "waxing": 4,
+        "used-gear": 2
+      },
+      "topShops": [
+        {
+          "slug": "teton-backcountry-rentals-and-bear-aware-jackson",
+          "name": "Teton Backcountry Rentals and Bear Aware",
+          "city": "Jackson",
+          "score": 4.9,
+          "reviews": 331,
+          "distanceKm": 12.3
+        },
+        {
+          "slug": "ski-butlers-jackson-hole-jackson",
+          "name": "Ski Butlers Jackson Hole",
+          "city": "Jackson",
+          "score": 4.9,
+          "reviews": 93,
+          "distanceKm": 14.4
+        },
+        {
+          "slug": "jh-skis-jackson",
+          "name": "JH Skis",
+          "city": "Jackson",
+          "score": 5,
+          "reviews": 26,
+          "distanceKm": 13.2
+        }
+      ]
+    },
+    {
+      "slug": "laax",
+      "name": "Laax",
+      "region": "Swiss Alps",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "area": "The Alps",
+      "rank": 52,
+      "score": 4.5,
+      "shops": 10,
+      "shopsListed": 14,
+      "reviews": 1132,
+      "shareHigh": 0.6,
+      "services": {
+        "rentals": 10,
+        "repairs": 4,
+        "waxing": 2,
+        "custom-fitting": 1,
+        "boot-fitting": 2
+      },
+      "topShops": [
+        {
+          "slug": "chopp-snowboardshop-flims",
+          "name": "Chopp Snowboardshop",
+          "city": "Flims",
+          "score": 4.9,
+          "reviews": 74,
+          "distanceKm": 3.4
+        },
+        {
+          "slug": "menzli-sport-ag-intersport-ilanz-glion",
+          "name": "Menzli Sport AG, Intersport",
+          "city": "Ilanz/Glion",
+          "score": 4.8,
+          "reviews": 204,
+          "distanceKm": 5.5
+        },
+        {
+          "slug": "intersport-pradas-breil-brigels",
+          "name": "Intersport Pradas",
+          "city": "Breil/Brigels",
+          "score": 4.9,
+          "reviews": 53,
+          "distanceKm": 15.1
+        }
+      ]
+    },
+    {
+      "slug": "innsbruck",
+      "name": "Innsbruck",
+      "region": "Austrian Alps",
+      "country": "Austria",
+      "countryCode": "AT",
+      "area": "The Alps",
+      "rank": 53,
+      "score": 4.49,
+      "shops": 13,
+      "shopsListed": 13,
+      "reviews": 3488,
+      "shareHigh": 0.69,
+      "services": {
+        "rentals": 13,
+        "repairs": 5,
+        "boot-fitting": 1,
+        "waxing": 2
+      },
+      "topShops": [
+        {
+          "slug": "moreboards-innsbruck-innsbruck",
+          "name": "Moreboards Innsbruck",
+          "city": "Innsbruck",
+          "score": 4.9,
+          "reviews": 267,
+          "distanceKm": 0.9
+        },
+        {
+          "slug": "sport-wolf-innsbruck",
+          "name": "Sport Wolf",
+          "city": "Innsbruck",
+          "score": 4.9,
+          "reviews": 143,
+          "distanceKm": 1.4
+        },
+        {
+          "slug": "x-double-skateboards-streetwear-sneaker-girls-corner-innsbruck",
+          "name": "X Double Skateboards, Streetwear, Sneaker, Girls Corner",
+          "city": "Innsbruck",
+          "score": 4.9,
+          "reviews": 132,
+          "distanceKm": 1.2
+        }
+      ]
+    },
+    {
+      "slug": "niseko",
+      "name": "Niseko",
+      "region": "Japan",
+      "country": "Japan",
+      "countryCode": "JP",
+      "area": "Japan",
+      "rank": 54,
+      "score": 4.48,
+      "shops": 14,
+      "shopsListed": 19,
+      "reviews": 2105,
+      "shareHigh": 0.5,
+      "services": {
+        "rentals": 14,
+        "repairs": 3,
+        "waxing": 3,
+        "boot-fitting": 1,
+        "lessons": 2,
+        "used-gear": 1,
+        "custom-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "rhythm-hirafu-niseko",
+          "name": "Rhythm Hirafu",
+          "city": "Kutchan",
+          "score": 4.8,
+          "reviews": 412,
+          "distanceKm": 0.1
+        },
+        {
+          "slug": "niseko-ski-rentals-kutchan",
+          "name": "Niseko Ski Rentals",
+          "city": "Kutchan",
+          "score": 5,
+          "reviews": 32,
+          "distanceKm": 0.8
+        },
+        {
+          "slug": "offshore-snow-shapes-niseko",
+          "name": "Offshore Snow Shapes",
+          "city": "Niseko",
+          "score": 4.9,
+          "reviews": 28,
+          "distanceKm": 6
+        }
+      ]
+    },
+    {
+      "slug": "les-gets",
+      "name": "Les Gets",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": 55,
+      "score": 4.48,
+      "shops": 7,
+      "shopsListed": 7,
+      "reviews": 1023,
+      "shareHigh": 0.71,
+      "services": {
+        "rentals": 7,
+        "repairs": 3,
+        "storage": 4,
+        "boot-fitting": 2,
+        "waxing": 3
+      },
+      "topShops": [
+        {
+          "slug": "michaud-sports-les-gets",
+          "name": "Michaud Sports",
+          "city": "Les Gets",
+          "score": 4.9,
+          "reviews": 127,
+          "distanceKm": 0.1
+        },
+        {
+          "slug": "mountain-ski-shop-samoens-ski-rental-samo-ns",
+          "name": "MOUNTAIN SKI SHOP - SAMOENS SKI RENTAL",
+          "city": "Samoëns",
+          "score": 5,
+          "reviews": 42,
+          "distanceKm": 12
+        },
+        {
+          "slug": "berthet-sports-les-gets",
+          "name": "Berthet Sports",
+          "city": "Les Gets",
+          "score": 4.8,
+          "reviews": 142,
+          "distanceKm": 0.1
+        }
+      ]
+    },
+    {
+      "slug": "hakuba",
+      "name": "Hakuba",
+      "region": "Japan",
+      "country": "Japan",
+      "countryCode": "JP",
+      "area": "Japan",
+      "rank": 56,
+      "score": 4.45,
+      "shops": 15,
+      "shopsListed": 21,
+      "reviews": 1006,
+      "shareHigh": 0.47,
+      "services": {
+        "rentals": 15,
+        "boot-fitting": 1,
+        "waxing": 1
+      },
+      "topShops": [
+        {
+          "slug": "hakuba-mountain-lounge-iwatake-ski-snowboard-rental-hakuba",
+          "name": "Hakuba Mountain Lounge Iwatake – Ski & Snowboard Rental （白馬マウンテンラウンジ 岩岳 スキー・スノーボードレンタル）",
+          "city": "Hakuba",
+          "score": 4.9,
+          "reviews": 129,
+          "distanceKm": 2.1
+        },
+        {
+          "slug": "sunshine-hakuba-rental-hakuba",
+          "name": "日和Sunshine Hakuba Rental - 白馬駅前店",
+          "city": "Hakuba",
+          "score": 4.8,
+          "reviews": 115,
+          "distanceKm": 0.8
+        },
+        {
+          "slug": "the-boarding-co-hakuba",
+          "name": "The Boarding Co.",
+          "city": "Hakuba",
+          "score": 4.8,
+          "reviews": 38,
+          "distanceKm": 0.7
+        }
+      ]
+    },
+    {
+      "slug": "kranjska-gora",
+      "name": "Kranjska Gora",
+      "region": "Other Europe",
+      "country": "Slovenia",
+      "countryCode": "SI",
+      "area": "The Alps",
+      "rank": 57,
+      "score": 4.43,
+      "shops": 15,
+      "shopsListed": 16,
+      "reviews": 3589,
+      "shareHigh": 0.53,
+      "services": {
+        "rentals": 15,
+        "repairs": 6,
+        "boot-fitting": 2,
+        "waxing": 2,
+        "custom-fitting": 1,
+        "storage": 1,
+        "lessons": 1
+      },
+      "topShops": [
+        {
+          "slug": "lussari-sport-tarvisio-camporosso-in-valcanale",
+          "name": "Lussari Sport Tarvisio",
+          "city": "Camporosso In Valcanale",
+          "score": 4.8,
+          "reviews": 190,
+          "distanceKm": 19.4
+        },
+        {
+          "slug": "skischool-si-kranjska-gora-kranjska-gora",
+          "name": "SkiSchool.si Kranjska Gora",
+          "city": "Kranjska Gora",
+          "score": 4.7,
+          "reviews": 134,
+          "distanceKm": 0.5
+        },
+        {
+          "slug": "salewa-outlet-villach-villach",
+          "name": "Salewa Outlet Villach",
+          "city": "Villach",
+          "score": 4.7,
+          "reviews": 113,
+          "distanceKm": 14.7
+        }
+      ]
+    },
+    {
+      "slug": "grindelwald",
+      "name": "Grindelwald",
+      "region": "Swiss Alps",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "area": "The Alps",
+      "rank": 58,
+      "score": 4.43,
+      "shops": 9,
+      "shopsListed": 9,
+      "reviews": 1015,
+      "shareHigh": 0.56,
+      "services": {
+        "rentals": 9,
+        "repairs": 4,
+        "boot-fitting": 1,
+        "waxing": 1,
+        "lessons": 2,
+        "custom-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "buri-sport-grindelwald",
+          "name": "Buri Sport",
+          "city": "Grindelwald",
+          "score": 4.8,
+          "reviews": 239,
+          "distanceKm": 0.5
+        },
+        {
+          "slug": "mammut-store-grindelwald-grindelwald",
+          "name": "Mammut Store Grindelwald",
+          "city": "Grindelwald",
+          "score": 4.8,
+          "reviews": 31,
+          "distanceKm": 0.5
+        },
+        {
+          "slug": "backdoor-snowboard-ski-running-shop-grindelwald-grindelwald",
+          "name": "Backdoor Snowboard | Ski | Running Shop Grindelwald",
+          "city": "Grindelwald",
+          "score": 4.6,
+          "reviews": 117,
+          "distanceKm": 0.1
+        }
+      ]
+    },
+    {
+      "slug": "solden",
+      "name": "Sölden",
+      "region": "Austrian Alps",
+      "country": "Austria",
+      "countryCode": "AT",
+      "area": "The Alps",
+      "rank": 59,
+      "score": 4.42,
+      "shops": 19,
+      "shopsListed": 19,
+      "reviews": 2753,
+      "shareHigh": 0.47,
+      "services": {
+        "rentals": 19,
+        "repairs": 13,
+        "boot-fitting": 8,
+        "storage": 9,
+        "lessons": 2,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "moreboards-s-lden",
+          "name": "MOREBOARDS",
+          "city": "Sölden",
+          "score": 4.7,
+          "reviews": 221,
+          "distanceKm": 10
+        },
+        {
+          "slug": "larcher-sport-pitztaler-gletscher-sankt-leonhard-im-pitztal",
+          "name": "Larcher Sport - Pitztaler Gletscher",
+          "city": "Sankt Leonhard im Pitztal",
+          "score": 4.8,
+          "reviews": 26,
+          "distanceKm": 4.4
+        },
+        {
+          "slug": "intersport-okay-gamsgarten-bergstation-neustift-im-stubaital",
+          "name": "Intersport Okay Gamsgarten Bergstation",
+          "city": "Neustift im Stubaital",
+          "score": 4.7,
+          "reviews": 70,
+          "distanceKm": 18.8
+        }
+      ]
+    },
+    {
+      "slug": "levi",
+      "name": "Levi",
+      "region": "Scandinavia",
+      "country": "Finland",
+      "countryCode": "FI",
+      "area": "Scandinavia",
+      "rank": 60,
+      "score": 4.41,
+      "shops": 13,
+      "shopsListed": 15,
+      "reviews": 6136,
+      "shareHigh": 0.54,
+      "services": {
+        "rentals": 13,
+        "repairs": 2,
+        "lessons": 1,
+        "storage": 1,
+        "waxing": 1
+      },
+      "topShops": [
+        {
+          "slug": "colorblind-store-sirkka",
+          "name": "Colorblind Store",
+          "city": "Sirkka",
+          "score": 4.9,
+          "reviews": 43,
+          "distanceKm": 0.6
+        },
+        {
+          "slug": "hill-ski-rent-levi-eturinne-front-slope-sirkka",
+          "name": "Hill Ski Rent Levi, eturinne - front slope",
+          "city": "Sirkka",
+          "score": 4.9,
+          "reviews": 43,
+          "distanceKm": 0.5
+        },
+        {
+          "slug": "kelo-rental-safaris-sirkka",
+          "name": "Kelo Rental & Safaris",
+          "city": "Sirkka",
+          "score": 4.8,
+          "reviews": 72,
+          "distanceKm": 0.6
+        }
+      ]
+    },
+    {
+      "slug": "myoko",
+      "name": "Myoko",
+      "region": "Japan",
+      "country": "Japan",
+      "countryCode": "JP",
+      "area": "Japan",
+      "rank": 61,
+      "score": 4.4,
+      "shops": 8,
+      "shopsListed": 14,
+      "reviews": 1461,
+      "shareHigh": 0.25,
+      "services": {
+        "rentals": 8,
+        "waxing": 1
+      },
+      "topShops": [
+        {
+          "slug": "japsnow-japsnow-yuzawa-rental-yuzawa",
+          "name": "JapSnow 湯澤雪具店 - JapSnow Yuzawa Rental",
+          "city": "Yuzawa",
+          "score": 5,
+          "reviews": 313,
+          "distanceKm": 9.2
+        },
+        {
+          "slug": "skistorage-japan-minamiuonuma",
+          "name": "Skistorage Japan",
+          "city": "Minamiuonuma",
+          "score": 5,
+          "reviews": 27,
+          "distanceKm": 13.9
+        },
+        {
+          "slug": "xraeb-winter-sport-lab-yuzawa",
+          "name": "Xraeb Winter Sport Lab",
+          "city": "Yuzawa",
+          "score": 4.4,
+          "reviews": 101,
+          "distanceKm": 9.1
+        }
+      ]
+    },
+    {
+      "slug": "are",
+      "name": "Åre",
+      "region": "Scandinavia",
+      "country": "Sweden",
+      "countryCode": "SE",
+      "area": "Scandinavia",
+      "rank": 62,
+      "score": 4.4,
+      "shops": 21,
+      "shopsListed": 26,
+      "reviews": 3355,
+      "shareHigh": 0.48,
+      "services": {
+        "rentals": 21,
+        "repairs": 3,
+        "waxing": 6,
+        "storage": 1,
+        "lessons": 5,
+        "boot-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "inlandet-are",
+          "name": "INLANDET",
+          "city": "Åre",
+          "score": 4.9,
+          "reviews": 80,
+          "distanceKm": 0.4
+        },
+        {
+          "slug": "voeks-outdoor-are",
+          "name": "Vöks Outdoor",
+          "city": "Åre",
+          "score": 4.9,
+          "reviews": 60,
+          "distanceKm": 8.4
+        },
+        {
+          "slug": "are-skidsport-are",
+          "name": "Åre Skidsport",
+          "city": "Åre",
+          "score": 4.8,
+          "reviews": 170,
+          "distanceKm": 0.2
+        }
+      ]
+    },
+    {
+      "slug": "bariloche",
+      "name": "Bariloche",
+      "region": "South America",
+      "country": "Argentina",
+      "countryCode": "AR",
+      "area": "Southern Hemisphere",
+      "rank": 63,
+      "score": 4.38,
+      "shops": 18,
+      "shopsListed": 22,
+      "reviews": 5910,
+      "shareHigh": 0.44,
+      "services": {
+        "rentals": 18,
+        "repairs": 1
+      },
+      "topShops": [
+        {
+          "slug": "bariloche-outdoor-rental-del-cruce-san-carlos-de-bariloche",
+          "name": "Bariloche Outdoor -Rental del cruce",
+          "city": "San Carlos de Bariloche",
+          "score": 4.7,
+          "reviews": 574,
+          "distanceKm": 8
+        },
+        {
+          "slug": "mountain-store-san-carlos-de-bariloche",
+          "name": "Mountain Store",
+          "city": "San Carlos de Bariloche",
+          "score": 4.7,
+          "reviews": 458,
+          "distanceKm": 11.6
+        },
+        {
+          "slug": "taos-bariloche-alquiler-de-indumentaria-de-nieve-ski-snowboard-san-carlos-de-bariloche",
+          "name": "Taos Bariloche Alquiler de Indumentaria de Nieve Ski & Snowboard",
+          "city": "San Carlos de Bariloche",
+          "score": 4.8,
+          "reviews": 28,
+          "distanceKm": 0.4
+        }
+      ]
+    },
+    {
+      "slug": "courchevel",
+      "name": "Courchevel",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": null,
+      "score": 4.17,
+      "shops": 2,
+      "shopsListed": 2,
+      "reviews": 218,
+      "shareHigh": 0.5,
+      "services": {
+        "rentals": 2,
+        "boot-fitting": 1,
+        "waxing": 1,
+        "storage": 1
+      },
+      "topShops": [
+        {
+          "slug": "endless-winter-snowboard-courchevel",
+          "name": "Endless Winter - Snowboard",
+          "city": "Courchevel",
+          "score": 4.7,
+          "reviews": 26,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "sport-2000-courchevel",
+          "name": "Skiset Courchevel 1850",
+          "city": "Courchevel",
+          "score": 4.1,
+          "reviews": 192,
+          "distanceKm": 0
+        }
+      ]
+    },
+    {
+      "slug": "courmayeur",
+      "name": "Courmayeur",
+      "region": "Italian Dolomites",
+      "country": "Italy",
+      "countryCode": "IT",
+      "area": "The Alps",
+      "rank": null,
+      "score": 4.29,
+      "shops": 5,
+      "shopsListed": 6,
+      "reviews": 206,
+      "shareHigh": 0.4,
+      "services": {
+        "rentals": 5,
+        "repairs": 2,
+        "waxing": 1,
+        "storage": 1,
+        "boot-fitting": 1,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "ulisse-sport-courmayeur",
+          "name": "Ulisse Sport",
+          "city": "Courmayeur",
+          "score": 4.5,
+          "reviews": 20,
+          "distanceKm": 1.2
+        },
+        {
+          "slug": "4810-we-are-shopping-courmayeur-courmayeur",
+          "name": "4810 We Are Shopping | Courmayeur",
+          "city": "Courmayeur",
+          "score": 4.5,
+          "reviews": 75,
+          "distanceKm": 0.9
+        },
+        {
+          "slug": "ski-in-checrouit-checrouit",
+          "name": "Ski In Checrouit",
+          "city": "Checrouit",
+          "score": 4.4,
+          "reviews": 52,
+          "distanceKm": 2.1
+        }
+      ]
+    },
+    {
+      "slug": "hemsedal",
+      "name": "Hemsedal",
+      "region": "Scandinavia",
+      "country": "Norway",
+      "countryCode": "NO",
+      "area": "Scandinavia",
+      "rank": null,
+      "score": 4.57,
+      "shops": 5,
+      "shopsListed": 9,
+      "reviews": 391,
+      "shareHigh": 0.8,
+      "services": {
+        "rentals": 5
+      },
+      "topShops": [
+        {
+          "slug": "moh-sports-hemsedal",
+          "name": "MOH Sports",
+          "city": "Hemsedal",
+          "score": 4.7,
+          "reviews": 148,
+          "distanceKm": 8.1
+        },
+        {
+          "slug": "hemsedal-sport-hemsedal",
+          "name": "Hemsedal Sport",
+          "city": "Hemsedal",
+          "score": 4.7,
+          "reviews": 67,
+          "distanceKm": 8
+        },
+        {
+          "slug": "house-of-hygge-hemsedal",
+          "name": "House of Hygge",
+          "city": "Hemsedal",
+          "score": 4.7,
+          "reviews": 31,
+          "distanceKm": 8
+        }
+      ]
+    },
+    {
+      "slug": "la-clusaz",
+      "name": "La Clusaz",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": null,
+      "score": null,
+      "shops": 0,
+      "shopsListed": 0,
+      "reviews": 0,
+      "shareHigh": 0,
+      "services": {},
+      "topShops": []
+    },
+    {
+      "slug": "la-plagne",
+      "name": "La Plagne",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": null,
+      "score": 4.8,
+      "shops": 1,
+      "shopsListed": 1,
+      "reviews": 96,
+      "shareHigh": 1,
+      "services": {
+        "rentals": 1
+      },
+      "topShops": [
+        {
+          "slug": "alps2alps-ski-shop-cevins",
+          "name": "Alps2alps Ski Shop",
+          "city": "Cevins",
+          "score": 4.8,
+          "reviews": 96,
+          "distanceKm": 20.5
+        }
+      ]
+    },
+    {
+      "slug": "madonna-di-campiglio",
+      "name": "Madonna di Campiglio",
+      "region": "Italian Dolomites",
+      "country": "Italy",
+      "countryCode": "IT",
+      "area": "The Alps",
+      "rank": null,
+      "score": 4.52,
+      "shops": 2,
+      "shopsListed": 2,
+      "reviews": 91,
+      "shareHigh": 0.5,
+      "services": {
+        "rentals": 2,
+        "waxing": 1
+      },
+      "topShops": [
+        {
+          "slug": "snowboardmania-shop-mezzolombardo",
+          "name": "Snowboardmania Shop",
+          "city": "Mezzolombardo",
+          "score": 4.9,
+          "reviews": 42,
+          "distanceKm": 20.8
+        },
+        {
+          "slug": "onside-snowboard-shop-madonna-di-campiglio",
+          "name": "Onside Snowboard shop",
+          "city": "Madonna di Campiglio",
+          "score": 4.2,
+          "reviews": 49,
+          "distanceKm": 0.1
+        }
+      ]
+    },
+    {
+      "slug": "megeve",
+      "name": "Megève",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": null,
+      "score": 4.48,
+      "shops": 3,
+      "shopsListed": 3,
+      "reviews": 1746,
+      "shareHigh": 0.67,
+      "services": {
+        "rentals": 3,
+        "repairs": 3,
+        "used-gear": 2,
+        "waxing": 1,
+        "storage": 1
+      },
+      "topShops": [
+        {
+          "slug": "freeglisse-shop-sallanches-sallanches",
+          "name": "Freeglisse Shop Sallanches",
+          "city": "Sallanches",
+          "score": 4.9,
+          "reviews": 41,
+          "distanceKm": 9.9
+        },
+        {
+          "slug": "sport-2000-mountain-shop-by-cuby-location-de-skis-les-contamines-les-contamines-montjoie",
+          "name": "Sport 2000 Mountain Shop by Cuby Location de skis Les Contamines",
+          "city": "Les Contamines-Montjoie",
+          "score": 4.8,
+          "reviews": 66,
+          "distanceKm": 9.3
+        },
+        {
+          "slug": "decathlon-mountain-store-passy",
+          "name": "Decathlon Mountain Store",
+          "city": "Passy",
+          "score": 4.4,
+          "reviews": 1639,
+          "distanceKm": 8.8
+        }
+      ]
+    },
+    {
+      "slug": "meribel",
+      "name": "Méribel",
+      "region": "French Alps",
+      "country": "France",
+      "countryCode": "FR",
+      "area": "The Alps",
+      "rank": null,
+      "score": 4.85,
+      "shops": 2,
+      "shopsListed": 2,
+      "reviews": 315,
+      "shareHigh": 1,
+      "services": {
+        "rentals": 2,
+        "boot-fitting": 1
+      },
+      "topShops": [
+        {
+          "slug": "zenith-ski-shop-les-belleville",
+          "name": "Zenith Ski Shop",
+          "city": "Les Belleville",
+          "score": 4.9,
+          "reviews": 237,
+          "distanceKm": 11
+        },
+        {
+          "slug": "avalon-boardshop-les-allues",
+          "name": "AVALON BOARDSHOP",
+          "city": "Les Allues",
+          "score": 4.7,
+          "reviews": 78,
+          "distanceKm": 0.2
+        }
+      ]
+    },
+    {
+      "slug": "nozawa-onsen",
+      "name": "Nozawa Onsen",
+      "region": "Japan",
+      "country": "Japan",
+      "countryCode": "JP",
+      "area": "Japan",
+      "rank": null,
+      "score": 4.43,
+      "shops": 3,
+      "shopsListed": 6,
+      "reviews": 191,
+      "shareHigh": 0.67,
+      "services": {
+        "rentals": 3,
+        "lessons": 1,
+        "waxing": 1,
+        "storage": 1
+      },
+      "topShops": [
+        {
+          "slug": "nozawa-ski-rental-nozawaonsen",
+          "name": "Nozawa Ski Rental",
+          "city": "Nozawaonsen",
+          "score": 4.5,
+          "reviews": 26,
+          "distanceKm": 16.1
+        },
+        {
+          "slug": "rental-espresso-haus-st-anton-nozawaonsen",
+          "name": "Rental & Espresso, Haus St. Anton",
+          "city": "Nozawaonsen",
+          "score": 4.5,
+          "reviews": 37,
+          "distanceKm": 15.5
+        },
+        {
+          "slug": "nozawa-sports-thanx-nozawaonsen",
+          "name": "NOZAWA Sports Thanx",
+          "city": "Nozawaonsen",
+          "score": 4.4,
+          "reviews": 128,
+          "distanceKm": 15.6
+        }
+      ]
+    },
+    {
+      "slug": "portillo",
+      "name": "Portillo",
+      "region": "South America",
+      "country": "Chile",
+      "countryCode": "CL",
+      "area": "Southern Hemisphere",
+      "rank": null,
+      "score": null,
+      "shops": 0,
+      "shopsListed": 0,
+      "reviews": 0,
+      "shareHigh": 0,
+      "services": {},
+      "topShops": []
+    },
+    {
+      "slug": "ruka",
+      "name": "Ruka",
+      "region": "Scandinavia",
+      "country": "Finland",
+      "countryCode": "FI",
+      "area": "Scandinavia",
+      "rank": null,
+      "score": 4.03,
+      "shops": 2,
+      "shopsListed": 3,
+      "reviews": 276,
+      "shareHigh": 0,
+      "services": {
+        "rentals": 2
+      },
+      "topShops": [
+        {
+          "slug": "intersport-ruka-kuusamo",
+          "name": "Intersport Ruka",
+          "city": "Kuusamo",
+          "score": 4.3,
+          "reviews": 25,
+          "distanceKm": 0.9
+        },
+        {
+          "slug": "intersport-kuusamo-kuusamo",
+          "name": "Intersport Kuusamo",
+          "city": "Kuusamo",
+          "score": 4,
+          "reviews": 251,
+          "distanceKm": 23
+        }
+      ]
+    },
+    {
+      "slug": "rusutsu",
+      "name": "Rusutsu",
+      "region": "Japan",
+      "country": "Japan",
+      "countryCode": "JP",
+      "area": "Japan",
+      "rank": null,
+      "score": null,
+      "shops": 0,
+      "shopsListed": 0,
+      "reviews": 0,
+      "shareHigh": 0,
+      "services": {},
+      "topShops": []
+    },
+    {
+      "slug": "st-moritz",
+      "name": "St. Moritz",
+      "region": "Swiss Alps",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "area": "The Alps",
+      "rank": null,
+      "score": 4.41,
+      "shops": 4,
+      "shopsListed": 5,
+      "reviews": 470,
+      "shareHigh": 0.25,
+      "services": {
+        "rentals": 4,
+        "repairs": 4,
+        "boot-fitting": 2,
+        "custom-fitting": 2,
+        "waxing": 2,
+        "storage": 2,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "go-vertical-pontresina",
+          "name": "Go Vertical",
+          "city": "Pontresina",
+          "score": 4.6,
+          "reviews": 71,
+          "distanceKm": 5.3
+        },
+        {
+          "slug": "giovanoli-sport-sils",
+          "name": "Giovanoli Sport & Moda",
+          "city": "Sils im Engadin",
+          "score": 4.4,
+          "reviews": 156,
+          "distanceKm": 0.8
+        },
+        {
+          "slug": "boom-sport-sankt-moritz",
+          "name": "Boom Sport",
+          "city": "Sankt Moritz",
+          "score": 4.4,
+          "reviews": 187,
+          "distanceKm": 0.5
+        }
+      ]
+    },
+    {
+      "slug": "sunday-river",
+      "name": "Sunday River",
+      "region": "US East",
+      "country": "United States",
+      "countryCode": "US",
+      "area": "North America",
+      "rank": null,
+      "score": 4.4,
+      "shops": 3,
+      "shopsListed": 6,
+      "reviews": 293,
+      "shareHigh": 0.33,
+      "services": {
+        "rentals": 3,
+        "boot-fitting": 1,
+        "waxing": 2
+      },
+      "topShops": [
+        {
+          "slug": "true-north-adventureware-bethel",
+          "name": "True North Adventureware",
+          "city": "Bethel",
+          "score": 4.8,
+          "reviews": 78,
+          "distanceKm": 9.1
+        },
+        {
+          "slug": "sport-thoma-bethel",
+          "name": "Sport Thoma",
+          "city": "Bethel",
+          "score": 4.3,
+          "reviews": 121,
+          "distanceKm": 6.5
+        },
+        {
+          "slug": "bob-and-terry-s-sports-outlet-bethel",
+          "name": "Bob and Terry's Sports Outlet",
+          "city": "Bethel",
+          "score": 4.2,
+          "reviews": 94,
+          "distanceKm": 4.4
+        }
+      ]
+    },
+    {
+      "slug": "thredbo",
+      "name": "Thredbo",
+      "region": "Oceania",
+      "country": "Australia",
+      "countryCode": "AU",
+      "area": "Southern Hemisphere",
+      "rank": null,
+      "score": 4.15,
+      "shops": 4,
+      "shopsListed": 9,
+      "reviews": 177,
+      "shareHigh": 0.25,
+      "services": {
+        "rentals": 4,
+        "boot-fitting": 2,
+        "waxing": 1,
+        "used-gear": 1
+      },
+      "topShops": [
+        {
+          "slug": "gravity-thredbo-thredbo",
+          "name": "Gravity Thredbo",
+          "city": "Thredbo",
+          "score": 4.7,
+          "reviews": 34,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "thredbo-retail-rental-valley-terminal-thredbo",
+          "name": "Thredbo Retail & Rental Valley Terminal",
+          "city": "Thredbo",
+          "score": 4.3,
+          "reviews": 32,
+          "distanceKm": 0.3
+        },
+        {
+          "slug": "thredbo-retail-rental-friday-flat-thredbo",
+          "name": "Thredbo Retail & Rental Friday Flat",
+          "city": "Thredbo",
+          "score": 4.1,
+          "reviews": 86,
+          "distanceKm": 0.8
+        }
+      ]
+    },
+    {
+      "slug": "trysil",
+      "name": "Trysil",
+      "region": "Scandinavia",
+      "country": "Norway",
+      "countryCode": "NO",
+      "area": "Scandinavia",
+      "rank": null,
+      "score": 4.6,
+      "shops": 5,
+      "shopsListed": 8,
+      "reviews": 324,
+      "shareHigh": 1,
+      "services": {
+        "rentals": 5
+      },
+      "topShops": [
+        {
+          "slug": "sportlodge-n-trysil",
+          "name": "Sportlodge'n",
+          "city": "Trysil",
+          "score": 4.8,
+          "reviews": 78,
+          "distanceKm": 1.4
+        },
+        {
+          "slug": "skiutleie-skirental-trysil",
+          "name": "Skiutleie (Skirental)",
+          "city": "Trysil",
+          "score": 4.7,
+          "reviews": 21,
+          "distanceKm": 1.6
+        },
+        {
+          "slug": "trysil-outlet-trysil",
+          "name": "Trysil Outlet",
+          "city": "Trysil",
+          "score": 4.6,
+          "reviews": 21,
+          "distanceKm": 0.1
+        }
+      ]
+    },
+    {
+      "slug": "valle-nevado",
+      "name": "Valle Nevado",
+      "region": "South America",
+      "country": "Chile",
+      "countryCode": "CL",
+      "area": "Southern Hemisphere",
+      "rank": null,
+      "score": null,
+      "shops": 0,
+      "shopsListed": 0,
+      "reviews": 0,
+      "shareHigh": 0,
+      "services": {},
+      "topShops": []
+    },
+    {
+      "slug": "wengen",
+      "name": "Wengen",
+      "region": "Swiss Alps",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "area": "The Alps",
+      "rank": null,
+      "score": 4.72,
+      "shops": 5,
+      "shopsListed": 5,
+      "reviews": 308,
+      "shareHigh": 1,
+      "services": {
+        "rentals": 5,
+        "repairs": 3,
+        "boot-fitting": 2,
+        "storage": 1
+      },
+      "topShops": [
+        {
+          "slug": "molitor-sport-lauterbrunnen",
+          "name": "Molitor Sport",
+          "city": "Lauterbrunnen",
+          "score": 4.9,
+          "reviews": 101,
+          "distanceKm": 0.2
+        },
+        {
+          "slug": "sport-werk-matten-bei-interlaken-matten-b-interlaken",
+          "name": "Sport-Werk, Matten bei Interlaken",
+          "city": "Matten b. Interlaken",
+          "score": 4.8,
+          "reviews": 51,
+          "distanceKm": 9.1
+        },
+        {
+          "slug": "alfred-s-sporthaus-lauterbrunnen",
+          "name": "Alfred's Sporthaus",
+          "city": "Lauterbrunnen",
+          "score": 4.6,
+          "reviews": 21,
+          "distanceKm": 5.9
+        }
+      ]
+    },
+    {
+      "slug": "yongpyong",
+      "name": "Yongpyong",
+      "region": "Asia",
+      "country": "South Korea",
+      "countryCode": "KR",
+      "area": "South Korea",
+      "rank": null,
+      "score": 4.41,
+      "shops": 3,
+      "shopsListed": 4,
+      "reviews": 1416,
+      "shareHigh": 0.33,
+      "services": {
+        "rentals": 3
+      },
+      "topShops": [
+        {
+          "slug": "pyeongchang-gun",
+          "name": "용평리조트렌탈샵 겨울이야기",
+          "city": "Pyeongchang-gun",
+          "score": 4.8,
+          "reviews": 21,
+          "distanceKm": 4.1
+        },
+        {
+          "slug": "yong-pyeong-buysports-pyeongchang-gun",
+          "name": "용평바이스포츠 (Yong Pyeong Buysports)",
+          "city": "Pyeongchang-gun",
+          "score": 4.2,
+          "reviews": 20,
+          "distanceKm": 2.6
+        },
+        {
+          "slug": "alpensia-ski-resort-pyeongchang-gun",
+          "name": "Alpensia Ski Resort",
+          "city": "Pyeongchang-gun",
+          "score": 4.4,
+          "reviews": 1375,
+          "distanceKm": 1.5
+        }
+      ]
+    }
+  ],
+  "countries": [
+    {
+      "name": "Bulgaria",
+      "score": 4.86,
+      "shops": 24,
+      "reviews": 7546,
+      "resorts": 1
+    },
+    {
+      "name": "Romania",
+      "score": 4.75,
+      "shops": 20,
+      "reviews": 4106,
+      "resorts": 1
+    },
+    {
+      "name": "Canada",
+      "score": 4.68,
+      "shops": 80,
+      "reviews": 11612,
+      "resorts": 5
+    },
+    {
+      "name": "Andorra",
+      "score": 4.65,
+      "shops": 21,
+      "reviews": 5270,
+      "resorts": 1
+    },
+    {
+      "name": "United States",
+      "score": 4.63,
+      "shops": 243,
+      "reviews": 47858,
+      "resorts": 16
+    },
+    {
+      "name": "Italy",
+      "score": 4.63,
+      "shops": 60,
+      "reviews": 9184,
+      "resorts": 3
+    },
+    {
+      "name": "Spain",
+      "score": 4.63,
+      "shops": 33,
+      "reviews": 6247,
+      "resorts": 2
+    },
+    {
+      "name": "Poland",
+      "score": 4.63,
+      "shops": 10,
+      "reviews": 3026,
+      "resorts": 1
+    },
+    {
+      "name": "France",
+      "score": 4.61,
+      "shops": 106,
+      "reviews": 20009,
+      "resorts": 7
+    },
+    {
+      "name": "Austria",
+      "score": 4.59,
+      "shops": 100,
+      "reviews": 20618,
+      "resorts": 8
+    },
+    {
+      "name": "Switzerland",
+      "score": 4.59,
+      "shops": 76,
+      "reviews": 10074,
+      "resorts": 6
+    },
+    {
+      "name": "Norway",
+      "score": 4.58,
+      "shops": 10,
+      "reviews": 715,
+      "resorts": 0
+    },
+    {
+      "name": "New Zealand",
+      "score": 4.57,
+      "shops": 23,
+      "reviews": 2889,
+      "resorts": 1
+    },
+    {
+      "name": "Germany",
+      "score": 4.56,
+      "shops": 31,
+      "reviews": 11299,
+      "resorts": 2
+    },
+    {
+      "name": "United Kingdom",
+      "score": 4.55,
+      "shops": 10,
+      "reviews": 1031,
+      "resorts": 1
+    },
+    {
+      "name": "Japan",
+      "score": 4.49,
+      "shops": 47,
+      "reviews": 5399,
+      "resorts": 4
+    },
+    {
+      "name": "Slovenia",
+      "score": 4.43,
+      "shops": 15,
+      "reviews": 3589,
+      "resorts": 1
+    },
+    {
+      "name": "South Korea",
+      "score": 4.41,
+      "shops": 3,
+      "reviews": 1416,
+      "resorts": 0
+    },
+    {
+      "name": "Sweden",
+      "score": 4.4,
+      "shops": 21,
+      "reviews": 3355,
+      "resorts": 1
+    },
+    {
+      "name": "Argentina",
+      "score": 4.38,
+      "shops": 18,
+      "reviews": 5910,
+      "resorts": 1
+    },
+    {
+      "name": "Finland",
+      "score": 4.37,
+      "shops": 15,
+      "reviews": 6412,
+      "resorts": 1
+    },
+    {
+      "name": "Australia",
+      "score": 4.15,
+      "shops": 4,
+      "reviews": 177,
+      "resorts": 0
+    }
+  ],
+  "areas": [
+    {
+      "name": "Eastern Europe",
+      "score": 4.78,
+      "shops": 54,
+      "reviews": 14678,
+      "resorts": 3
+    },
+    {
+      "name": "North America",
+      "score": 4.64,
+      "shops": 323,
+      "reviews": 59470,
+      "resorts": 21
+    },
+    {
+      "name": "Pyrenees & Iberia",
+      "score": 4.64,
+      "shops": 54,
+      "reviews": 11517,
+      "resorts": 3
+    },
+    {
+      "name": "The Alps",
+      "score": 4.59,
+      "shops": 388,
+      "reviews": 74773,
+      "resorts": 27
+    },
+    {
+      "name": "Scotland",
+      "score": 4.55,
+      "shops": 10,
+      "reviews": 1031,
+      "resorts": 1
+    },
+    {
+      "name": "Japan",
+      "score": 4.49,
+      "shops": 47,
+      "reviews": 5399,
+      "resorts": 4
+    },
+    {
+      "name": "Southern Hemisphere",
+      "score": 4.45,
+      "shops": 45,
+      "reviews": 8976,
+      "resorts": 2
+    },
+    {
+      "name": "Scandinavia",
+      "score": 4.41,
+      "shops": 46,
+      "reviews": 10482,
+      "resorts": 2
+    },
+    {
+      "name": "South Korea",
+      "score": 4.41,
+      "shops": 3,
+      "reviews": 1416,
+      "resorts": 0
+    }
+  ]
+}

@@ -4,7 +4,8 @@ import AdSlot from "@/components/ui/AdSlot";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 import PageHeader from "@/components/ui/PageHeader";
-import { ArrowRightIcon, MountainIcon } from "@/components/ui/Icons";
+import { ArrowRightIcon, MountainIcon, StarIcon } from "@/components/ui/Icons";
+import { RANKED_RESORTS, REPORT_PATHS, RESORT_RATINGS } from "@/lib/data/resort-ratings";
 
 export const metadata: Metadata = {
   title: "Ski Resorts & Nearby Shops",
@@ -39,6 +40,30 @@ export default function ResortsPage() {
       />
 
       <div className="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-8">
+      <Link
+        href={REPORT_PATHS.ratings}
+        className="group mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-ink-900 bg-contours p-6 text-white sm:p-8"
+      >
+        <span className="flex items-start gap-4">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-glow-300">
+            <StarIcon className="h-5 w-5" />
+          </span>
+          <span>
+            <span className="eyebrow text-blue-300">New · {RESORT_RATINGS.season} report</span>
+            <span className="mt-1 block font-display text-xl font-semibold sm:text-2xl">
+              Which resorts have the best-rated ski shops?
+            </span>
+            <span className="mt-1 block text-sm text-white/70">
+              {RANKED_RESORTS.length} resorts ranked on {RESORT_RATINGS.totals.reviews.toLocaleString("en-US")} customer reviews.{" "}
+              {RANKED_RESORTS[0].name} comes first.
+            </span>
+          </span>
+        </span>
+        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+          See the ranking
+          <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </span>
+      </Link>
       {regions.map(([region, resorts]) => (
         <section key={region} className="mt-12">
           <h2 className="flex items-center gap-4 heading-display text-2xl text-ink-900 sm:text-3xl">
