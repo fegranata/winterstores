@@ -32,7 +32,7 @@ rows, add topics, or set a row to `hold`.
 |---|---|---|---|---|
 | published | ski-length-sizing-guide | How Long Should Your Skis Be? A Sizing Guide That Isn't Just Your Height | Height is the starting point, not the answer: weight, ability, ski type, and rocker profile all move the number. Table-free explanation. | skiing, rentals |
 | published | ski-binding-din-settings-explained | Ski Binding DIN Settings Explained (and Why You Shouldn't Set Them Yourself) | What DIN is, how shops calculate it, what each input changes, why "crank it up" is the classic injury path. | skiing, rentals, repairs |
-| queued | pre-booking-ski-rentals-guide | Should You Pre-Book Ski Rentals Online? Discounts, Risks, and When to Walk In | Online discounts vs. fit quality; pickup-the-evening-before trick; cancellation terms. | rentals, skiing, snowboarding |
+| published | pre-booking-ski-rentals-guide | Should You Pre-Book Ski Rentals Online? Discounts, Risks, and When to Walk In | Online discounts vs. fit quality; pickup-the-evening-before trick; cancellation terms. | rentals, skiing, snowboarding |
 | queued | ski-rental-damage-waiver-explained | Ski Rental Damage Waivers and Insurance: What You're Actually Paying For | What waivers cover, what they don't (theft, loss), when they're worth it (early/late season rocks), card and travel-insurance overlap. | rentals, skiing, snowboarding |
 | queued | first-snowboard-trip-guide | First Snowboard Trip Planning Guide | The snowboard twin of the first-ski-trip guide: resort choice for riders, lessons, protection, days one to three. | lessons, rentals, snowboarding |
 | queued | kids-ski-lessons-age-guide | At What Age Can Kids Start Skiing? Lessons, Readiness, and What to Expect | Realistic ages per sport, kindergarten-style programs, how long a session should be, parent mistakes. | lessons, skiing, snowboarding |
@@ -61,3 +61,4 @@ rows, add topics, or set a row to `hold`.
 
 - 2026-11-01 — ski-length-sizing-guide
 - 2026-11-03 — ski-binding-din-settings-explained
+- 2026-11-10 — pre-booking-ski-rentals-guide

@@ -1216,6 +1216,47 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+  {
+    slug: "pre-booking-ski-rentals-guide",
+    title: "Should You Pre-Book Ski Rentals Online? Discounts, Risks, and When to Walk In",
+    description:
+      "When booking ski or snowboard rentals online saves money and time, what it can cost you in fit and flexibility, and when walking in is the smarter call.",
+    publishedAt: "2026-11-10",
+    primaryTopic: "rentals",
+    topics: ["rentals", "skiing", "snowboarding"],
+    sections: [
+      {
+        heading: "What You Actually Reserve When You Book Online",
+        content:
+          "An online rental booking is usually a reservation for a package tier and a date range, not for specific skis or boots. You choose a level, such as beginner, sport, or premium demo, enter your height, weight, shoe size, and ability, and the shop pulls likely candidates before you arrive. In the US this often happens through the shop's own site or the resort's ticketing system; in the Alps it is just as common through rental chains and booking platforms covering hundreds of partner shops. Either way, the final fitting still happens at the counter. Knowing this matters, because it means the discount buys you a price and a place in the system, while the quality of the fit still depends entirely on the people in the shop.",
+      },
+      {
+        heading: "How Big the Discount Really Is",
+        content:
+          "Pre-booking commonly saves somewhere around 10-20% against walk-in rates, and during promotions or early in the season some shops and European chains advertise deeper cuts on multi-day packages. The saving is largest on longer rentals and premium tiers, where the daily price is higher to begin with. On a standard adult ski package costing $30-60 or €25-50 a day, a five-day rental can come out tens of dollars or euros cheaper per person, which adds up quickly for a family. Check what the online price includes, though: poles, helmets, and damage waivers are sometimes added separately at the counter, and a bundle that looks cheaper on screen can end up costing about the same as the walk-in rate once those extras are added.",
+      },
+      {
+        heading: "The Evening-Before Pickup Trick",
+        content:
+          "The biggest benefit of booking ahead is often time, not money. Many shops let you collect pre-booked gear the afternoon or evening before your first ski day, usually without charging for the extra night, though it is worth confirming. Shops are quiet after about 4pm, technicians are not racing a queue, and you can try boots on properly, walk around in them, and ask for a different pair without holding anyone up. Compare that with a holiday Saturday at 8:30am, when a busy resort shop can have a line out the door and staff fit boots in a hurry. If your accommodation is far from the slopes, ask whether the shop offers overnight storage at the base so you are not carrying skis back and forth.",
+      },
+      {
+        heading: "Where Pre-Booking Can Go Wrong",
+        content:
+          "The main risk is treating the reservation as the finished job. Some shops pre-set bindings and pre-select boots from your online details, then hand them over with little checking, which is exactly the scenario that produces painful boots and incorrect release settings. Insist on trying the boots buckled and standing, and watch the technician adjust the bindings to your boot sole. The second risk is getting locked in: booking through a large platform can tie you to one partner shop that turns out to be inconveniently located or poorly reviewed. Finally, sizes run out at peak weeks regardless of bookings, so people with very large or very small feet should call ahead to confirm a boot in their size is actually available.",
+      },
+      {
+        heading: "Cancellation Terms and the Fine Print",
+        content:
+          "Before paying, read three things. First, the cancellation window: some bookings are free to cancel up to a day before pickup, others charge a fee or are fully non-refundable inside a set period, and policies differ between US shops and European platforms. Second, what happens if you ski fewer days than booked, for example because of illness, bad weather, or a resort closure; partial refunds are not guaranteed, and some shops only offer credit. Third, whether you can change package level on the day, since many skiers book a basic tier and then want to upgrade to demo skis after seeing the conditions. Travel insurance and card benefits occasionally cover prepaid rentals, but check the wording rather than assuming they do.",
+      },
+      {
+        heading: "When Walking In Is the Better Choice",
+        content:
+          "Walking in makes sense when your plans are uncertain, when you are skiing quiet midweek dates outside holiday periods, or when you specifically want to see the fleet before choosing. It is also reasonable if you have unusual feet and want a fitter to choose boots from scratch rather than starting from a pre-selected pair, or if you only need gear for one day and the discount would be small. Smaller independent shops in particular often match or come close to online rates if you ask. Whichever route you take, choose the shop first and the booking method second: compare shops near your resort on reviews, services, and location, for example on WinterStores, then book directly or walk in at a quiet hour.",
+      },
+    ],
+  },
 ];
 
 export function getGuideBySlug(slug: string): Guide | undefined {
