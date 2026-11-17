@@ -651,4 +651,11 @@ into something a blogger, journalist or tourism office can cite.
   maintenance workflow (next run 1 Dec; ~300 Google Places calls plus up to
   5 resort discoveries, a few dollars a run), and the site itself on the
   free Vercel and Supabase tiers.
+- [x] **Automations paused 2026-11-17** (Fernando: "pause them"). Weekly
+      guide routine `trig_01VyFym34Skeb2u8nNBY3G2F` set to disabled (re-enable
+      at claude.ai/code/routines; it also needs the GitHub App's write access
+      restored first). Monthly maintenance: the `schedule` trigger is
+      commented out in `.github/workflows/monthly-maintenance.yml` because
+      the local `gh` login has no admin rights to disable the workflow;
+      restore those two lines to resume. The site stays up.
 

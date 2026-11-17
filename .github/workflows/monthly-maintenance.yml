@@ -17,9 +17,13 @@
 
 name: Monthly maintenance
 
+# PAUSED 2026-11-17: the project is on hold until early 2027 (GO_LIVE.md §11),
+# so the monthly schedule is commented out. Nothing is lost by skipping runs:
+# the ratings refresh is oldest-first and simply resumes. To resume, restore
+# the two schedule lines below. Manual runs (workflow_dispatch) still work.
 on:
-  schedule:
-    - cron: "0 5 1 * *" # 1st of the month, 05:00 UTC
+  # schedule:
+  #   - cron: "0 5 1 * *" # 1st of the month, 05:00 UTC
   workflow_dispatch:
 
 permissions:
