@@ -642,4 +642,13 @@ into something a blogger, journalist or tourism office can cite.
   not an income project. Recommended: one time-boxed outreach test using the
   report (the only lever never tried), no further build work, maintenance
   mode otherwise, and a separate project for income.
+- **Decision 2026-11-17 (Fernando): on hold.** No further work for now; the
+  domain is paid for about another year, look again early 2027. Constraint
+  for any revival: no outreach or content under his own name — brand
+  identity only (hello@winterstores.co). The §10 outreach item is therefore
+  parked, not pending. Still running unattended at the time of the pause:
+  the weekly guide routine (failing on push, see above), the monthly
+  maintenance workflow (next run 1 Dec; ~300 Google Places calls plus up to
+  5 resort discoveries, a few dollars a run), and the site itself on the
+  free Vercel and Supabase tiers.
 
