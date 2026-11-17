@@ -603,3 +603,43 @@ into something a blogger, journalist or tourism office can cite.
       boot fitting by resort; ratings by country with year-on-year change
       once a second season exists.
 
+## 11 — Check 2026-11-17 and the pivot question
+
+| Metric | 2026-11-10 | 2026-11-17 |
+|---|---|---|
+| Indexed pages | 295 | **248** |
+| Crawled – currently not indexed | 680 | 714 |
+| Discovered – currently not indexed | 325 | 334 |
+| Excluded by noindex | 12 | 13 |
+| External links | 0 | **0** |
+| Clicks / impressions, last 7 d (prev 7 d) | – | 0 / 102 (1 / 66) |
+| Clicks / impressions, last 28 d (prev 28 d) | 5 / 364 | 3 / 324 (3 / 718) |
+| Visitors / page views, 7 d (Vercel) | 63 / 66 | 72 / 213 |
+
+- **Request Indexing works; nothing else does.** 9 of the 10 URLs submitted
+  on 11-10 were crawled that day and are indexed: both report pages and 7
+  guides (only `renting-vs-buying-ski-equipment` is not yet). Guides indexed
+  went 1 → 8. Meanwhile the total keeps falling because Google drops old
+  store pages faster than we can hand-submit new ones, and it has still
+  recrawled only 13 of the ~760 noindexed pages.
+- **The new pages have produced no search traffic yet** (one week old).
+  The ratings report had 4 visitors, none from search.
+- **Awin:** Burton Snowboards US rejected. Seven still pending after 11
+  days. Invitation from SOTHING (131820) — a small-appliance brand sending
+  mass invitations, not relevant; ignored.
+- **Weekly guide routine failed on 11-17.** It wrote
+  `ski-rental-damage-waiver-explained`, passed typecheck and tests, then
+  `git push` was refused with HTTP 403 (main and a fallback branch alike).
+  The 11-10 run pushed fine, so the Claude GitHub App's write access to
+  fegranata/winterstores changed in between. Fix: re-grant repository
+  contents write access to the app, then re-run the routine from
+  claude.ai/code. The queue row is still `queued`, so a re-run rewrites it.
+- **Assessment given to Fernando:** the model (directory of Google-sourced
+  listings, monetised by ads and affiliate links) needs tens of thousands of
+  monthly visits to pay anything, and the queries it targets are local-pack
+  queries Google answers itself. Even an optimistic 5,000 visits a month in
+  season is on the order of EUR 150 a month from rental affiliates. This is
+  not an income project. Recommended: one time-boxed outreach test using the
+  report (the only lever never tried), no further build work, maintenance
+  mode otherwise, and a separate project for income.
+
